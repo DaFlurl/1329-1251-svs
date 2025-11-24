@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Live Scoreboard - AgentDaf1</title>
+    
+    <!-- SEO Optimization -->
+    <meta name="description" content="Live gaming scoreboard with real-time rankings, player statistics, and alliance comparisons">
+    <meta name="keywords" content="scoreboard, rankings, gaming, live scores, alliance, competition">
+    <meta name="author" content="AgentDaf1 Scoreboard">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="🏆 Live Scoreboard - AgentDaf1">
+    <meta property="og:description" content="Real-time gaming rankings and competition scoreboard">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://[your-username].github.io/AgentDaf1/scoreboard-preview.png">
+    
+    <!-- PWA / Mobile -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
+            background: 
+                radial-gradient(ellipse at top left, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
+                linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .last-update {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .tab-navigation {
+            display: flex;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            gap: 10px;
+        }
+        
+        .tab-button {
+            background: transparent;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            color: #666;
+            position: relative;
+        }
+        
+        .tab-button:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1em;
+        }
+        
+        .scoreboard-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: 25px;
+            padding: 12px 20px;
+            flex: 1;
+            max-width: 400px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-box:focus-within {
+            border-color: #667eea;
+        }
+        
+        .search-input {
+            border: none;
+            background: none;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            padding: 5px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+        }
+        
+        .scoreboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .scoreboard-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .scoreboard-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+        
+        .scoreboard-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .scoreboard-table tr:hover {
+            background: #e3f2fd;
+        }
+        
+        .rank-medal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #C0C0C0, #808080); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #CD7F32, #8B4513); color: white; }
+        .rank-default { background: #f8f9fa; color: #666; }
+        
+        .player-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .score-value {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+        
+        .alliance-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .highlight {
+            background: #fff3cd !important;
+            font-weight: bold;
+        }
+        
+        .upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            transform: translateY(-2px);
+        }
+        
+        .upload-area.dragover {
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.1);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tab-navigation {
+                flex-direction: column;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+            
+            .scoreboard-table {
+                font-size: 14px;
+            }
+            
+            .scoreboard-table th,
+            .scoreboard-table td {
+                padding: 10px;
+            }
+            
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                LIVE SCOREBOARD
+            </div>
+            <h1>🏆 AgentDaf1 Competition</h1>
+            <p>Real-time rankings and performance tracking</p>
+            <div class="last-update" id="lastUpdate">Last updated: Loading...</div>
+        </div>
+
+        <!-- Upload Section (shown when no data) -->
+        <div id="uploadSection" class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="empty-state-icon">📁</div>
+                <div style="font-size: 1.3em; color: #333; margin-bottom: 10px; font-weight: 600;">
+                    Drop your Excel file here
+                </div>
+                <div style="color: #666; margin-bottom: 20px;">
+                    or click to browse (.xlsx, .xls, .csv)
+                </div>
+                <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls,.csv">
+            </div>
+            <div style="text-align: center;">
+                <button class="btn" onclick="document.getElementById('fileInput').click()">
+                    📂 Choose File
+                </button>
+                <button class="btn btn-secondary" onclick="loadSampleData()">
+                    🎮 Load Sample Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Scoreboard Section (shown when data is loaded) -->
+        <div id="scoreboardSection" style="display: none;">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" onclick="switchTab('overall')">
+                    🏆 Overall Rankings
+                </button>
+                <button class="tab-button" onclick="switchTab('positive')">
+                    📈 Positive Scores
+                </button>
+                <button class="tab-button" onclick="switchTab('negative')">
+                    📉 Negative Scores
+                </button>
+                <button class="tab-button" onclick="switchTab('alliance')">
+                    🤝 Alliance Rankings
+                </button>
+                <button class="tab-button" onclick="switchTab('combined')">
+                    🔄 Combined View
+                </button>
+            </div>
+
+            <!-- Statistics Overview -->
+            <div class="stats-overview" id="statsOverview">
+                <!-- Stats will be populated here -->
+            </div>
+
+            <!-- Tab Contents -->
+            <div id="overallTab" class="tab-content active">
+                <div class="scoreboard-container">
+                    <div class="controls">
+                        <div class="search-box">
+                            <span>🔍</span>
+                            <input type="text" id="overallSearch" class="search-input" placeholder="Search players...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="btn" onclick="refreshData()">🔄 Refresh</button>
+                            <button class="btn btn-secondary" onclick="exportScoreboard()">📥 Export</button>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="overallTable" class="scoreboard-table">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable('overall', 'rank')">Rank ↕</th>
+                                    <th onclick="sortTable('overall', 'name')">Player ↕</th>
+                                    <th onclick="sortTable('overall', 'score')">Score ↕</th>
+                                    <th onclick="sortTable('overall', 'alliance')">Alliance ↕</th>
+                                    <th onclick="sortTable('overall', 'monarchId')">Monarch ID ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody id="overallTableBody">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="positiveTab" class="tab-content">
+                <div class="scoreboard-container">
+                    <div class="controls">
+                        <div class="search-box">
+                            <span>🔍</span>
+                            <input type="text" id="positiveSearch" class="search-input" placeholder="Search positive scores...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="btn" onclick="refreshData()">🔄 Refresh</button>
+                            <button class="btn btn-secondary" onclick="exportScoreboard()">📥 Export</button>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="positiveTable" class="scoreboard-table">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable('positive', 'rank')">Rank ↕</th>
+                                    <th onclick="sortTable('positive', 'name')">Player ↕</th>
+                                    <th onclick="sortTable('positive', 'score')">Score ↕</th>
+                                    <th onclick="sortTable('positive', 'alliance')">Alliance ↕</th>
+                                    <th onclick="sortTable('positive', 'monarchId')">Monarch ID ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody id="positiveTableBody">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="negativeTab" class="tab-content">
+                <div class="scoreboard-container">
+                    <div class="controls">
+                        <div class="search-box">
+                            <span>🔍</span>
+                            <input type="text" id="negativeSearch" class="search-input" placeholder="Search negative scores...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="btn" onclick="refreshData()">🔄 Refresh</button>
+                            <button class="btn btn-secondary" onclick="exportScoreboard()">📥 Export</button>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="negativeTable" class="scoreboard-table">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable('negative', 'rank')">Rank ↕</th>
+                                    <th onclick="sortTable('negative', 'name')">Player ↕</th>
+                                    <th onclick="sortTable('negative', 'score')">Score ↕</th>
+                                    <th onclick="sortTable('negative', 'alliance')">Alliance ↕</th>
+                                    <th onclick="sortTable('negative', 'monarchId')">Monarch ID ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody id="negativeTableBody">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="allianceTab" class="tab-content">
+                <div class="scoreboard-container">
+                    <div class="controls">
+                        <div class="search-box">
+                            <span>🔍</span>
+                            <input type="text" id="allianceSearch" class="search-input" placeholder="Search alliances...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="btn" onclick="refreshData()">🔄 Refresh</button>
+                            <button class="btn btn-secondary" onclick="exportScoreboard()">📥 Export</button>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="allianceTable" class="scoreboard-table">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable('alliance', 'rank')">Rank ↕</th>
+                                    <th onclick="sortTable('alliance', 'name')">Alliance ↕</th>
+                                    <th onclick="sortTable('alliance', 'totalScore')">Total Score ↕</th>
+                                    <th onclick="sortTable('alliance', 'members')">Members ↕</th>
+                                    <th onclick="sortTable('alliance', 'avgScore')">Avg Score ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allianceTableBody">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="combinedTab" class="tab-content">
+                <div class="scoreboard-container">
+                    <div class="controls">
+                        <div class="search-box">
+                            <span>🔍</span>
+                            <input type="text" id="combinedSearch" class="search-input" placeholder="Search combined data...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="btn" onclick="refreshData()">🔄 Refresh</button>
+                            <button class="btn btn-secondary" onclick="exportScoreboard()">📥 Export</button>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="combinedTable" class="scoreboard-table">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable('combined', 'rank')">Rank ↕</th>
+                                    <th onclick="sortTable('combined', 'name')">Player ↕</th>
+                                    <th onclick="sortTable('combined', 'score')">Score ↕</th>
+                                    <th onclick="sortTable('combined', 'type')">Type ↕</th>
+                                    <th onclick="sortTable('combined', 'status')">Status ↕</th>
+                                    <th onclick="sortTable('combined', 'alliance')">Alliance ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody id="combinedTableBody">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>🎮 Scoreboard Features</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 15px; padding: 20px; text-align: center;">
+                    <div style="font-size: 2.5em; margin-bottom: 15px;">🏆</div>
+                    <div style="font-size: 1.2em; font-weight: 600; color: #333; margin-bottom: 10px;">Live Rankings</div>
+                    <div style="color: #666;">Real-time position tracking and score updates</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 15px; padding: 20px; text-align: center;">
+                    <div style="font-size: 2.5em; margin-bottom: 15px;">📱</div>
+                    <div style="font-size: 1.2em; font-weight: 600; color: #333; margin-bottom: 10px;">Mobile Ready</div>
+                    <div style="color: #666;">Perfect viewing on smartphones and tablets</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 15px; padding: 20px; text-align: center;">
+                    <div style="font-size: 2.5em; margin-bottom: 15px;">🤝</div>
+                    <div style="font-size: 1.2em; font-weight: 600; color: #333; margin-bottom: 10px;">Alliance Stats</div>
+                    <div style="color: #666;">Team performance and member rankings</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 15px; padding: 20px; text-align: center;">
+                    <div style="font-size: 2.5em; margin-bottom: 15px;">📊</div>
+                    <div style="font-size: 1.2em; font-weight: 600; color: #333; margin-bottom: 10px;">Export Data</div>
+                    <div style="color: #666;">Download rankings in multiple formats</div>
+                </div>
+            </div>
+            <p style="margin-top: 30px; color: #666;">
+                <strong>🏆 AgentDaf1 Scoreboard</strong> - Hosted on GitHub Pages<br>
+                <small>Version 1.0 | Live Competition Tracking</small>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let scoreboardData = {
+            overall: [],
+            positive: [],
+            negative: [],
+            alliance: [],
+            combined: []
+        };
+        let sortDirection = {};
+        let lastUpdateTime = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            console.log('AgentDaf1 Scoreboard loaded');
+        });
+
+        // Event Listeners
+        function setupEventListeners() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+
+            // File upload
+            uploadArea.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+
+            // Drag and drop
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('dragleave', handleDragLeave);
+            uploadArea.addEventListener('drop', handleDrop);
+
+            // Search listeners
+            document.getElementById('overallSearch').addEventListener('input', (e) => handleSearch('overall', e.target.value));
+            document.getElementById('positiveSearch').addEventListener('input', (e) => handleSearch('positive', e.target.value));
+            document.getElementById('negativeSearch').addEventListener('input', (e) => handleSearch('negative', e.target.value));
+            document.getElementById('allianceSearch').addEventListener('input', (e) => handleSearch('alliance', e.target.value));
+            document.getElementById('combinedSearch').addEventListener('input', (e) => handleSearch('combined', e.target.value));
+        }
+
+        // File handling
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('dragover');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('dragover');
+            
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                processFile(files[0]);
+            }
+        }
+
+        // Process Excel file
+        function processFile(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    
+                    // Process all worksheets
+                    const sheetNames = workbook.SheetNames;
+                    let allData = {};
+                    
+                    sheetNames.forEach(sheetName => {
+                        const worksheet = workbook.Sheets[sheetName];
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+                        allData[sheetName] = jsonData;
+                    });
+                    
+                    // Process scoreboard data
+                    processScoreboardData(allData);
+                    showScoreboard();
+                    
+                } catch (error) {
+                    alert('Error processing file: ' + error.message);
+                }
+            };
+            
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Process scoreboard data from Excel sheets
+        function processScoreboardData(allData) {
+            // Process different sheet types
+            if (allData['Positive']) {
+                scoreboardData.positive = allData['Positive'].map((row, index) => ({
+                    rank: row.Position || index + 1,
+                    name: row.Name || 'Unknown',
+                    score: parseFloat(row.Score) || 0,
+                    alliance: row.Alliance || 'Independent',
+                    monarchId: row['Monarch ID'] || 'N/A'
+                }));
+            }
+
+            if (allData['Negative']) {
+                scoreboardData.negative = allData['Negative'].map((row, index) => ({
+                    rank: row.Position || index + 1,
+                    name: row.Name || 'Unknown',
+                    score: parseFloat(row.Score) || 0,
+                    alliance: row.Alliance || 'Independent',
+                    monarchId: row['Monarch ID'] || 'N/A'
+                }));
+            }
+
+            if (allData['Combined']) {
+                scoreboardData.combined = allData['Combined'].map((row, index) => ({
+                    rank: row.Position || index + 1,
+                    name: row.Name || 'Unknown',
+                    score: parseFloat(row.Score) || 0,
+                    type: row.Type || 'Unknown',
+                    status: row.Status || 'Active',
+                    alliance: row.Alliance || 'Independent',
+                    monarchId: row['Monarch ID'] || 'N/A'
+                }));
+            }
+
+            if (allData['Alliance']) {
+                scoreboardData.alliance = allData['Alliance'].map((row, index) => ({
+                    rank: row.Position || index + 1,
+                    name: row.Name || 'Unknown Alliance',
+                    totalScore: parseFloat(row.Score) || 0,
+                    members: 1, // Default, will be calculated
+                    avgScore: parseFloat(row.Score) || 0,
+                    monarchId: row['Monarch ID'] || 'N/A'
+                }));
+            }
+
+            // Create overall rankings (combine all players)
+            const allPlayers = [];
+            
+            // Add positive players
+            if (scoreboardData.positive.length > 0) {
+                scoreboardData.positive.forEach(player => {
+                    allPlayers.push({...player, category: 'Positive'});
+                });
+            }
+
+            // Add negative players
+            if (scoreboardData.negative.length > 0) {
+                scoreboardData.negative.forEach(player => {
+                    allPlayers.push({...player, category: 'Negative'});
+                });
+            }
+
+            // Add combined players
+            if (scoreboardData.combined.length > 0) {
+                scoreboardData.combined.forEach(player => {
+                    allPlayers.push({...player, category: 'Combined'});
+                });
+            }
+
+            // Sort by score and create overall rankings
+            allPlayers.sort((a, b) => b.score - a.score);
+            scoreboardData.overall = allPlayers.map((player, index) => ({
+                ...player,
+                rank: index + 1
+            }));
+
+            // Calculate alliance statistics
+            calculateAllianceStats();
+
+            // Update last update time
+            lastUpdateTime = new Date();
+            updateLastUpdateTime();
+        }
+
+        // Calculate alliance statistics
+        function calculateAllianceStats() {
+            const allianceMap = new Map();
+            
+            // Collect all players by alliance
+            [...scoreboardData.positive, ...scoreboardData.negative, ...scoreboardData.combined].forEach(player => {
+                const alliance = player.alliance || 'Independent';
+                if (!allianceMap.has(alliance)) {
+                    allianceMap.set(alliance, {
+                        name: alliance,
+                        totalScore: 0,
+                        members: 0,
+                        scores: []
+                    });
+                }
+                
+                const allianceData = allianceMap.get(alliance);
+                allianceData.totalScore += player.score;
+                allianceData.members += 1;
+                allianceData.scores.push(player.score);
+            });
+
+            // Convert to array and calculate averages
+            const allianceArray = Array.from(allianceMap.values()).map(alliance => ({
+                ...alliance,
+                avgScore: alliance.totalScore / alliance.members
+            }));
+
+            // Sort by total score
+            allianceArray.sort((a, b) => b.totalScore - a.totalScore);
+            
+            scoreboardData.alliance = allianceArray.map((alliance, index) => ({
+                ...alliance,
+                rank: index + 1
+            }));
+        }
+
+        // Load sample data
+        function loadSampleData() {
+            const sampleData = {
+                'Positive': [
+                    { Position: 1, Name: "DragonSlayer", Score: 2500000, Alliance: "DRAGONS", "Monarch ID": 1001 },
+                    { Position: 2, Name: "PhoenixRise", Score: 2350000, Alliance: "PHOENIX", "Monarch ID": 1002 },
+                    { Position: 3, Name: "ThunderBolt", Score: 2200000, Alliance: "STORM", "Monarch ID": 1003 },
+                    { Position: 4, Name: "IceQueen", Score: 2100000, Alliance: "FROST", "Monarch ID": 1004 },
+                    { Position: 5, Name: "ShadowHunter", Score: 1950000, Alliance: "DARK", "Monarch ID": 1005 }
+                ],
+                'Negative': [
+                    { Position: 1, Name: "DarkKnight", Score: 1800000, Alliance: "DARK", "Monarch ID": 2001 },
+                    { Position: 2, Name: "VoidWalker", Score: 1650000, Alliance: "VOID", "Monarch ID": 2002 },
+                    { Position: 3, Name: "NightStalker", Score: 1500000, Alliance: "SHADOW", "Monarch ID": 2003 }
+                ],
+                'Combined': [
+                    { Position: 1, Name: "AlphaLeader", Score: 3000000, Type: "Hybrid", Status: "Active", Alliance: "ALPHA", "Monarch ID": 3001 },
+                    { Position: 2, Name: "BetaCommander", Score: 2800000, Type: "Warrior", Status: "Active", Alliance: "BETA", "Monarch ID": 3002 },
+                    { Position: 3, Name: "GammaStriker", Score: 2600000, Type: "Striker", Status: "Active", Alliance: "GAMMA", "Monarch ID": 3003 }
+                ]
+            };
+
+            processScoreboardData(sampleData);
+            showScoreboard();
+        }
+
+        // Show scoreboard
+        function showScoreboard() {
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('scoreboardSection').style.display = 'block';
+            
+            updateStatistics();
+            populateAllTables();
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            const statsOverview = document.getElementById('statsOverview');
+            const totalPlayers = scoreboardData.overall.length;
+            const totalAlliances = scoreboardData.alliance.length;
+            const topScore = scoreboardData.overall.length > 0 ? scoreboardData.overall[0].score : 0;
+            const avgScore = scoreboardData.overall.length > 0 ? 
+                Math.round(scoreboardData.overall.reduce((sum, p) => sum + p.score, 0) / scoreboardData.overall.length) : 0;
+
+            statsOverview.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalPlayers.toLocaleString()}</div>
+                    <div class="stat-label">Total Players</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${totalAlliances}</div>
+                    <div class="stat-label">Active Alliances</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${topScore.toLocaleString()}</div>
+                    <div class="stat-label">Top Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${avgScore.toLocaleString()}</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+            `;
+        }
+
+        // Populate all tables
+        function populateAllTables() {
+            populateTable('overall', scoreboardData.overall);
+            populateTable('positive', scoreboardData.positive);
+            populateTable('negative', scoreboardData.negative);
+            populateTable('combined', scoreboardData.combined);
+            populateAllianceTable();
+        }
+
+        // Populate table
+        function populateTable(type, data) {
+            const tableBody = document.getElementById(`${type}TableBody`);
+            
+            if (data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
+                            <div style="font-size: 2em; margin-bottom: 10px;">📊</div>
+                            No data available for this category
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = data.map(player => {
+                const rankClass = player.rank <= 3 ? `rank-${player.rank}` : 'rank-default';
+                const rankDisplay = player.rank <= 3 ? 
+                    `<div class="rank-medal ${rankClass}">${player.rank}</div>` : 
+                    `<div class="rank-medal rank-default">${player.rank}</div>`;
+
+                return `
+                    <tr>
+                        <td>${rankDisplay}</td>
+                        <td class="player-name">${player.name}</td>
+                        <td class="score-value">${player.score.toLocaleString()}</td>
+                        <td><span class="alliance-badge">${player.alliance}</span></td>
+                        <td>${player.monarchId}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Populate alliance table
+        function populateAllianceTable() {
+            const tableBody = document.getElementById('allianceTableBody');
+            const data = scoreboardData.alliance;
+            
+            if (data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
+                            <div style="font-size: 2em; margin-bottom: 10px;">🤝</div>
+                            No alliance data available
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = data.map(alliance => {
+                const rankClass = alliance.rank <= 3 ? `rank-${alliance.rank}` : 'rank-default';
+                const rankDisplay = alliance.rank <= 3 ? 
+                    `<div class="rank-medal ${rankClass}">${alliance.rank}</div>` : 
+                    `<div class="rank-medal rank-default">${alliance.rank}</div>`;
+
+                return `
+                    <tr>
+                        <td>${rankDisplay}</td>
+                        <td class="player-name">${alliance.name}</td>
+                        <td class="score-value">${alliance.totalScore.toLocaleString()}</td>
+                        <td>${alliance.members}</td>
+                        <td class="score-value">${Math.round(alliance.avgScore).toLocaleString()}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+
+        // Search functionality
+        function handleSearch(type, searchTerm) {
+            let data;
+            switch(type) {
+                case 'overall':
+                    data = scoreboardData.overall;
+                    break;
+                case 'positive':
+                    data = scoreboardData.positive;
+                    break;
+                case 'negative':
+                    data = scoreboardData.negative;
+                    break;
+                case 'combined':
+                    data = scoreboardData.combined;
+                    break;
+                case 'alliance':
+                    data = scoreboardData.alliance;
+                    break;
+            }
+
+            if (!searchTerm) {
+                if (type === 'alliance') {
+                    populateAllianceTable();
+                } else {
+                    populateTable(type, data);
+                }
+                return;
+            }
+
+            const filteredData = data.filter(item => {
+                return Object.values(item).some(value => 
+                    String(value).toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            });
+
+            if (type === 'alliance') {
+                const tableBody = document.getElementById('allianceTableBody');
+                if (filteredData.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
+                                No alliances found matching "${searchTerm}"
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                tableBody.innerHTML = filteredData.map(alliance => {
+                    const rankClass = alliance.rank <= 3 ? `rank-${alliance.rank}` : 'rank-default';
+                    const rankDisplay = alliance.rank <= 3 ? 
+                        `<div class="rank-medal ${rankClass}">${alliance.rank}</div>` : 
+                        `<div class="rank-medal rank-default">${alliance.rank}</div>`;
+
+                    return `
+                        <tr>
+                            <td>${rankDisplay}</td>
+                            <td class="player-name">${alliance.name}</td>
+                            <td class="score-value">${alliance.totalScore.toLocaleString()}</td>
+                            <td>${alliance.members}</td>
+                            <td class="score-value">${Math.round(alliance.avgScore).toLocaleString()}</td>
+                        </tr>
+                    `;
+                }).join('');
+            } else {
+                populateTable(type, filteredData);
+            }
+        }
+
+        // Sort table
+        function sortTable(type, column) {
+            let data;
+            switch(type) {
+                case 'overall':
+                    data = scoreboardData.overall;
+                    break;
+                case 'positive':
+                    data = scoreboardData.positive;
+                    break;
+                case 'negative':
+                    data = scoreboardData.negative;
+                    break;
+                case 'combined':
+                    data = scoreboardData.combined;
+                    break;
+                case 'alliance':
+                    data = scoreboardData.alliance;
+                    break;
+            }
+
+            const key = `${type}_${column}`;
+            const direction = sortDirection[key] === 'asc' ? 'desc' : 'asc';
+            sortDirection[key] = direction;
+
+            data.sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+
+                if (column === 'rank') {
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+
+                if (typeof aVal === 'number' && typeof bVal === 'number') {
+                    return direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+
+                aVal = String(aVal).toLowerCase();
+                bVal = String(bVal).toLowerCase();
+                
+                if (direction === 'asc') {
+                    return aVal.localeCompare(bVal);
+                } else {
+                    return bVal.localeCompare(aVal);
+                }
+            });
+
+            if (type === 'alliance') {
+                populateAllianceTable();
+            } else {
+                populateTable(type, data);
+            }
+        }
+
+        // Refresh data
+        function refreshData() {
+            // In a real implementation, this would fetch fresh data from the server
+            lastUpdateTime = new Date();
+            updateLastUpdateTime();
+            
+            // Show loading indicator
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="loading"></span> Refreshing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                populateAllTables();
+            }, 1000);
+        }
+
+        // Export scoreboard
+        function exportScoreboard() {
+            const activeTab = document.querySelector('.tab-content.active').id.replace('Tab', '');
+            let data;
+            let filename;
+
+            switch(activeTab) {
+                case 'overall':
+                    data = scoreboardData.overall;
+                    filename = 'overall-rankings.json';
+                    break;
+                case 'positive':
+                    data = scoreboardData.positive;
+                    filename = 'positive-scores.json';
+                    break;
+                case 'negative':
+                    data = scoreboardData.negative;
+                    filename = 'negative-scores.json';
+                    break;
+                case 'combined':
+                    data = scoreboardData.combined;
+                    filename = 'combined-scores.json';
+                    break;
+                case 'alliance':
+                    data = scoreboardData.alliance;
+                    filename = 'alliance-rankings.json';
+                    break;
+            }
+
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json;charset=utf-8;' });
+            saveAs(blob, filename);
+        }
+
+        // Update last update time
+        function updateLastUpdateTime() {
+            const lastUpdateElement = document.getElementById('lastUpdate');
+            if (lastUpdateTime) {
+                lastUpdateElement.textContent = `Last updated: ${lastUpdateTime.toLocaleString()}`;
+            }
+        }
+    </script>
+</body>
+</html>
