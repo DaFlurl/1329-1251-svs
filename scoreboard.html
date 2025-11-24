@@ -760,7 +760,9 @@
             setupEventListeners();
             // Try to load pre-populated data first
             loadPrePopulatedData();
-            console.log('AgentDaf1 Scoreboard loaded');
+            // Set up auto-refresh every 5 minutes
+            setInterval(autoRefreshData, 5 * 60 * 1000);
+            console.log('AgentDaf1 Scoreboard loaded with auto-refresh');
         });
 
         // Event Listeners
@@ -1314,6 +1316,24 @@
             const json = JSON.stringify(data, null, 2);
             const blob = new Blob([json], { type: 'application/json;charset=utf-8;' });
             saveAs(blob, filename);
+        }
+
+        // Auto-refresh data
+        async function autoRefreshData() {
+            try {
+                const response = await fetch('scoreboard-data.json?' + new Date().getTime());
+                if (response.ok) {
+                    const data = await response.json();
+                    processScoreboardData(data);
+                    updateStatistics();
+                    populateAllTables();
+                    lastUpdateTime = new Date();
+                    updateLastUpdateTime();
+                    console.log('Auto-refreshed data at', new Date().toLocaleString());
+                }
+            } catch (error) {
+                console.log('Auto-refresh failed:', error);
+            }
         }
 
         // Update last update time
