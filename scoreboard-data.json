@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "last_updated": "2025-11-24T21:20:00.000Z",
+    "total_players": 100,
+    "source_file": "Sunday, 16 November 2025 1329+1251 v 3144363.xlsx"
+  },
+  "Positive": [
+    {
+      "Position": 1,
+      "Name": "JuggMasterB",
+      "Score": 12710411052,
+      "Alliance": "RFR",
+      "Monarch ID": 227625628
+    },
+    {
+      "Position": 2,
+      "Name": "aadDoğӓӓ",
+      "Score": 7425783805,
+      "Alliance": "WIP",
+      "Monarch ID": 213124942
+    },
+    {
+      "Position": 3,
+      "Name": "Mobile Suit",
+      "Score": 4756750524,
+      "Alliance": "WIP",
+      "Monarch ID": 227565900
+    },
+    {
+      "Position": 4,
+      "Name": "🇹🇷TURK",
+      "Score": 3309186482,
+      "Alliance": "WIP",
+      "Monarch ID": 227680893
+    },
+    {
+      "Position": 5,
+      "Name": "Battlefish23",
+      "Score": 3047347132,
+      "Alliance": "RFR",
+      "Monarch ID": 227503580
+    },
+    {
+      "Position": 6,
+      "Name": "🤣Liquid",
+      "Score": 2073738823,
+      "Alliance": "WIP",
+      "Monarch ID": 213237494
+    },
+    {
+      "Position": 7,
+      "Name": "BigFin 🛡",
+      "Score": 2005512477,
+      "Alliance": "WIP",
+      "Monarch ID": 212753470
+    },
+    {
+      "Position": 8,
+      "Name": "KAZ SADYR",
+      "Score": 1507500401,
+      "Alliance": "RFR",
+      "Monarch ID": 227676775
+    },
+    {
+      "Position": 9,
+      "Name": "༺-Raj-༻",
+      "Score": 1064285974,
+      "Alliance": "WIP",
+      "Monarch ID": 212723878
+    },
+    {
+      "Position": 10,
+      "Name": "Hiriamu-saki",
+      "Score": 886898102,
+      "Alliance": "RFR",
+      "Monarch ID": 227673343
+    }
+  ],
+  "Negative": [],
+  "Combined": [
+    {
+      "Position": 1,
+      "Name": "JuggMasterB",
+      "Score": 12710411052,
+      "Type": "Leader",
+      "Status": "Active",
+      "Alliance": "RFR",
+      "Monarch ID": 227625628
+    },
+    {
+      "Position": 2,
+      "Name": "aadDoğӓӓ",
+      "Score": 7425783805,
+      "Type": "Warrior",
+      "Status": "Active",
+      "Alliance": "WIP",
+      "Monarch ID": 213124942
+    },
+    {
+      "Position": 3,
+      "Name": "Mobile Suit",
+      "Score": 4756750524,
+      "Type": "Striker",
+      "Status": "Active",
+      "Alliance": "WIP",
+      "Monarch ID": 227565900
+    }
+  ]
+}
