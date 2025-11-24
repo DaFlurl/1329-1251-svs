@@ -301,7 +301,7 @@
         .alliance-WIP { background: #2196F3; color: white; }
         .alliance-SW { background: #FF9800; color: white; }
         
-        /* Loading */
+        /* Loading Spinner */
         .loading {
             text-align: center;
             padding: 50px;
@@ -353,6 +353,163 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
         
+        /* History Modal */
+        .history-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .history-modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .history-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .history-modal-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #f5576c;
+        }
+        
+        .history-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .history-filter-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .history-filter-input:focus {
+            border-color: #667eea;
+        }
+        
+        .history-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+        
+        .history-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .history-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .history-info {
+            flex: 1;
+        }
+        
+        .history-filename {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .history-details {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .history-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .history-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .history-restore {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .history-restore:hover {
+            background: #45a049;
+        }
+        
+        .history-download {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .history-download:hover {
+            background: #1976D2;
+        }
+        
+        .history-compare {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .history-compare:hover {
+            background: #F57C00;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 10px; }
@@ -364,6 +521,10 @@
             .update-controls { flex-direction: column; align-items: stretch; }
             .history-dropdown { margin-right: 0; margin-bottom: 10px; }
             .history-select { width: 100%; }
+            .history-modal-content { margin: 2% auto; width: 95%; padding: 20px; }
+            .history-filters { flex-direction: column; }
+            .history-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .history-actions { width: 100%; justify-content: flex-start; }
         }
     </style>
 </head>
@@ -392,6 +553,9 @@
                 </button>
                 <button class="btn btn-secondary" onclick="exportData()">
                     📥 Export
+                </button>
+                <button class="btn" onclick="showHistoryModal()">
+                    📜 History
                 </button>
                 <button class="btn" onclick="autoRefreshToggle()">
                     ⏱️ Auto: <span id="autoStatus">OFF</span>
@@ -753,18 +917,6 @@
                             <td>${formatNumber(item.avgScore)}</td>
                         </tr>
                     `;
-                } else if (tabName === 'combined') {
-                    const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                    return `
-                        <tr class="${rankClass}">
-                            <td><strong>${item.rank || index + 1}</strong></td>
-                            <td>${item.name}</td>
-                            <td>${formatNumber(item.score)}</td>
-                            <td><span class="alliance-badge">${item.type}</span></td>
-                            <td><span class="alliance-badge">${item.status}</span></td>
-                            <td><span class="alliance-badge alliance-${item.alliance}">${item.alliance}</span></td>
-                        </tr>
-                    `;
                 } else {
                     const rankClass = index < 3 ? `rank-${index + 1}` : '';
                     return `
@@ -882,18 +1034,6 @@
                 second: '2-digit' 
             });
             document.getElementById('lastUpdate').textContent = `Last update: ${timeString}`;
-        }
-
-        // Load history version
-        function loadHistoryVersion() {
-            const select = document.getElementById('historySelect');
-            const selectedOption = select.options[select.selectedIndex];
-            
-            if (selectedOption.value) {
-                // Load specific version from history
-                console.log('Loading history version:', selectedOption.value);
-                // Implementation would go here
-            }
         }
     </script>
 </body>

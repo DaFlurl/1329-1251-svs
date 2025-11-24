@@ -1,0 +1,163 @@
+{
+  "created": "2025-11-24T22:54:29.083431",
+  "last_updated": "2025-11-24T22:54:57.737594",
+  "total_changes": 8,
+  "files": {
+    "scoreboard.html": {
+      "created": "2025-11-24T22:54:29.093290",
+      "changes": [
+        {
+          "version": 1,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:29.143560",
+          "description": "Initial tracking of scoreboard.html",
+          "author": "System",
+          "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\scoreboard_20251124_225429.html",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\scoreboard.html",
+            "timestamp": "2025-11-24T22:54:29.103515",
+            "size": 30593,
+            "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+            "version": "v1"
+          }
+        },
+        {
+          "version": 2,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:57.696724",
+          "description": "Initial tracking of scoreboard.html",
+          "author": "System",
+          "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\scoreboard_20251124_225457.html",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\scoreboard.html",
+            "timestamp": "2025-11-24T22:54:57.696436",
+            "size": 30593,
+            "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+            "version": "v2"
+          }
+        }
+      ],
+      "current_version": 2,
+      "last_modified": "2025-11-24T22:54:57.696862"
+    },
+    "scoreboard-data.json": {
+      "created": "2025-11-24T22:54:29.155091",
+      "changes": [
+        {
+          "version": 1,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:29.155919",
+          "description": "Initial tracking of scoreboard-data.json",
+          "author": "System",
+          "hash": "8ce13e3935c9e1c235048c90ba21cc6e",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\scoreboard-data_20251124_225429.json",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\scoreboard-data.json",
+            "timestamp": "2025-11-24T22:54:29.155779",
+            "size": 11674,
+            "hash": "8ce13e3935c9e1c235048c90ba21cc6e",
+            "version": "v1"
+          }
+        },
+        {
+          "version": 2,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:57.709997",
+          "description": "Initial tracking of scoreboard-data.json",
+          "author": "System",
+          "hash": "8ce13e3935c9e1c235048c90ba21cc6e",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\scoreboard-data_20251124_225457.json",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\scoreboard-data.json",
+            "timestamp": "2025-11-24T22:54:57.709821",
+            "size": 11674,
+            "hash": "8ce13e3935c9e1c235048c90ba21cc6e",
+            "version": "v2"
+          }
+        }
+      ],
+      "current_version": 2,
+      "last_modified": "2025-11-24T22:54:57.710077"
+    },
+    "scoreboard_new.html": {
+      "created": "2025-11-24T22:54:29.167240",
+      "changes": [
+        {
+          "version": 1,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:29.168291",
+          "description": "Initial tracking of scoreboard_new.html",
+          "author": "System",
+          "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\scoreboard_new_20251124_225429.html",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\scoreboard_new.html",
+            "timestamp": "2025-11-24T22:54:29.168127",
+            "size": 30593,
+            "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+            "version": "v1"
+          }
+        },
+        {
+          "version": 2,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:57.724003",
+          "description": "Initial tracking of scoreboard_new.html",
+          "author": "System",
+          "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\scoreboard_new_20251124_225457.html",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\scoreboard_new.html",
+            "timestamp": "2025-11-24T22:54:57.723766",
+            "size": 30593,
+            "hash": "edbdabfbcc199e9413ff8cbd581b2b8f",
+            "version": "v2"
+          }
+        }
+      ],
+      "current_version": 2,
+      "last_modified": "2025-11-24T22:54:57.724171"
+    },
+    "index.html": {
+      "created": "2025-11-24T22:54:29.179231",
+      "changes": [
+        {
+          "version": 1,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:29.212161",
+          "description": "Initial tracking of index.html",
+          "author": "System",
+          "hash": "31e24d7275b443edca82ce90c79f7ebd",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\index_20251124_225429.html",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\index.html",
+            "timestamp": "2025-11-24T22:54:29.180015",
+            "size": 14824,
+            "hash": "31e24d7275b443edca82ce90c79f7ebd",
+            "version": "v1"
+          }
+        },
+        {
+          "version": 2,
+          "type": "tracked",
+          "timestamp": "2025-11-24T22:54:57.737507",
+          "description": "Initial tracking of index.html",
+          "author": "System",
+          "hash": "31e24d7275b443edca82ce90c79f7ebd",
+          "backup": {
+            "backup_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\file_history\\backups\\index_20251124_225457.html",
+            "original_path": "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\index.html",
+            "timestamp": "2025-11-24T22:54:57.737314",
+            "size": 14824,
+            "hash": "31e24d7275b443edca82ce90c79f7ebd",
+            "version": "v2"
+          }
+        }
+      ],
+      "current_version": 2,
+      "last_modified": "2025-11-24T22:54:57.737591"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+# AgentDaf - Private Repository Structure
+
+# Private Repository Configuration
+PRIVATE_REPO_NAME="AgentDaf"
+PRIVATE_REPO_DESCRIPTION="Complete AgentDaf system with dashboard, tools, and backend"
+PUBLIC_DASHBOARD_REPO="1329-1251-svs"
+PUBLIC_DASHBOARD_DESCRIPTION="Live gaming scoreboard dashboard"
+
+# Repository Structure
+AGENTDAF_ROOT="C:/Users/flori/Desktop/AgentDaf"
+DASHBOARD_ROOT="C:/Users/flori/Desktop/AgentDaf1/github-dashboard"
+
+# Private Repository Contents
+PRIVATE_FOLDERS=[
+    "mcp_tools/",
+    "excel_tools/", 
+    "docker_tools/",
+    "workflows/",
+    "scripts/",
+    "config/",
+    "data/",
+    "logs/",
+    "tests/",
+    "docs/"
+]
+
+PRIVATE_FILES=[
+    "mcp_server.py",
+    "enhanced_mcp_server.py", 
+    "excel_workflow.py",
+    "docker_mcp_tools.py",
+    "config_manager.py",
+    "requirements.txt",
+    "README.md",
+    ".gitignore",
+    ".env.example"
+]
+
+# Public Dashboard Files (Only these go to GitHub Pages)
+PUBLIC_DASHBOARD_FILES=[
+    "scoreboard.html",
+    "scoreboard-data.json",
+    "index.html",
+    "assets/",
+    "README.md"
+]
+
+# Deployment Configuration
+DEPLOY_BRANCH="main"
+SOURCE_BRANCH="main"
+AUTO_DEPLOY=true
+KEEP_HISTORY=true

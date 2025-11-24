@@ -1,0 +1,118 @@
+{
+  "name": "agentdaf1-scoreboard",
+  "version": "2.0.0",
+  "description": "Live gaming scoreboard with real-time rankings, history tracking, and file version management",
+  "main": "serve.py",
+  "scripts": {
+    "start": "python serve.py",
+    "dev": "python serve.py --dev",
+    "history": "python history_api_server.py",
+    "track": "python file_history_manager.py",
+    "fix-data": "python fix_scoreboard_data.py",
+    "deploy": "deploy.bat",
+    "build": "echo 'Building production version...' && python -c \"import shutil; shutil.copy('scoreboard_new.html', 'scoreboard.html')\"",
+    "test": "python -m pytest tests/ || echo 'Tests not implemented yet'",
+    "lint": "echo 'Linting Python files...' && python -m flake8 *.py || echo 'Flake8 not available'",
+    "clean": "echo 'Cleaning temporary files...' && python -c \"import os; [os.remove(f) for f in os.listdir('.') if f.endswith('.pyc') or f.endswith('.log')]\""
+  },
+  "keywords": [
+    "scoreboard",
+    "gaming",
+    "rankings",
+    "live",
+    "real-time",
+    "history",
+    "version-control",
+    "backup",
+    "excel",
+    "dashboard"
+  ],
+  "author": "AgentDaf1 Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DaFlurl/1329-1251-svs.git"
+  },
+  "dependencies": {
+    "python": ">=3.8"
+  },
+  "devDependencies": {
+    "pytest": "^7.0.0",
+    "flake8": "^5.0.0"
+  },
+  "pythonDependencies": {
+    "flask": "^2.3.0",
+    "flask-cors": "^4.0.0",
+    "pandas": "^2.0.0",
+    "openpyxl": "^3.1.0",
+    "xlsxwriter": "^3.1.0",
+    "requests": "^2.31.0"
+  },
+  "engines": {
+    "python": ">=3.8",
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "files": [
+    "scoreboard.html",
+    "scoreboard_new.html",
+    "scoreboard-data.json",
+    "serve.py",
+    "history_api_server.py",
+    "file_history_manager.py",
+    "fix_scoreboard_data.py",
+    "deploy.bat",
+    "index.html"
+  ],
+  "config": {
+    "port": 8000,
+    "historyApiPort": 5001,
+    "autoRefreshInterval": 30000,
+    "backupRetentionDays": 30,
+    "maxHistorySize": 100,
+    "supportedFormats": [".xlsx", ".xls", ".csv", ".json"],
+    "defaultTheme": "gradient",
+    "enableHistoryTracking": true,
+    "enableAutoBackup": true,
+    "enableVersionControl": true
+  },
+  "features": {
+    "liveScoreboard": true,
+    "realTimeUpdates": true,
+    "fileHistory": true,
+    "versionControl": true,
+    "excelImport": true,
+    "dataExport": true,
+    "allianceStats": true,
+    "multiTabView": true,
+    "searchFilter": true,
+    "autoRefresh": true,
+    "backupRestore": true,
+    "apiEndpoints": true
+  },
+  "endpoints": {
+    "scoreboard": "http://localhost:8000",
+    "historyApi": "http://localhost:5001",
+    "githubPages": "https://daflurl.github.io/1329-1251-svs"
+  },
+  "deployment": {
+    "githubPages": {
+      "enabled": true,
+      "branch": "main",
+      "directory": "./"
+    },
+    "docker": {
+      "enabled": true,
+      "port": 8000,
+      "image": "agentdaf1/scoreboard:latest"
+    },
+    "python": {
+      "enabled": true,
+      "command": "python serve.py"
+    }
+  }
+}

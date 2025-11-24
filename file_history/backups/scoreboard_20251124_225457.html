@@ -301,7 +301,7 @@
         .alliance-WIP { background: #2196F3; color: white; }
         .alliance-SW { background: #FF9800; color: white; }
         
-        /* Loading */
+        /* Loading Spinner */
         .loading {
             text-align: center;
             padding: 50px;
@@ -323,36 +323,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* History Dropdown Styles */
-        .history-dropdown {
-            position: relative;
-            margin-right: 10px;
-        }
-        
-        .history-select {
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 25px;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            cursor: pointer;
-            min-width: 200px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        
-        .history-select:hover {
-            border-color: #764ba2;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-        }
-        
-        .history-select:focus {
-            border-color: #764ba2;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 10px; }
@@ -361,9 +331,6 @@
             .controls { flex-direction: column; }
             .search-box { max-width: 100%; }
             .tab-buttons { justify-content: center; }
-            .update-controls { flex-direction: column; align-items: stretch; }
-            .history-dropdown { margin-right: 0; margin-bottom: 10px; }
-            .history-select { width: 100%; }
         }
     </style>
 </head>
@@ -382,11 +349,6 @@
                 <span class="last-update" id="lastUpdate">Loading...</span>
             </div>
             <div class="update-controls">
-                <div class="history-dropdown">
-                    <select id="historySelect" class="history-select" onchange="loadHistoryVersion()">
-                        <option value="">📚 History (Select Date)</option>
-                    </select>
-                </div>
                 <button class="btn" onclick="refreshData()">
                     🔄 Refresh
                 </button>
@@ -753,18 +715,6 @@
                             <td>${formatNumber(item.avgScore)}</td>
                         </tr>
                     `;
-                } else if (tabName === 'combined') {
-                    const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                    return `
-                        <tr class="${rankClass}">
-                            <td><strong>${item.rank || index + 1}</strong></td>
-                            <td>${item.name}</td>
-                            <td>${formatNumber(item.score)}</td>
-                            <td><span class="alliance-badge">${item.type}</span></td>
-                            <td><span class="alliance-badge">${item.status}</span></td>
-                            <td><span class="alliance-badge alliance-${item.alliance}">${item.alliance}</span></td>
-                        </tr>
-                    `;
                 } else {
                     const rankClass = index < 3 ? `rank-${index + 1}` : '';
                     return `
@@ -882,18 +832,6 @@
                 second: '2-digit' 
             });
             document.getElementById('lastUpdate').textContent = `Last update: ${timeString}`;
-        }
-
-        // Load history version
-        function loadHistoryVersion() {
-            const select = document.getElementById('historySelect');
-            const selectedOption = select.options[select.selectedIndex];
-            
-            if (selectedOption.value) {
-                // Load specific version from history
-                console.log('Loading history version:', selectedOption.value);
-                // Implementation would go here
-            }
         }
     </script>
 </body>

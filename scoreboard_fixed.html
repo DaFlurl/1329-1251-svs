@@ -323,36 +323,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* History Dropdown Styles */
-        .history-dropdown {
-            position: relative;
-            margin-right: 10px;
-        }
-        
-        .history-select {
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 25px;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            cursor: pointer;
-            min-width: 200px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        
-        .history-select:hover {
-            border-color: #764ba2;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-        }
-        
-        .history-select:focus {
-            border-color: #764ba2;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 10px; }
@@ -361,9 +331,6 @@
             .controls { flex-direction: column; }
             .search-box { max-width: 100%; }
             .tab-buttons { justify-content: center; }
-            .update-controls { flex-direction: column; align-items: stretch; }
-            .history-dropdown { margin-right: 0; margin-bottom: 10px; }
-            .history-select { width: 100%; }
         }
     </style>
 </head>
@@ -382,11 +349,6 @@
                 <span class="last-update" id="lastUpdate">Loading...</span>
             </div>
             <div class="update-controls">
-                <div class="history-dropdown">
-                    <select id="historySelect" class="history-select" onchange="loadHistoryVersion()">
-                        <option value="">📚 History (Select Date)</option>
-                    </select>
-                </div>
                 <button class="btn" onclick="refreshData()">
                     🔄 Refresh
                 </button>
@@ -467,119 +429,39 @@
             </div>
         </div>
 
-        <!-- Positive Scores Tab -->
+        <!-- Other tabs (simplified for now) -->
         <div id="positive-tab" class="tab-content">
             <div class="scoreboard-container">
-                <div class="controls">
-                    <div class="search-box">
-                        🔍
-                        <input type="text" class="search-input" placeholder="Search positive scores..." id="positiveSearch" onkeyup="filterTable('positive')">
-                    </div>
-                </div>
-                
-                <div class="table-wrapper">
-                    <table class="scoreboard-table" id="positiveTable">
-                        <thead>
-                            <tr>
-                                <th onclick="sortTable('positive', 0)">Rank ↕</th>
-                                <th onclick="sortTable('positive', 1)">Player ↕</th>
-                                <th onclick="sortTable('positive', 2)">Score ↕</th>
-                                <th onclick="sortTable('positive', 3)">Alliance ↕</th>
-                                <th onclick="sortTable('positive', 4)">Monarch ID ↕</th>
-                            </tr>
-                        </thead>
-                        <tbody id="positiveTableBody">
-                            <tr><td colspan="5" class="loading"><div class="spinner"></div>Loading data...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="loading">
+                    <h3>📈 Positive Scores</h3>
+                    <p>Players with positive scores only</p>
                 </div>
             </div>
         </div>
 
-        <!-- Negative Scores Tab -->
         <div id="negative-tab" class="tab-content">
             <div class="scoreboard-container">
-                <div class="controls">
-                    <div class="search-box">
-                        🔍
-                        <input type="text" class="search-input" placeholder="Search negative scores..." id="negativeSearch" onkeyup="filterTable('negative')">
-                    </div>
-                </div>
-                
-                <div class="table-wrapper">
-                    <table class="scoreboard-table" id="negativeTable">
-                        <thead>
-                            <tr>
-                                <th onclick="sortTable('negative', 0)">Rank ↕</th>
-                                <th onclick="sortTable('negative', 1)">Player ↕</th>
-                                <th onclick="sortTable('negative', 2)">Score ↕</th>
-                                <th onclick="sortTable('negative', 3)">Alliance ↕</th>
-                                <th onclick="sortTable('negative', 4)">Monarch ID ↕</th>
-                            </tr>
-                        </thead>
-                        <tbody id="negativeTableBody">
-                            <tr><td colspan="5" class="loading"><div class="spinner"></div>Loading data...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="loading">
+                    <h3>📉 Negative Scores</h3>
+                    <p>Players with negative scores only</p>
                 </div>
             </div>
         </div>
 
-        <!-- Alliance Rankings Tab -->
         <div id="alliance-tab" class="tab-content">
             <div class="scoreboard-container">
-                <div class="controls">
-                    <div class="search-box">
-                        🔍
-                        <input type="text" class="search-input" placeholder="Search alliances..." id="allianceSearch" onkeyup="filterTable('alliance')">
-                    </div>
-                </div>
-                
-                <div class="table-wrapper">
-                    <table class="scoreboard-table" id="allianceTable">
-                        <thead>
-                            <tr>
-                                <th onclick="sortTable('alliance', 0)">Rank ↕</th>
-                                <th onclick="sortTable('alliance', 1)">Alliance ↕</th>
-                                <th onclick="sortTable('alliance', 2)">Total Score ↕</th>
-                                <th onclick="sortTable('alliance', 3)">Members ↕</th>
-                                <th onclick="sortTable('alliance', 4)">Avg Score ↕</th>
-                            </tr>
-                        </thead>
-                        <tbody id="allianceTableBody">
-                            <tr><td colspan="5" class="loading"><div class="spinner"></div>Loading data...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="loading">
+                    <h3>🤝 Alliance Rankings</h3>
+                    <p>Team performance and statistics</p>
                 </div>
             </div>
         </div>
 
-        <!-- Combined View Tab -->
         <div id="combined-tab" class="tab-content">
             <div class="scoreboard-container">
-                <div class="controls">
-                    <div class="search-box">
-                        🔍
-                        <input type="text" class="search-input" placeholder="Search combined view..." id="combinedSearch" onkeyup="filterTable('combined')">
-                    </div>
-                </div>
-                
-                <div class="table-wrapper">
-                    <table class="scoreboard-table" id="combinedTable">
-                        <thead>
-                            <tr>
-                                <th onclick="sortTable('combined', 0)">Rank ↕</th>
-                                <th onclick="sortTable('combined', 1)">Player ↕</th>
-                                <th onclick="sortTable('combined', 2)">Score ↕</th>
-                                <th onclick="sortTable('combined', 3)">Type ↕</th>
-                                <th onclick="sortTable('combined', 4)">Status ↕</th>
-                                <th onclick="sortTable('combined', 5)">Alliance ↕</th>
-                            </tr>
-                        </thead>
-                        <tbody id="combinedTableBody">
-                            <tr><td colspan="6" class="loading"><div class="spinner"></div>Loading data...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="loading">
+                    <h3>🔄 Combined View</h3>
+                    <p>Complete overview with all data</p>
                 </div>
             </div>
         </div>
@@ -619,16 +501,6 @@
             // Show selected tab
             document.getElementById(tabName + '-tab').classList.add('active');
             event.target.classList.add('active');
-            
-            // Load data for the tab if needed
-            loadTabData(tabName);
-        }
-
-        // Load data for specific tab
-        function loadTabData(tabName) {
-            if (currentData[tabName].length === 0) {
-                populateTable(tabName);
-            }
         }
 
         // Main data loading function
@@ -643,8 +515,8 @@
                 // Update stats
                 updateStats();
                 
-                // Populate all tables
-                populateAllTables();
+                // Populate overall table
+                populateTable('overall');
                 
                 updateLastRefreshTime();
                 
@@ -725,58 +597,27 @@
             document.getElementById('totalAlliances').textContent = totalAlliances;
         }
 
-        // Populate all tables
-        function populateAllTables() {
-            ['overall', 'positive', 'negative', 'alliance', 'combined'].forEach(tab => {
-                populateTable(tab);
-            });
-        }
-
         // Populate specific table
         function populateTable(tabName) {
             const tbody = document.getElementById(tabName + 'TableBody');
             const data = currentData[tabName] || [];
             
             if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:50px;">No data available</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:50px;">No data available</td></tr>`;
                 return;
             }
             
             tbody.innerHTML = data.map((item, index) => {
-                if (tabName === 'alliance') {
-                    return `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td><span class="alliance-badge alliance-${item.name}">${item.name}</span></td>
-                            <td>${formatNumber(item.totalScore)}</td>
-                            <td>${item.members}</td>
-                            <td>${formatNumber(item.avgScore)}</td>
-                        </tr>
-                    `;
-                } else if (tabName === 'combined') {
-                    const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                    return `
-                        <tr class="${rankClass}">
-                            <td><strong>${item.rank || index + 1}</strong></td>
-                            <td>${item.name}</td>
-                            <td>${formatNumber(item.score)}</td>
-                            <td><span class="alliance-badge">${item.type}</span></td>
-                            <td><span class="alliance-badge">${item.status}</span></td>
-                            <td><span class="alliance-badge alliance-${item.alliance}">${item.alliance}</span></td>
-                        </tr>
-                    `;
-                } else {
-                    const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                    return `
-                        <tr class="${rankClass}">
-                            <td><strong>${item.rank || index + 1}</strong></td>
-                            <td>${item.name}</td>
-                            <td>${formatNumber(item.score)}</td>
-                            <td><span class="alliance-badge alliance-${item.alliance}">${item.alliance}</span></td>
-                            <td>${item.monarchId || ''}</td>
-                        </tr>
-                    `;
-                }
+                const rankClass = index < 3 ? `rank-${index + 1}` : '';
+                return `
+                    <tr class="${rankClass}">
+                        <td><strong>${item.rank || index + 1}</strong></td>
+                        <td>${item.name}</td>
+                        <td>${formatNumber(item.score)}</td>
+                        <td><span class="alliance-badge alliance-${item.alliance}">${item.alliance}</span></td>
+                        <td>${item.monarchId || ''}</td>
+                    </tr>
+                `;
             }).join('');
         }
 
@@ -869,7 +710,7 @@
             
             processDataForAllTabs(sampleData);
             updateStats();
-            populateAllTables();
+            populateTable('overall');
             updateLastRefreshTime();
         }
 
@@ -882,18 +723,6 @@
                 second: '2-digit' 
             });
             document.getElementById('lastUpdate').textContent = `Last update: ${timeString}`;
-        }
-
-        // Load history version
-        function loadHistoryVersion() {
-            const select = document.getElementById('historySelect');
-            const selectedOption = select.options[select.selectedIndex];
-            
-            if (selectedOption.value) {
-                // Load specific version from history
-                console.log('Loading history version:', selectedOption.value);
-                // Implementation would go here
-            }
         }
     </script>
 </body>
