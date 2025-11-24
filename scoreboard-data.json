@@ -1,109 +1,606 @@
 {
-  "metadata": {
-    "last_updated": "2025-11-24T21:20:00.000Z",
-    "total_players": 100,
-    "source_file": "Sunday, 16 November 2025 1329+1251 v 3144363.xlsx"
-  },
-  "Positive": [
+  "last_updated": "2025-11-24T22:50:15.546670",
+  "total_players": 100,
+  "players": [
     {
-      "Position": 1,
-      "Name": "JuggMasterB",
-      "Score": 12710411052,
-      "Alliance": "RFR",
-      "Monarch ID": 227625628
+      "name": "JuggMasterB",
+      "score": 12710411052.0,
+      "alliance": "RFR",
+      "rank": 1
     },
     {
-      "Position": 2,
-      "Name": "aadDoğӓӓ",
-      "Score": 7425783805,
-      "Alliance": "WIP",
-      "Monarch ID": 213124942
+      "name": "爪adDoğȤȤ",
+      "score": 7425783805.0,
+      "alliance": "WIP",
+      "rank": 2
     },
     {
-      "Position": 3,
-      "Name": "Mobile Suit",
-      "Score": 4756750524,
-      "Alliance": "WIP",
-      "Monarch ID": 227565900
+      "name": "Mobile Suit",
+      "score": 4756750524.0,
+      "alliance": "WIP",
+      "rank": 3
     },
     {
-      "Position": 4,
-      "Name": "🇹🇷TURK",
-      "Score": 3309186482,
-      "Alliance": "WIP",
-      "Monarch ID": 227680893
+      "name": "🇹🇷TURK",
+      "score": 3309186482.0,
+      "alliance": "WIP",
+      "rank": 4
     },
     {
-      "Position": 5,
-      "Name": "Battlefish23",
-      "Score": 3047347132,
-      "Alliance": "RFR",
-      "Monarch ID": 227503580
+      "name": "Battlefish23",
+      "score": 3047347132.0,
+      "alliance": "RFR",
+      "rank": 5
     },
     {
-      "Position": 6,
-      "Name": "🤣Liquid",
-      "Score": 2073738823,
-      "Alliance": "WIP",
-      "Monarch ID": 213237494
+      "name": "🤓Liquid",
+      "score": 2073738823.0,
+      "alliance": "WIP",
+      "rank": 6
     },
     {
-      "Position": 7,
-      "Name": "BigFin 🛡",
-      "Score": 2005512477,
-      "Alliance": "WIP",
-      "Monarch ID": 212753470
+      "name": "BigFin 🔱",
+      "score": 2005512477.0,
+      "alliance": "WIP",
+      "rank": 7
     },
     {
-      "Position": 8,
-      "Name": "KAZ SADYR",
-      "Score": 1507500401,
-      "Alliance": "RFR",
-      "Monarch ID": 227676775
+      "name": "KAZ SADYR",
+      "score": 1507500401.0,
+      "alliance": "RFR",
+      "rank": 8
     },
     {
-      "Position": 9,
-      "Name": "༺-Raj-༻",
-      "Score": 1064285974,
-      "Alliance": "WIP",
-      "Monarch ID": 212723878
+      "name": "༺-Raj-༻",
+      "score": 1064285974.0,
+      "alliance": "WIP",
+      "rank": 9
     },
     {
-      "Position": 10,
-      "Name": "Hiriamu-saki",
-      "Score": 886898102,
-      "Alliance": "RFR",
-      "Monarch ID": 227673343
-    }
-  ],
-  "Negative": [],
-  "Combined": [
-    {
-      "Position": 1,
-      "Name": "JuggMasterB",
-      "Score": 12710411052,
-      "Type": "Leader",
-      "Status": "Active",
-      "Alliance": "RFR",
-      "Monarch ID": 227625628
+      "name": "Hiriamu-saki",
+      "score": 886898102.0,
+      "alliance": "RFR",
+      "rank": 10
     },
     {
-      "Position": 2,
-      "Name": "aadDoğӓӓ",
-      "Score": 7425783805,
-      "Type": "Warrior",
-      "Status": "Active",
-      "Alliance": "WIP",
-      "Monarch ID": 213124942
+      "name": "Ãńmãÿ👊",
+      "score": 881334816.0,
+      "alliance": "WIP",
+      "rank": 11
     },
     {
-      "Position": 3,
-      "Name": "Mobile Suit",
-      "Score": 4756750524,
-      "Type": "Striker",
-      "Status": "Active",
-      "Alliance": "WIP",
-      "Monarch ID": 227565900
+      "name": "Ť.ý.ł.ë.r",
+      "score": 745337549.0,
+      "alliance": "WIP",
+      "rank": 12
+    },
+    {
+      "name": "Tpel",
+      "score": 724326937.0,
+      "alliance": "WIP",
+      "rank": 13
+    },
+    {
+      "name": "£@∆¥",
+      "score": 468251281.0,
+      "alliance": "RFR",
+      "rank": 14
+    },
+    {
+      "name": "✨Rinax✨",
+      "score": 425725051.0,
+      "alliance": "WIP",
+      "rank": 15
+    },
+    {
+      "name": "Wi🆔Ant",
+      "score": 411710117.0,
+      "alliance": "RFR",
+      "rank": 16
+    },
+    {
+      "name": "Ten🅰️nt",
+      "score": 276058858.0,
+      "alliance": "RFR",
+      "rank": 17
+    },
+    {
+      "name": "Kosmy01",
+      "score": 242560256.0,
+      "alliance": "WIP",
+      "rank": 18
+    },
+    {
+      "name": "achraf✓",
+      "score": 238555172.0,
+      "alliance": "WIP",
+      "rank": 19
+    },
+    {
+      "name": "LuckyL👀",
+      "score": 195667660.0,
+      "alliance": "WIP",
+      "rank": 20
+    },
+    {
+      "name": "海〜kai",
+      "score": 187506788.0,
+      "alliance": "WIP",
+      "rank": 21
+    },
+    {
+      "name": ".Ghoul.",
+      "score": 180982049.0,
+      "alliance": "WIP",
+      "rank": 22
+    },
+    {
+      "name": "Whatisup",
+      "score": 180688773.0,
+      "alliance": "RFR",
+      "rank": 23
+    },
+    {
+      "name": "Mąiyara😼",
+      "score": 125013030.0,
+      "alliance": "RFR",
+      "rank": 24
+    },
+    {
+      "name": "adamkhel",
+      "score": 120651696.0,
+      "alliance": "JFF",
+      "rank": 25
+    },
+    {
+      "name": "Cogitoergo€",
+      "score": 120600865.0,
+      "alliance": "RFR",
+      "rank": 26
+    },
+    {
+      "name": "gigi猫💕",
+      "score": 81718636.0,
+      "alliance": "EDO",
+      "rank": 27
+    },
+    {
+      "name": "Foushinho",
+      "score": 73023194.0,
+      "alliance": "R62",
+      "rank": 28
+    },
+    {
+      "name": "бляяя",
+      "score": 59043173.0,
+      "alliance": "WIP",
+      "rank": 29
+    },
+    {
+      "name": "ZebZ",
+      "score": 51358222.0,
+      "alliance": "WIP",
+      "rank": 30
+    },
+    {
+      "name": "nomads realm",
+      "score": 37955091.0,
+      "alliance": "RFR",
+      "rank": 31
+    },
+    {
+      "name": "Reth Cana",
+      "score": 37478615.0,
+      "alliance": "RFR",
+      "rank": 32
+    },
+    {
+      "name": "KT 37",
+      "score": 24902885.0,
+      "alliance": "RFR",
+      "rank": 33
+    },
+    {
+      "name": "SichE'nEbunu",
+      "score": 22890873.0,
+      "alliance": "WIP",
+      "rank": 34
+    },
+    {
+      "name": "ZPG🦧",
+      "score": 21753866.0,
+      "alliance": "WIP",
+      "rank": 35
+    },
+    {
+      "name": "Armored Saint",
+      "score": 21647875.0,
+      "alliance": "RFR",
+      "rank": 36
+    },
+    {
+      "name": "El Bango Wifo",
+      "score": 20361190.0,
+      "alliance": "WIP",
+      "rank": 37
+    },
+    {
+      "name": "MissUGlobal:<",
+      "score": 16958140.0,
+      "alliance": "RFR",
+      "rank": 38
+    },
+    {
+      "name": "zennii 🦊",
+      "score": 11848931.0,
+      "alliance": "RFR",
+      "rank": 39
+    },
+    {
+      "name": "Abramelin-san",
+      "score": 11781586.0,
+      "alliance": "R62",
+      "rank": 40
+    },
+    {
+      "name": "Witty calf",
+      "score": 9900000.0,
+      "alliance": "PHX",
+      "rank": 41
+    },
+    {
+      "name": "Volleybaer",
+      "score": 8442141.0,
+      "alliance": "RFR",
+      "rank": 42
+    },
+    {
+      "name": "BigPoppa_Trip",
+      "score": 7482500.0,
+      "alliance": "PHX",
+      "rank": 43
+    },
+    {
+      "name": "M€G∆°",
+      "score": 7115344.0,
+      "alliance": "RFR",
+      "rank": 44
+    },
+    {
+      "name": "Skippy :",
+      "score": 6700720.0,
+      "alliance": "RFR",
+      "rank": 45
+    },
+    {
+      "name": "~uoslod~💀",
+      "score": 4702000.0,
+      "alliance": "PHX",
+      "rank": 46
+    },
+    {
+      "name": "Miret ⚜️",
+      "score": 3700000.0,
+      "alliance": "PHX",
+      "rank": 47
+    },
+    {
+      "name": "PriTle",
+      "score": 3300000.0,
+      "alliance": "PHX",
+      "rank": 48
+    },
+    {
+      "name": "Lipofortro",
+      "score": 3145000.0,
+      "alliance": "PHX",
+      "rank": 49
+    },
+    {
+      "name": "revx73",
+      "score": 3019500.0,
+      "alliance": "PHX",
+      "rank": 50
+    },
+    {
+      "name": "Uriah's Heap",
+      "score": 3013500.0,
+      "alliance": "PHX",
+      "rank": 51
+    },
+    {
+      "name": "Lipoghosto",
+      "score": 2904500.0,
+      "alliance": "PHX",
+      "rank": 52
+    },
+    {
+      "name": "Storm ..",
+      "score": 2781000.0,
+      "alliance": "PHX",
+      "rank": 53
+    },
+    {
+      "name": "Lost Calis",
+      "score": 2249300.0,
+      "alliance": "PHX",
+      "rank": 54
+    },
+    {
+      "name": "Leanna 💖",
+      "score": 2100000.0,
+      "alliance": "PHX",
+      "rank": 55
+    },
+    {
+      "name": "yvan70",
+      "score": 1900000.0,
+      "alliance": "PHX",
+      "rank": 56
+    },
+    {
+      "name": "T@ni9",
+      "score": 1862400.0,
+      "alliance": "WIP",
+      "rank": 57
+    },
+    {
+      "name": "😎 KW",
+      "score": 1803000.0,
+      "alliance": "PHX",
+      "rank": 58
+    },
+    {
+      "name": "Lineman Sweet",
+      "score": 1800000.0,
+      "alliance": "PHX",
+      "rank": 59
+    },
+    {
+      "name": "JimmyTerrific",
+      "score": 1736082.0,
+      "alliance": "RFR",
+      "rank": 60
+    },
+    {
+      "name": "Spirit Box 13",
+      "score": 1735236.0,
+      "alliance": "RFR",
+      "rank": 61
+    },
+    {
+      "name": "LC Peoria",
+      "score": 1704500.0,
+      "alliance": "PHX",
+      "rank": 62
+    },
+    {
+      "name": "TITANIUS WAR",
+      "score": 1608472.0,
+      "alliance": "RFR",
+      "rank": 63
+    },
+    {
+      "name": "Ballboy-Ref",
+      "score": 1351500.0,
+      "alliance": "WIP",
+      "rank": 64
+    },
+    {
+      "name": "nosocialogica",
+      "score": 1138711.0,
+      "alliance": "tag",
+      "rank": 65
+    },
+    {
+      "name": "RossGiller",
+      "score": 1135932.0,
+      "alliance": "WIP",
+      "rank": 66
+    },
+    {
+      "name": "KCChiefs71",
+      "score": 1100000.0,
+      "alliance": "PHX",
+      "rank": 67
+    },
+    {
+      "name": "Iwnnaplay",
+      "score": 1017852.0,
+      "alliance": "RFR",
+      "rank": 68
+    },
+    {
+      "name": "Shadowfax23",
+      "score": 1003500.0,
+      "alliance": "PHX",
+      "rank": 69
+    },
+    {
+      "name": "Pόnτος",
+      "score": 1000000.0,
+      "alliance": "PHX",
+      "rank": 70
+    },
+    {
+      "name": "Pewpewcook",
+      "score": 993124.0,
+      "alliance": "KGT",
+      "rank": 71
+    },
+    {
+      "name": "grimmo20",
+      "score": 924000.0,
+      "alliance": "PHX",
+      "rank": 72
+    },
+    {
+      "name": "Alexander545",
+      "score": 900000.0,
+      "alliance": "PHX",
+      "rank": 73
+    },
+    {
+      "name": "Spincaster",
+      "score": 900000.0,
+      "alliance": "PHX",
+      "rank": 74
+    },
+    {
+      "name": "Suurmestari",
+      "score": 866488.0,
+      "alliance": "PHX",
+      "rank": 75
+    },
+    {
+      "name": "Rev…Salomé",
+      "score": 769000.0,
+      "alliance": "PHX",
+      "rank": 76
+    },
+    {
+      "name": "SaraPalestine",
+      "score": 677245.0,
+      "alliance": "RFR",
+      "rank": 77
+    },
+    {
+      "name": "eight gallon",
+      "score": 645773.0,
+      "alliance": "RFR",
+      "rank": 78
+    },
+    {
+      "name": "BentArrow",
+      "score": 596837.0,
+      "alliance": "tag",
+      "rank": 79
+    },
+    {
+      "name": "Tuckahoe Bob",
+      "score": 546225.0,
+      "alliance": "KGT",
+      "rank": 80
+    },
+    {
+      "name": "Miwa Moon",
+      "score": 541024.0,
+      "alliance": "KGT",
+      "rank": 81
+    },
+    {
+      "name": "Miss Dimple",
+      "score": 534000.0,
+      "alliance": "R62",
+      "rank": 82
+    },
+    {
+      "name": "Blue13🐭",
+      "score": 515000.0,
+      "alliance": "WIP",
+      "rank": 83
+    },
+    {
+      "name": "Bailey 78",
+      "score": 500000.0,
+      "alliance": "PHX",
+      "rank": 84
+    },
+    {
+      "name": "Monarc Tonito",
+      "score": 447490.0,
+      "alliance": "tag",
+      "rank": 85
+    },
+    {
+      "name": "薔薇真音",
+      "score": 412500.0,
+      "alliance": "WIP",
+      "rank": 86
+    },
+    {
+      "name": "Queen  Chaos",
+      "score": 400000.0,
+      "alliance": "WIP",
+      "rank": 87
+    },
+    {
+      "name": "拳Kentama王",
+      "score": 400000.0,
+      "alliance": "WIP",
+      "rank": 88
+    },
+    {
+      "name": "Heavens Best",
+      "score": 393591.0,
+      "alliance": "RFR",
+      "rank": 89
+    },
+    {
+      "name": "Sofía by tag",
+      "score": 387840.0,
+      "alliance": "tag",
+      "rank": 90
+    },
+    {
+      "name": "HuckleberryPi",
+      "score": 381000.0,
+      "alliance": "WIP",
+      "rank": 91
+    },
+    {
+      "name": "XuKa_17",
+      "score": 335500.0,
+      "alliance": "RFR",
+      "rank": 92
+    },
+    {
+      "name": "Lob€lia🔹",
+      "score": 315000.0,
+      "alliance": "WIP",
+      "rank": 93
+    },
+    {
+      "name": "🦄 dr@gyn",
+      "score": 303000.0,
+      "alliance": "RFR",
+      "rank": 94
+    },
+    {
+      "name": "TheOasis",
+      "score": 301500.0,
+      "alliance": "PHX",
+      "rank": 95
+    },
+    {
+      "name": "💫Mirabella",
+      "score": 300000.0,
+      "alliance": "R62",
+      "rank": 96
+    },
+    {
+      "name": "g04t_🐐",
+      "score": 300000.0,
+      "alliance": "WIP",
+      "rank": 97
+    },
+    {
+      "name": "pfazua",
+      "score": 257650.0,
+      "alliance": "tag",
+      "rank": 98
+    },
+    {
+      "name": "Zed DarknI8",
+      "score": 243500.0,
+      "alliance": "RFR",
+      "rank": 99
+    },
+    {
+      "name": "Monarch227582255",
+      "score": 235567.0,
+      "alliance": "AXE",
+      "rank": 100
     }
   ]
 }
