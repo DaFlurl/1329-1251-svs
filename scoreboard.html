@@ -1035,6 +1035,24 @@
             });
             document.getElementById('lastUpdate').textContent = `Last update: ${timeString}`;
         }
+
+        // Load history version
+        function loadHistoryVersion() {
+            const select = document.getElementById('historySelect');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            if (selectedOption.value) {
+                // Load specific version from history
+                console.log('Loading history version:', selectedOption.value);
+                // Implementation would go here
+            }
+        }
+
+        // Show history modal
+        function showHistoryModal() {
+            console.log('Show history modal');
+            // Implementation would go here
+        }
     </script>
 </body>
 </html>
