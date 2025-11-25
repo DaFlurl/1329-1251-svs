@@ -110,6 +110,158 @@
             color: var(--text-secondary);
         }
 
+        /* Sync Status Styles */
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: 
+                linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%),
+                radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--text-secondary);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sync-status::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .sync-status:hover {
+            background: 
+                linear-gradient(135deg, rgba(79, 172, 254, 0.2) 0%, rgba(0, 242, 254, 0.1) 100%),
+                radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .sync-status:hover::before {
+            left: 100%;
+        }
+
+        .sync-status.syncing {
+            animation: syncPulse 2s ease-in-out infinite;
+        }
+
+        .sync-status.syncing #sync-icon {
+            animation: spin 2s linear infinite;
+        }
+
+        .sync-status.error {
+            background: 
+                linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%),
+                radial-gradient(ellipse at center, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .sync-status.success {
+            background: 
+                linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%),
+                radial-gradient(ellipse at center, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        @keyframes syncPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #sync-icon {
+            transition: all 0.3s ease;
+        }
+
+        #sync-text {
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Refresh Button Styles */
+        .refresh-button {
+            background: 
+                linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%),
+                radial-gradient(ellipse at top, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 15px var(--shadow-light),
+                0 0 0 1px var(--glass-border),
+                inset 0 0 15px rgba(255, 255, 255, 0.1);
+            margin-right: 10px;
+        }
+
+        .refresh-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .refresh-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 
+                0 8px 25px var(--shadow-medium),
+                0 0 0 2px var(--accent-primary),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .refresh-button:hover::before {
+            left: 100%;
+        }
+
+        .refresh-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .refresh-button.refreshing i {
+            animation: spin 1s linear infinite;
+        }
+
+        .refresh-button i {
+            font-size: 0.9em;
+        }
+
+        .refresh-button span {
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -1491,10 +1643,15 @@
                 <div class="workflow-info">
                     <strong>Dashboard:</strong> Excel Multi-Tab Analysis | 
                     <strong>Updated:</strong> <span id="update-time">Loading...</span> |
-                    <strong>Data:</strong> Real-time Excel Processing
+                    <strong>Data:</strong> Real-time Excel Processing |
+                    <strong>Auto-sync:</strong> <span id="sync-interval">30s</span>
                 </div>
             </div>
             <div class="header-right">
+                <div class="sync-status" id="sync-status">
+                    <i class="fas fa-sync-alt" id="sync-icon"></i>
+                    <span id="sync-text">Synced</span>
+                </div>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark theme">
                     <i class="fas fa-moon" id="theme-icon"></i>
                 </button>
@@ -1563,16 +1720,224 @@
                 themeIcon.classList.add('fa-moon');
             }
         }
+
+        // Real-time Data Synchronization
+        let syncInterval;
+        let lastDataHash = '';
+        let isManualSync = false;
+        
+        const syncStatus = document.getElementById('sync-status');
+        const syncIcon = document.getElementById('sync-icon');
+        const syncText = document.getElementById('sync-text');
+        
+        // Initialize synchronization
+        function initializeSync() {
+            // Start automatic sync every 30 seconds
+            syncInterval = setInterval(() => {
+                if (!isManualSync) {
+                    syncData();
+                }
+            }, 30000);
+            
+            // Add click handler for manual sync
+            syncStatus.addEventListener('click', () => {
+                isManualSync = true;
+                syncData();
+                setTimeout(() => {
+                    isManualSync = false;
+                }, 2000);
+            });
+            
+            // Initial sync
+            syncData();
+        }
+        
+        // Sync data function
+        async function syncData() {
+            try {
+                updateSyncStatus('syncing', 'Syncing...');
+                
+                // Fetch fresh data
+                const response = await fetch(`scoreboard-data.json?t=${Date.now()}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const newData = await response.json();
+                const newDataHash = generateDataHash(newData);
+                
+                // Check if data has changed
+                if (newDataHash !== lastDataHash) {
+                    dashboardData = newData;
+                    lastDataHash = newDataHash;
+                    
+                    // Update dashboard with new data
+                    await refreshDashboard();
+                    
+                    updateSyncStatus('success', 'Updated');
+                    showNotification('Dashboard updated with latest data', 'success');
+                    
+                    // Update timestamps
+                    updateTime();
+                    
+                } else {
+                    updateSyncStatus('success', 'Synced');
+                }
+                
+            } catch (error) {
+                console.error('Sync error:', error);
+                updateSyncStatus('error', 'Error');
+                showNotification('Failed to sync data: ' + error.message, 'error');
+                
+                // Retry after 10 seconds on error
+                setTimeout(() => {
+                    if (!isManualSync) {
+                        syncData();
+                    }
+                }, 10000);
+            }
+        }
+        
+        // Generate data hash for comparison
+        function generateDataHash(data) {
+            return btoa(JSON.stringify(data)).slice(0, 16);
+        }
+        
+        // Update sync status display
+        function updateSyncStatus(status, text) {
+            syncStatus.className = 'sync-status';
+            
+            switch (status) {
+                case 'syncing':
+                    syncStatus.classList.add('syncing');
+                    syncIcon.className = 'fas fa-sync-alt';
+                    break;
+                case 'success':
+                    syncStatus.classList.add('success');
+                    syncIcon.className = 'fas fa-check-circle';
+                    break;
+                case 'error':
+                    syncStatus.classList.add('error');
+                    syncIcon.className = 'fas fa-exclamation-triangle';
+                    break;
+            }
+            
+            syncText.textContent = text;
+            
+            // Reset to normal state after 3 seconds (except for error)
+            if (status !== 'error') {
+                setTimeout(() => {
+                    if (!syncStatus.classList.contains('syncing')) {
+                        syncStatus.className = 'sync-status';
+                        syncIcon.className = 'fas fa-sync-alt';
+                        syncText.textContent = 'Synced';
+                    }
+                }, 3000);
+            }
+        }
+        
+        // Refresh dashboard with new data
+        async function refreshDashboard() {
+            // Store current tab and scroll position
+            const currentTabElement = document.querySelector('.tab-button.active');
+            const currentTabIndex = currentTabElement ? parseInt(currentTabElement.dataset.tab) : 0;
+            
+            // Clear and rebuild dashboard
+            updateOverallStats();
+            createTabs();
+            showTab(currentTabIndex);
+            
+            // Re-apply search if active
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput && searchInput.value) {
+                filterTable(currentTabIndex);
+            }
+        }
+        
+        // Manual refresh function
+        function manualRefresh() {
+            const refreshButton = document.querySelector('.refresh-button');
+            refreshButton.classList.add('refreshing');
+            
+            isManualSync = true;
+            syncData().finally(() => {
+                setTimeout(() => {
+                    refreshButton.classList.remove('refreshing');
+                    isManualSync = false;
+                }, 1000);
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 
+                            type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 
+                            'linear-gradient(135deg, #3b82f6, #2563eb)'};
+                color: white;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 0.9em;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                max-width: 300px;
+            `;
+            
+            // Add to DOM
+            document.body.appendChild(notification);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 4000);
+        }
+        
+        // Add notification animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
         
         // Load data from JSON file
         async function loadDashboardData() {
             try {
                 const response = await fetch('scoreboard-data.json');
                 dashboardData = await response.json();
+                lastDataHash = generateDataHash(dashboardData);
                 initializeDashboard();
+                initializeSync(); // Start real-time synchronization
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
                 showError('Failed to load dashboard data');
+                updateSyncStatus('error', 'Failed');
             }
         }
         
@@ -1623,13 +1988,21 @@
             let tabsHtml = '';
             let contentsHtml = '';
             
+            // Add refresh button at the beginning
+            tabsHtml += `
+                <button class="refresh-button" onclick="manualRefresh()" title="Manual Refresh">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Refresh</span>
+                </button>
+            `;
+            
             tabs.forEach((sheetName, index) => {
                 const sheetData = dashboardData[sheetName];
                 const sheetInfo = sheetData.sheets?.[sheetName] || {};
                 const rows = sheetInfo.rows || 0;
                 
                 tabsHtml += `
-                    <button class="tab-button ${index === 0 ? 'active' : ''}" onclick="showTab(${index})">
+                    <button class="tab-button ${index === 0 ? 'active' : ''}" onclick="showTab(${index})" data-tab="${index}">
                         ${sheetName}
                         <span class="badge">${rows}</span>
                     </button>
