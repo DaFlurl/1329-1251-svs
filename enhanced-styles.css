@@ -1,0 +1,559 @@
+/* Enhanced Premium Dashboard Styles - AgentDaf1 Ultimate */
+
+/* Container & Layout */
+.container { 
+    max-width: 1600px; 
+    margin: 0 auto; 
+    padding: 20px; 
+}
+
+.header { 
+    text-align: center; 
+    margin-bottom: 30px; 
+    color: white; 
+}
+
+.header h1 { 
+    font-size: 3em; 
+    margin-bottom: 10px; 
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+}
+
+.header p { 
+    font-size: 1.2em; 
+    opacity: 0.9; 
+}
+
+/* UpdateBar+ Styles */
+.updatebar-plus { 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(20px); 
+    border-radius: 15px; 
+    padding: 20px; 
+    margin-bottom: 25px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+}
+
+.update-status { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.status-indicator { 
+    width: 12px; 
+    height: 12px; 
+    border-radius: 50%; 
+    background: #4CAF50; 
+    animation: pulse 2s infinite; 
+}
+
+@keyframes pulse { 
+    0% { opacity: 1; } 
+    50% { opacity: 0.5; } 
+    100% { opacity: 1; } 
+}
+
+.last-update { 
+    font-size: 0.9em; 
+    color: #666; 
+}
+
+.update-controls { 
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
+}
+
+/* Tab-Navigation */
+.tab-navigation { 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(20px); 
+    border-radius: 15px; 
+    padding: 10px; 
+    margin-bottom: 25px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+}
+
+.tab-buttons { 
+    display: flex; 
+    gap: 5px; 
+    flex-wrap: wrap; 
+}
+
+.tab-btn { 
+    background: transparent; 
+    border: none; 
+    padding: 12px 24px; 
+    border-radius: 10px; 
+    font-size: 1em; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    color: #666; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+.tab-btn:hover { 
+    background: rgba(102, 126, 234, 0.1); 
+}
+
+.tab-btn.active { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white; 
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); 
+}
+
+/* Tab Content */
+.tab-content { 
+    display: none; 
+}
+
+.tab-content.active { 
+    display:block; 
+}
+
+/* Scoreboard-Container */
+.scoreboard-container { 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(20px); 
+    border-radius: 20px; 
+    padding: 30px; 
+    margin-bottom: 30px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+}
+
+/* Statistikkarten */
+.stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px; 
+    margin-bottom: 30px; 
+}
+
+.stat-card { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white; 
+    padding: 25px; 
+    border-radius: 15px; 
+    text-align: center; 
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3); 
+    transition: transform 0.3s ease; 
+}
+
+.stat-card:hover { 
+    transform: translateY(-5px); 
+}
+
+.stat-number { 
+    font-size: 2.5em; 
+    font-weight: 700; 
+    margin-bottom: 5px; 
+}
+
+.stat-label { 
+    font-size: 1em; 
+    opacity: 0.9; 
+}
+
+/* Steuerelemente */
+.controls { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+}
+
+.search-box { 
+    display: flex; 
+    align-items: center; 
+    background: #f8f9fa; 
+    border-radius: 25px; 
+    padding: 12px 20px; 
+    flex: 1; 
+    max-width: 400px; 
+    border: 2px solid transparent; 
+    transition: border-color 0.3s ease; 
+}
+
+.search-box:focus-within { 
+    border-color: #667eea; 
+}
+
+.search-input { 
+    border: none; 
+    background: none; 
+    outline: none; 
+    width: 100%; 
+    font-size: 16px; 
+    padding: 5px; 
+}
+
+.btn { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white; 
+    border: none; 
+    padding: 12px 24px; 
+    border-radius: 25px; 
+    font-size: 1em; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+.btn:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); 
+}
+
+.btn-secondary { 
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); 
+}
+
+/* Tabellenstile */
+.table-wrapper { 
+    overflow-x: auto; 
+    border-radius:15px; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+}
+
+.scoreboard-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: white; 
+}
+
+.scoreboard-table th { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white; 
+    padding: 15px; 
+    text-align: left; 
+    font-weight: 600; 
+    cursor: pointer; 
+    user-select: none; 
+    white-space: nowrap; 
+}
+
+.scoreboard-table th:hover { 
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); 
+}
+
+.scoreboard-table td { 
+    padding: 15px; 
+    border-bottom: 1px solid #eee; 
+}
+
+.scoreboard-table tr:hover { 
+    background: rgba(102, 126, 234, 0.05); 
+}
+
+.rank-1 { 
+    background: linear-gradient(135deg, #FFD700, #FFA500) !important; 
+    color: white; 
+}
+
+.rank-2 { 
+    background: linear-gradient(135deg, #C0C0C0, #808080) !important; 
+    color: white; 
+}
+
+.rank-3 { 
+    background: linear-gradient(135deg, #CD7F32, #8B4513) !important; 
+    color: white; 
+}
+
+.alliance-badge { 
+    display: inline-block; 
+    padding: 4px 12px; 
+    border-radius: 15px; 
+    font-size: 0.85em; 
+    font-weight: 600; 
+    background: #f0f0f0; 
+    color: #333; 
+}
+
+.alliance-RFR { 
+    background: #4CAF50; 
+    color: white; 
+}
+
+.alliance-WIP { 
+    background: #2196F3; 
+    color: white; 
+}
+
+.alliance-SW { 
+    background: #FF9800; 
+    color: white; 
+}
+
+.alliance-PHX { 
+    background: #9C27B0; 
+    color: white; 
+}
+
+.alliance-JFF { 
+    background: #FF5722; 
+    color: white; 
+}
+
+.alliance-EDO { 
+    background: #795548; 
+    color: white; 
+}
+
+.alliance-R62 { 
+    background: #607D8B; 
+    color: white; 
+}
+
+.alliance-KGT { 
+    background: #E91E63; 
+    color: white; 
+}
+
+.alliance-tag { 
+    background: #3F51B5; 
+    color: white; 
+}
+
+.alliance-TDS { 
+    background: #009688; 
+    color: white; 
+}
+
+.alliance-NEM { 
+    background: #FFC107; 
+    color: #333; 
+}
+
+.alliance-HOP { 
+    background: #8BC34A; 
+    color: #333; 
+}
+
+.alliance-HTS { 
+    background: #795548; 
+    color: white; 
+}
+
+.alliance-AXE { 
+    background: #F44336; 
+    color: white; 
+}
+
+.alliance-IND { 
+    background: #9E9E9E; 
+    color: white; 
+}
+
+.alliance--- { 
+    background: #607D8B; 
+    color: white; 
+}
+
+/* Loading */
+.loading { 
+    text-align: center; 
+    padding: 50px; 
+    color: #666; 
+}
+
+.spinner { 
+    border: 4px solid #f3f3f3; 
+    border-top: 4px solid #667eea; 
+    border-radius: 50%; 
+    width: 40px; 
+    height: 40px; 
+    animation: spin 1s linear infinite; 
+    margin: 0 auto 20px; 
+}
+
+@keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+
+/* Stile für das Verlauf-Dropdown */
+.history-dropdown { 
+    position: relative; 
+    margin-right: 10px; 
+}
+
+.history-select { 
+    background: white; 
+    border: 2px solid #667eea; 
+    border-radius: 25px; 
+    padding: 10px 20px; 
+    font-size: 14px; 
+    font-weight: 600; 
+    color: #333; 
+    cursor: pointer; 
+    min-width: 200px; 
+    outline: none; 
+    transition: all 0.3s ease; 
+}
+
+.history-select:hover { 
+    border-color: #764ba2; 
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2); 
+}
+
+.history-select:focus { 
+    border-color:#764ba2; 
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); 
+}
+
+/* Enhanced Empty States */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.empty-state-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.empty-state-subtext {
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+.error-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Rank Badges */
+.rank-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 700;
+    min-width: 30px;
+    text-align: center;
+}
+
+.rank-default {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.rank-1 {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: white;
+}
+
+.rank-2 {
+    background: linear-gradient(135deg, #C0C0C0, #808080);
+    color: white;
+}
+
+.rank-3 {
+    background: linear-gradient(135deg, #CD7F32, #8B4513);
+    color: white;
+}
+
+/* Player Names */
+.player-name {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Score Values */
+.score-value {
+    font-weight: 700;
+    color: #667eea;
+    font-family: 'Courier New', monospace;
+}
+
+/* Monarch IDs */
+.monarch-id {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) { 
+    .container { 
+        padding: 10px; 
+    } 
+    
+    .header h1 { 
+        font-size: 2em; 
+    } 
+    
+    .stats-grid { 
+        grid-template-columns: 1fr; 
+    } 
+    
+    .controls { 
+        flex-direction: column; 
+    } 
+    
+    .search-box { 
+        max-width: 100%; 
+    } 
+    
+    .tab-buttons { 
+        justify-content: center; 
+    } 
+    
+    .update-controls { 
+        flex-direction: column; 
+        align-items: stretch; 
+    } 
+    
+    .history-dropdown { 
+        margin-right: 0; 
+        margin-bottom: 10px; 
+    } 
+    
+    .history-select { 
+        width: 100%; 
+    }
+    
+    .scoreboard-table {
+        font-size: 0.9em;
+    }
+    
+    .scoreboard-table th,
+    .scoreboard-table td {
+        padding: 10px 8px;
+    }
+}
