@@ -377,6 +377,266 @@
                 radial-gradient(ellipse at top, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
         }
 
+        /* Advanced Search Styles */
+        .advanced-search-container {
+            padding: 20px 30px;
+            background: var(--glass-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-options-btn {
+            background: 
+                linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%),
+                radial-gradient(ellipse at top, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px var(--shadow-light);
+        }
+
+        .search-options-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px var(--shadow-medium);
+        }
+
+        .search-options {
+            margin-top: 15px;
+            padding: 20px;
+            background: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%),
+                radial-gradient(ellipse at center, rgba(79, 172, 254, 0.05) 0%, transparent 70%);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px var(--shadow-light);
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        [data-theme="dark"] .search-options {
+            background: 
+                linear-gradient(135deg, rgba(15, 15, 35, 0.95) 0%, rgba(26, 26, 46, 0.9) 100%),
+                radial-gradient(ellipse at center, rgba(99, 179, 237, 0.05) 0%, transparent 70%);
+        }
+
+        @keyframes slideDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 150px;
+            flex: 1;
+        }
+
+        .search-group label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+
+        .search-type, .search-column {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .search-type:focus, .search-column:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.2);
+        }
+
+        .search-case {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: 2px;
+        }
+
+        .number-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .number-range input {
+            width: 80px;
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .number-range input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.2);
+        }
+
+        .number-range span {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .search-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Search Presets */
+        .search-presets {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px var(--shadow-medium);
+            z-index: 1000;
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .preset-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preset-item:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .preset-item:last-child {
+            border-bottom: none;
+        }
+
+        .preset-delete {
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .preset-delete:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        /* Search Highlighting */
+        .search-highlight {
+            background: 
+                linear-gradient(135deg, rgba(255, 193, 7, 0.4) 0%, rgba(255, 235, 156, 0.3) 100%),
+                radial-gradient(ellipse at center, rgba(255, 193, 7, 0.2) 0%, transparent 70%);
+            color: var(--text-primary);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(255, 193, 7, 0.3);
+            animation: highlightPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% { 
+                background: 
+                    linear-gradient(135deg, rgba(255, 193, 7, 0.4) 0%, rgba(255, 235, 156, 0.3) 100%),
+                    radial-gradient(ellipse at center, rgba(255, 193, 7, 0.2) 0%, transparent 70%);
+            }
+            50% { 
+                background: 
+                    linear-gradient(135deg, rgba(255, 193, 7, 0.6) 0%, rgba(255, 235, 156, 0.5) 100%),
+                    radial-gradient(ellipse at center, rgba(255, 193, 7, 0.3) 0%, transparent 70%);
+            }
+        }
+
+        /* Enhanced Search Input Focus */
+        .search-input:focus {
+            box-shadow: 
+                0 12px 40px var(--accent-primary),
+                0 6px 25px var(--accent-secondary),
+                0 0 0 5px var(--accent-primary),
+                0 0 0 10px rgba(79, 172, 254, 0.1),
+                inset 0 0 30px var(--accent-primary),
+                inset 0 0 20px var(--accent-secondary);
+            transform: translateZ(18px) scale(1.03) rotateX(-1deg);
+            animation: searchFocusGlow 2s ease-in-out infinite;
+        }
+
+        /* Search Results Counter */
+        .search-results-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: 
+                linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%),
+                radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            margin-left: auto;
+        }
+
+        .search-results-info.active {
+            background: 
+                linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%),
+                radial-gradient(ellipse at center, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -2162,10 +2422,62 @@
                         </div>
                     </div>
                     
-                    <div class="search-box">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" id="search-${tabIndex}" 
-                               placeholder="🔍 Search in ${sheetName}..." onkeyup="searchTable(${tabIndex})" />
+                    <div class="advanced-search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="search-input" id="search-${tabIndex}" 
+                                   placeholder="🔍 Advanced search in ${sheetName}..." onkeyup="performAdvancedSearch(${tabIndex})" />
+                            <button class="search-options-btn" onclick="toggleSearchOptions(${tabIndex})" title="Search options">
+                                <i class="fas fa-sliders-h"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="search-options" id="search-options-${tabIndex}" style="display: none;">
+                            <div class="search-row">
+                                <div class="search-group">
+                                    <label>Search Type:</label>
+                                    <select class="search-type" id="search-type-${tabIndex}" onchange="performAdvancedSearch(${tabIndex})">
+                                        <option value="contains">Contains</option>
+                                        <option value="exact">Exact Match</option>
+                                        <option value="starts">Starts With</option>
+                                        <option value="ends">Ends With</option>
+                                        <option value="regex">Regex</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="search-group">
+                                    <label>Case Sensitive:</label>
+                                    <input type="checkbox" class="search-case" id="search-case-${tabIndex}" onchange="performAdvancedSearch(${tabIndex})">
+                                </div>
+                            </div>
+                            
+                            <div class="search-row">
+                                <div class="search-group">
+                                    <label>Column Filter:</label>
+                                    <select class="search-column" id="search-column-${tabIndex}" onchange="performAdvancedSearch(${tabIndex})">
+                                        <option value="all">All Columns</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="search-group">
+                                    <label>Number Range:</label>
+                                    <div class="number-range">
+                                        <input type="number" class="range-min" id="range-min-${tabIndex}" placeholder="Min" onkeyup="performAdvancedSearch(${tabIndex})">
+                                        <span>-</span>
+                                        <input type="number" class="range-max" id="range-max-${tabIndex}" placeholder="Max" onkeyup="performAdvancedSearch(${tabIndex})">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="search-actions">
+                                <button class="btn btn-small" onclick="clearFilters(${tabIndex})">
+                                    <i class="fas fa-times"></i> Clear Filters
+                                </button>
+                                <button class="btn btn-small btn-primary" onclick="saveSearchPreset(${tabIndex})">
+                                    <i class="fas fa-save"></i> Save Preset
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="controls">
@@ -2247,30 +2559,9 @@
         }
         
         function searchTable(tabIndex) {
-            const searchInput = document.getElementById(`search-${tabIndex}`);
-            const table = document.getElementById(`table-${tabIndex}`);
-            const filteredCount = document.getElementById(`filtered-${tabIndex}`);
-            
-            if (!table || !searchInput) return;
-            
-            const searchTerm = searchInput.value.toLowerCase();
-            const rows = table.getElementsByTagName('tr');
-            let visibleRows = 0;
-            
-            for (let i = 1; i < rows.length; i++) {  // Skip header row
-                const row = rows[i];
-                const cells = row.getElementsByTagName('td');
-                let found = false;
-                
-                for (let j = 0; j < cells.length; j++) {
-                    const cellText = cells[j].textContent.toLowerCase();
-                    if (cellText.includes(searchTerm)) {
-                        found = true;
-                        if (searchTerm.length > 0) {
-                            cells[j].classList.add('highlight');
-                        } else {
-                            cells[j].classList.remove('highlight');
-                        }
+            // Legacy function - redirect to advanced search
+            performAdvancedSearch(tabIndex);
+        }
                     } else {
                         cells[j].classList.remove('highlight');
                     }
@@ -2653,6 +2944,230 @@
                 callback();
             };
             document.head.appendChild(script);
+        }
+
+        // Advanced Search Functions
+        let searchPresets = JSON.parse(localStorage.getItem('searchPresets') || '{}');
+
+        function toggleSearchOptions(tabIndex) {
+            const options = document.getElementById(`search-options-${tabIndex}`);
+            const isVisible = options.style.display !== 'none';
+            
+            if (isVisible) {
+                options.style.display = 'none';
+            } else {
+                options.style.display = 'block';
+                populateColumnFilter(tabIndex);
+            }
+        }
+
+        function populateColumnFilter(tabIndex) {
+            const table = document.getElementById(`table-${tabIndex}`);
+            const columnSelect = document.getElementById(`search-column-${tabIndex}`);
+            
+            if (!table || !columnSelect) return;
+            
+            const headers = [];
+            const headerCells = table.rows[0].cells;
+            
+            for (let i = 0; i < headerCells.length; i++) {
+                headers.push({
+                    value: i,
+                    text: headerCells[i].textContent
+                });
+            }
+            
+            columnSelect.innerHTML = '<option value="all">All Columns</option>' +
+                headers.map(col => `<option value="${col.value}">${col.text}</option>`).join('');
+        }
+
+        function performAdvancedSearch(tabIndex) {
+            const table = document.getElementById(`table-${tabIndex}`);
+            if (!table) return;
+            
+            const searchTerm = document.getElementById(`search-${tabIndex}`).value;
+            const searchType = document.getElementById(`search-type-${tabIndex}`).value;
+            const searchColumn = document.getElementById(`search-column-${tabIndex}`).value;
+            const caseSensitive = document.getElementById(`search-case-${tabIndex}`).checked;
+            const rangeMin = document.getElementById(`range-min-${tabIndex}`).value;
+            const rangeMax = document.getElementById(`range-max-${tabIndex}`).value;
+            
+            let visibleCount = 0;
+            const rows = table.getElementsByTagName('tr');
+            
+            // Skip header row
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                let shouldShow = true;
+                
+                // Text search
+                if (searchTerm) {
+                    shouldShow = matchesSearch(row, searchTerm, searchType, searchColumn, caseSensitive);
+                }
+                
+                // Number range filter
+                if (shouldShow && (rangeMin || rangeMax)) {
+                    shouldShow = matchesNumberRange(row, rangeMin, rangeMax);
+                }
+                
+                // Show/hide row
+                row.style.display = shouldShow ? '' : 'none';
+                if (shouldShow) visibleCount++;
+            }
+            
+            // Update visible count
+            updateVisibleCount(tabIndex, visibleCount);
+            
+            // Highlight search term
+            if (searchTerm) {
+                highlightSearchTerm(table, searchTerm, caseSensitive);
+            } else {
+                clearHighlights(table);
+            }
+        }
+
+        function matchesSearch(row, searchTerm, searchType, searchColumn, caseSensitive) {
+            const cells = row.getElementsByTagName('td');
+            const searchCols = searchColumn === 'all' ? 
+                Array.from(cells) : 
+                [cells[parseInt(searchColumn)]];
+            
+            const flags = caseSensitive ? 'g' : 'gi';
+            let pattern;
+            
+            try {
+                switch (searchType) {
+                    case 'exact':
+                        pattern = new RegExp(`^${escapeRegExp(searchTerm)}$`, flags);
+                        break;
+                    case 'starts':
+                        pattern = new RegExp(`^${escapeRegExp(searchTerm)}`, flags);
+                        break;
+                    case 'ends':
+                        pattern = new RegExp(`${escapeRegExp(searchTerm)}$`, flags);
+                        break;
+                    case 'regex':
+                        pattern = new RegExp(searchTerm, flags);
+                        break;
+                    default: // contains
+                        pattern = new RegExp(escapeRegExp(searchTerm), flags);
+                }
+                
+                return searchCols.some(cell => 
+                    pattern.test(cell.textContent)
+                );
+                
+            } catch (e) {
+                // Fallback to simple contains if regex fails
+                const term = caseSensitive ? searchTerm : searchTerm.toLowerCase();
+                return searchCols.some(cell => {
+                    const text = caseSensitive ? cell.textContent : cell.textContent.toLowerCase();
+                    return text.includes(term);
+                });
+            }
+        }
+
+        function matchesNumberRange(row, min, max) {
+            const cells = row.getElementsByTagName('td');
+            
+            for (let cell of cells) {
+                const value = parseFloat(cell.textContent);
+                if (!isNaN(value)) {
+                    if (min && value < parseFloat(min)) return false;
+                    if (max && value > parseFloat(max)) return false;
+                    return true;
+                }
+            }
+            return true; // No numbers found, don't filter out
+        }
+
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function highlightSearchTerm(table, searchTerm, caseSensitive) {
+            clearHighlights(table);
+            
+            if (!searchTerm) return;
+            
+            const flags = caseSensitive ? 'g' : 'gi';
+            const pattern = new RegExp(`(${escapeRegExp(searchTerm)})`, flags);
+            
+            const cells = table.getElementsByTagName('td');
+            for (let cell of cells) {
+                const originalText = cell.textContent;
+                const highlightedText = originalText.replace(pattern, '<mark class="search-highlight">$1</mark>');
+                cell.innerHTML = highlightedText;
+            }
+        }
+
+        function clearHighlights(table) {
+            const highlights = table.querySelectorAll('.search-highlight');
+            highlights.forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.textContent = parent.textContent;
+            });
+        }
+
+        function updateVisibleCount(tabIndex, count) {
+            const countElement = document.getElementById(`filtered-${tabIndex}`);
+            if (countElement) {
+                countElement.textContent = `${count} visible`;
+            }
+        }
+
+        function clearFilters(tabIndex) {
+            // Clear all search inputs
+            document.getElementById(`search-${tabIndex}`).value = '';
+            document.getElementById(`search-type-${tabIndex}`).value = 'contains';
+            document.getElementById(`search-column-${tabIndex}`).value = 'all';
+            document.getElementById(`search-case-${tabIndex}`).checked = false;
+            document.getElementById(`range-min-${tabIndex}`).value = '';
+            document.getElementById(`range-max-${tabIndex}`).value = '';
+            
+            // Show all rows
+            const table = document.getElementById(`table-${tabIndex}`);
+            if (table) {
+                const rows = table.getElementsByTagName('tr');
+                let visibleCount = 0;
+                
+                for (let i = 1; i < rows.length; i++) {
+                    rows[i].style.display = '';
+                    visibleCount++;
+                }
+                
+                clearHighlights(table);
+                updateVisibleCount(tabIndex, visibleCount);
+            }
+            
+            showNotification('All filters cleared', 'success');
+        }
+
+        function saveSearchPreset(tabIndex) {
+            const sheetName = Object.keys(dashboardData)[tabIndex];
+            const preset = {
+                searchTerm: document.getElementById(`search-${tabIndex}`).value,
+                searchType: document.getElementById(`search-type-${tabIndex}`).value,
+                searchColumn: document.getElementById(`search-column-${tabIndex}`).value,
+                caseSensitive: document.getElementById(`search-case-${tabIndex}`).checked,
+                rangeMin: document.getElementById(`range-min-${tabIndex}`).value,
+                rangeMax: document.getElementById(`range-max-${tabIndex}`).value,
+                timestamp: new Date().toISOString()
+            };
+            
+            if (!searchPresets[sheetName]) {
+                searchPresets[sheetName] = [];
+            }
+            
+            searchPresets[sheetName].push(preset);
+            localStorage.setItem('searchPresets', JSON.stringify(searchPresets));
+            
+            showNotification('Search preset saved', 'success');
+        }
+
+        function loadSearchPresets(tabIndex) {
+            const sheetName = Object.keys(dashboardData)[tabIndex];
+            return searchPresets[sheetName] || [];
         }
         
         function downloadFile(content, filename, contentType) {
