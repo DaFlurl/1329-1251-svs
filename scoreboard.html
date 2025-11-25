@@ -262,6 +262,121 @@
             letter-spacing: 0.02em;
         }
 
+        /* Enhanced Export Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: var(--glass-bg);
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .export-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85em;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 80px;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-small::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-small:hover::before {
+            left: 100%;
+        }
+
+        .btn-small i {
+            font-size: 0.9em;
+        }
+
+        .btn-small span {
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary {
+            background: 
+                linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%),
+                radial-gradient(ellipse at top, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+        }
+
+        .btn-success {
+            background: 
+                linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%),
+                radial-gradient(ellipse at top, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+        }
+
+        .export-info {
+            padding: 8px 16px;
+            background: 
+                linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%),
+                radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Export Loading States */
+        .btn-small.exporting {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-small.exporting::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            margin: -8px 0 0 -8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Export Success Animation */
+        @keyframes exportSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-small.export-success {
+            animation: exportSuccess 0.6s ease;
+            background: 
+                linear-gradient(135deg, #22c55e 0%, #16a34a 100%),
+                radial-gradient(ellipse at top, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -2054,9 +2169,34 @@
                     </div>
                     
                     <div class="controls">
-                        <button class="btn btn-small" onclick="exportToCSV(${tabIndex}, '${sheetName}')">📥 CSV</button>
-                        <button class="btn btn-small" onclick="exportToJSON(${tabIndex}, '${sheetName}')">📄 JSON</button>
-                        <button class="btn btn-small btn-success" onclick="exportAllData()">📦 All Data</button>
+                        <div class="export-group">
+                            <button class="btn btn-small" onclick="exportToCSV(${tabIndex}, '${sheetName}')" title="Export as CSV">
+                                <i class="fas fa-file-csv"></i>
+                                <span>CSV</span>
+                            </button>
+                            <button class="btn btn-small" onclick="exportToExcel(${tabIndex}, '${sheetName}')" title="Export as Excel">
+                                <i class="fas fa-file-excel"></i>
+                                <span>Excel</span>
+                            </button>
+                            <button class="btn btn-small" onclick="exportToPDF(${tabIndex}, '${sheetName}')" title="Export as PDF">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>PDF</span>
+                            </button>
+                            <button class="btn btn-small" onclick="exportToJSON(${tabIndex}, '${sheetName}')" title="Export as JSON">
+                                <i class="fas fa-file-code"></i>
+                                <span>JSON</span>
+                            </button>
+                        </div>
+                        <div class="export-group">
+                            <button class="btn btn-small btn-primary" onclick="exportFilteredData(${tabIndex}, '${sheetName}')" title="Export filtered data only">
+                                <i class="fas fa-filter"></i>
+                                <span>Filtered</span>
+                            </button>
+                            <button class="btn btn-small btn-success" onclick="exportAllData()" title="Export all worksheets">
+                                <i class="fas fa-database"></i>
+                                <span>All Data</span>
+                            </button>
+                        </div>
                         <div class="export-info">
                             <span id="filtered-${tabIndex}">${rows} visible</span>
                         </div>
@@ -2175,60 +2315,344 @@
         }
         
         function exportToCSV(tabIndex, sheetName) {
-            const table = document.getElementById(`table-${tabIndex}`);
-            if (!table) return;
+            const button = event.target.closest('.btn-small');
+            button.classList.add('exporting');
             
-            let csv = [];
-            const headers = [];
-            const headerCells = table.rows[0].cells;
-            
-            for (let i = 0; i < headerCells.length; i++) {
-                headers.push(headerCells[i].textContent);
-            }
-            csv.push(headers.join(','));
-            
-            for (let i = 1; i < table.rows.length; i++) {
-                if (table.rows[i].style.display !== 'none') {
-                    const row = [];
-                    const cells = table.rows[i].cells;
-                    for (let j = 0; j < cells.length; j++) {
-                        row.push('"' + cells[j].textContent + '"');
-                    }
-                    csv.push(row.join(','));
+            try {
+                const table = document.getElementById(`table-${tabIndex}`);
+                if (!table) throw new Error('Table not found');
+                
+                let csv = [];
+                const headers = [];
+                const headerCells = table.rows[0].cells;
+                
+                for (let i = 0; i < headerCells.length; i++) {
+                    headers.push(headerCells[i].textContent);
                 }
+                csv.push(headers.join(','));
+                
+                let exportedRows = 0;
+                for (let i = 1; i < table.rows.length; i++) {
+                    if (table.rows[i].style.display !== 'none') {
+                        const row = [];
+                        const cells = table.rows[i].cells;
+                        for (let j = 0; j < cells.length; j++) {
+                            // Proper CSV escaping
+                            let cellValue = cells[j].textContent;
+                            if (cellValue.includes('"') || cellValue.includes(',') || cellValue.includes('\n')) {
+                                cellValue = '"' + cellValue.replace(/"/g, '""') + '"';
+                            }
+                            row.push(cellValue);
+                        }
+                        csv.push(row.join(','));
+                        exportedRows++;
+                    }
+                }
+                
+                downloadFile(csv.join('\n'), `${sheetName}.csv`, 'text/csv');
+                
+                // Success feedback
+                setTimeout(() => {
+                    button.classList.remove('exporting');
+                    button.classList.add('export-success');
+                    showNotification(`${exportedRows} rows exported to CSV successfully`, 'success');
+                    setTimeout(() => button.classList.remove('export-success'), 600);
+                }, 500);
+                
+            } catch (error) {
+                button.classList.remove('exporting');
+                showNotification('CSV export failed: ' + error.message, 'error');
             }
-            
-            downloadFile(csv.join('\n'), `${sheetName}.csv`, 'text/csv');
         }
         
         function exportToJSON(tabIndex, sheetName) {
-            const table = document.getElementById(`table-${tabIndex}`);
-            if (!table) return;
+            const button = event.target.closest('.btn-small');
+            button.classList.add('exporting');
             
-            const data = [];
-            const headers = [];
-            const headerCells = table.rows[0].cells;
-            
-            for (let i = 0; i < headerCells.length; i++) {
-                headers.push(headerCells[i].textContent);
-            }
-            
-            for (let i = 1; i < table.rows.length; i++) {
-                if (table.rows[i].style.display !== 'none') {
-                    const row = {};
-                    const cells = table.rows[i].cells;
-                    for (let j = 0; j < cells.length; j++) {
-                        row[headers[j]] = cells[j].textContent;
-                    }
-                    data.push(row);
+            try {
+                const table = document.getElementById(`table-${tabIndex}`);
+                if (!table) throw new Error('Table not found');
+                
+                const data = [];
+                const headers = [];
+                const headerCells = table.rows[0].cells;
+                
+                for (let i = 0; i < headerCells.length; i++) {
+                    headers.push(headerCells[i].textContent);
                 }
+                
+                let exportedRows = 0;
+                for (let i = 1; i < table.rows.length; i++) {
+                    if (table.rows[i].style.display !== 'none') {
+                        const row = {};
+                        const cells = table.rows[i].cells;
+                        for (let j = 0; j < cells.length; j++) {
+                            const cellValue = cells[j].textContent;
+                            // Try to convert numbers
+                            const numValue = parseFloat(cellValue);
+                            row[headers[j]] = isNaN(numValue) ? cellValue : numValue;
+                        }
+                        data.push(row);
+                        exportedRows++;
+                    }
+                }
+                
+                // Create enhanced JSON with metadata
+                const jsonData = {
+                    metadata: {
+                        sheetName: sheetName,
+                        exportedAt: new Date().toISOString(),
+                        totalRows: exportedRows,
+                        columns: headers,
+                        exportType: 'filtered'
+                    },
+                    data: data
+                };
+                
+                downloadFile(JSON.stringify(jsonData, null, 2), `${sheetName}.json`, 'application/json');
+                
+                // Success feedback
+                setTimeout(() => {
+                    button.classList.remove('exporting');
+                    button.classList.add('export-success');
+                    showNotification(`${exportedRows} rows exported to JSON successfully`, 'success');
+                    setTimeout(() => button.classList.remove('export-success'), 600);
+                }, 500);
+                
+            } catch (error) {
+                button.classList.remove('exporting');
+                showNotification('JSON export failed: ' + error.message, 'error');
             }
-            
-            downloadFile(JSON.stringify(data, null, 2), `${sheetName}.json`, 'application/json');
         }
         
         function exportAllData() {
-            downloadFile(JSON.stringify(dashboardData, null, 2), 'dashboard_all_data.json', 'application/json');
+            const button = event.target.closest('.btn-small');
+            button.classList.add('exporting');
+            
+            try {
+                // Create comprehensive export with all worksheets
+                const allDataExport = {
+                    metadata: {
+                        exportedAt: new Date().toISOString(),
+                        dashboardVersion: '2.0',
+                        totalWorksheets: Object.keys(dashboardData).length,
+                        exportType: 'complete_dashboard'
+                    },
+                    summary: {
+                        worksheets: {}
+                    },
+                    data: dashboardData
+                };
+                
+                // Calculate summary statistics
+                Object.keys(dashboardData).forEach(sheetName => {
+                    const sheetInfo = dashboardData[sheetName].sheets?.[sheetName] || {};
+                    allDataExport.summary.worksheets[sheetName] = {
+                        rows: sheetInfo.rows || 0,
+                        columns: sheetInfo.columns || 0,
+                        dataPoints: (sheetInfo.rows || 0) * (sheetInfo.columns || 0)
+                    };
+                });
+                
+                downloadFile(JSON.stringify(allDataExport, null, 2), 'dashboard_complete_export.json', 'application/json');
+                
+                // Success feedback
+                setTimeout(() => {
+                    button.classList.remove('exporting');
+                    button.classList.add('export-success');
+                    showNotification(`All ${Object.keys(dashboardData).length} worksheets exported successfully`, 'success');
+                    setTimeout(() => button.classList.remove('export-success'), 600);
+                }, 500);
+                
+            } catch (error) {
+                button.classList.remove('exporting');
+                showNotification('Complete export failed: ' + error.message, 'error');
+            }
+        }
+        
+        // Enhanced Export Functions
+        function exportToExcel(tabIndex, sheetName) {
+            const button = event.target.closest('.btn-small');
+            button.classList.add('exporting');
+            
+            try {
+                const table = document.getElementById(`table-${tabIndex}`);
+                if (!table) throw new Error('Table not found');
+                
+                // Create Excel-compatible HTML table
+                let excelHtml = '<html><head><meta charset="utf-8"><title>' + sheetName + '</title></head><body>';
+                excelHtml += '<table>' + table.outerHTML + '</table></body></html>';
+                
+                // Create blob with Excel MIME type
+                const blob = new Blob([excelHtml], { 
+                    type: 'application/vnd.ms-excel;charset=utf-8' 
+                });
+                
+                downloadFile(blob, `${sheetName}.xls`, 'application/vnd.ms-excel');
+                
+                // Success feedback
+                setTimeout(() => {
+                    button.classList.remove('exporting');
+                    button.classList.add('export-success');
+                    showNotification(`${sheetName} exported to Excel successfully`, 'success');
+                    setTimeout(() => button.classList.remove('export-success'), 600);
+                }, 500);
+                
+            } catch (error) {
+                button.classList.remove('exporting');
+                showNotification('Excel export failed: ' + error.message, 'error');
+            }
+        }
+        
+        function exportToPDF(tabIndex, sheetName) {
+            const button = event.target.closest('.btn-small');
+            button.classList.add('exporting');
+            
+            try {
+                const table = document.getElementById(`table-${tabIndex}`);
+                if (!table) throw new Error('Table not found');
+                
+                // Use jsPDF library (will be loaded dynamically)
+                loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', () => {
+                    try {
+                        const { jsPDF } = window.jspdf;
+                        const doc = new jsPDF();
+                        
+                        // Add title
+                        doc.setFontSize(16);
+                        doc.text(sheetName, 14, 15);
+                        
+                        // Add timestamp
+                        doc.setFontSize(10);
+                        doc.text('Generated: ' + new Date().toLocaleString(), 14, 25);
+                        
+                        // Extract table data
+                        const headers = [];
+                        const data = [];
+                        const rows = table.querySelectorAll('tr');
+                        
+                        // Get headers
+                        const headerCells = rows[0].querySelectorAll('th');
+                        headerCells.forEach(cell => headers.push(cell.textContent));
+                        
+                        // Get data rows
+                        for (let i = 1; i < rows.length; i++) {
+                            if (rows[i].style.display !== 'none') {
+                                const rowData = [];
+                                const cells = rows[i].querySelectorAll('td');
+                                cells.forEach(cell => rowData.push(cell.textContent));
+                                data.push(rowData);
+                            }
+                        }
+                        
+                        // Create table in PDF
+                        doc.autoTable({
+                            head: [headers],
+                            body: data,
+                            startY: 35,
+                            styles: {
+                                fontSize: 8,
+                                cellPadding: 2
+                            },
+                            headStyles: {
+                                fillColor: [79, 172, 254],
+                                textColor: 255
+                            },
+                            alternateRowStyles: {
+                                fillColor: [245, 245, 245]
+                            }
+                        });
+                        
+                        // Save PDF
+                        doc.save(`${sheetName}.pdf`);
+                        
+                        // Success feedback
+                        setTimeout(() => {
+                            button.classList.remove('exporting');
+                            button.classList.add('export-success');
+                            showNotification(`${sheetName} exported to PDF successfully`, 'success');
+                            setTimeout(() => button.classList.remove('export-success'), 600);
+                        }, 500);
+                        
+                    } catch (pdfError) {
+                        button.classList.remove('exporting');
+                        showNotification('PDF generation failed: ' + pdfError.message, 'error');
+                    }
+                });
+                
+            } catch (error) {
+                button.classList.remove('exporting');
+                showNotification('PDF export failed: ' + error.message, 'error');
+            }
+        }
+        
+        function exportFilteredData(tabIndex, sheetName) {
+            const button = event.target.closest('.btn-small');
+            button.classList.add('exporting');
+            
+            try {
+                const table = document.getElementById(`table-${tabIndex}`);
+                if (!table) throw new Error('Table not found');
+                
+                // Count filtered rows
+                let visibleRows = 0;
+                for (let i = 1; i < table.rows.length; i++) {
+                    if (table.rows[i].style.display !== 'none') {
+                        visibleRows++;
+                    }
+                }
+                
+                if (visibleRows === 0) {
+                    throw new Error('No filtered data to export');
+                }
+                
+                // Export as CSV (most common format for filtered data)
+                let csv = [];
+                const headers = [];
+                const headerCells = table.rows[0].cells;
+                
+                for (let i = 0; i < headerCells.length; i++) {
+                    headers.push(headerCells[i].textContent);
+                }
+                csv.push(headers.join(','));
+                
+                for (let i = 1; i < table.rows.length; i++) {
+                    if (table.rows[i].style.display !== 'none') {
+                        const row = [];
+                        const cells = table.rows[i].cells;
+                        for (let j = 0; j < cells.length; j++) {
+                            row.push('"' + cells[j].textContent.replace(/"/g, '""') + '"');
+                        }
+                        csv.push(row.join(','));
+                    }
+                }
+                
+                downloadFile(csv.join('\n'), `${sheetName}_filtered.csv`, 'text/csv');
+                
+                // Success feedback
+                setTimeout(() => {
+                    button.classList.remove('exporting');
+                    button.classList.add('export-success');
+                    showNotification(`${visibleRows} filtered rows exported successfully`, 'success');
+                    setTimeout(() => button.classList.remove('export-success'), 600);
+                }, 500);
+                
+            } catch (error) {
+                button.classList.remove('exporting');
+                showNotification('Filtered export failed: ' + error.message, 'error');
+            }
+        }
+        
+        // Dynamic script loader
+        function loadScript(url, callback) {
+            const script = document.createElement('script');
+            script.src = url;
+            script.onload = callback;
+            script.onerror = () => {
+                showNotification('Failed to load PDF library', 'error');
+                callback();
+            };
+            document.head.appendChild(script);
         }
         
         function downloadFile(content, filename, contentType) {
