@@ -274,7 +274,7 @@
             
             // Load the HTML file in an iframe
             const iframe = document.createElement('iframe');
-            iframe.src = selectedData.html;
+            iframe.src = `${selectedData.html}?data=${selectedData.file}`;
             iframe.style.width = '100%';
             iframe.style.height = '800px';
             iframe.style.border = 'none';

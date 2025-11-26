@@ -2060,6 +2060,14 @@
         let dashboardData = {};
         let currentTab = 0;
         
+        // Get data file from URL parameter
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        const dataFile = getUrlParameter('data') || 'scoreboard-data.json';
+        
         // Theme Management
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
@@ -2133,7 +2141,7 @@
                 updateSyncStatus('syncing', 'Syncing...');
                 
                 // Fetch fresh data
-                const response = await fetch(`scoreboard-data.json?t=${Date.now()}`);
+                const response = await fetch(`${dataFile}?t=${Date.now()}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -2304,7 +2312,7 @@
         // Load data from JSON file
         async function loadDashboardData() {
             try {
-                const response = await fetch('scoreboard-data.json');
+                const response = await fetch(dataFile);
                 dashboardData = await response.json();
                 lastDataHash = generateDataHash(dashboardData);
                 initializeDashboard();
