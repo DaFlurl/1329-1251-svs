@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Dashboard - History Test v2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .selector {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .iframe-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Excel Dashboard - History</h1>
+            <p>Select a date to view historical gaming data</p>
+        </div>
+        
+        <div class="selector">
+            <label for="dataSelect"><strong>📅 Select Date:</strong></label><br><br>
+            <select id="dataSelect" onchange="loadData()">
+                <option value="">Please select a date...</option>
+                <option value="current">Monday, 24 November 2025 (407 players) - Current</option>
+                <option value="history">Sunday, 16 November 2025 (467 players) - History</option>
+            </select>
+        </div>
+        
+        <div id="iframeContainer" class="iframe-container">
+            <p style="text-align: center; padding: 50px; color: #666;">
+                Please select a date from the dropdown above to view the dashboard.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function loadData() {
+            const select = document.getElementById('dataSelect');
+            const container = document.getElementById('iframeContainer');
+            
+            if (select.value === 'current') {
+                container.innerHTML = '<iframe src="scoreboard.html?data=monday_data.json"></iframe>';
+            } else if (select.value === 'history') {
+                container.innerHTML = '<iframe src="scoreboard.html?data=scoreboard-data.json"></iframe>';
+            } else {
+                container.innerHTML = '<p style="text-align: center; padding: 50px; color: #666;">Please select a date from the dropdown above to view the dashboard.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
