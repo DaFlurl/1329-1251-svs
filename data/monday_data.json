@@ -1,3163 +1,2126 @@
 {
-  "Positive": {
-    "sheets": {
-      "Positive": {
-        "rows": 100,
-        "columns": 5,
-        "column_names": [
-          "Position",
-          "Name",
-          "Score",
-          "Alliance",
-          "Monarch ID"
-        ],
-        "data": [
-          {
-            "Position": "1",
-            "Name": "Kosmy01",
-            "Score": "7783213314.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227549021.0"
-          },
-          {
-            "Position": "2",
-            "Name": "Battlefish23",
-            "Score": "6365671040.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227503580.0"
-          },
-          {
-            "Position": "3",
-            "Name": "Ť.ý.ł.ë.r",
-            "Score": "4550489082.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212693195.0"
-          },
-          {
-            "Position": "4",
-            "Name": "Tpel",
-            "Score": "3877053759.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213131326.0"
-          },
-          {
-            "Position": "5",
-            "Name": "🤓Liquid",
-            "Score": "3238996859.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213237494.0"
-          },
-          {
-            "Position": "6",
-            "Name": "Ãńmãÿ👊",
-            "Score": "2059459224.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213195433.0"
-          },
-          {
-            "Position": "7",
-            "Name": "Mobile Suit",
-            "Score": "1389804290.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227565900.0"
-          },
-          {
-            "Position": "8",
-            "Name": "бляяя",
-            "Score": "890983889.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212526963.0"
-          },
-          {
-            "Position": "9",
-            "Name": ".Ghoul.",
-            "Score": "787134573.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227475434.0"
-          },
-          {
-            "Position": "10",
-            "Name": "N A I M A N",
-            "Score": "636392108.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227676775.0"
-          },
-          {
-            "Position": "11",
-            "Name": "爪adDoğȤȤ",
-            "Score": "558367956.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213124942.0"
-          },
-          {
-            "Position": "12",
-            "Name": "LuckyL👀",
-            "Score": "540013016.0",
-            "Alliance": "WIP",
-            "Monarch ID": "236039997.0"
-          },
-          {
-            "Position": "13",
-            "Name": "gigi猫💕",
-            "Score": "503284995.0",
-            "Alliance": "EDO",
-            "Monarch ID": "212462547.0"
-          },
-          {
-            "Position": "14",
-            "Name": "Hiriamu-saki",
-            "Score": "389432790.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227673343.0"
-          },
-          {
-            "Position": "15",
-            "Name": "Ten🅰️nt",
-            "Score": "328624743.0",
-            "Alliance": "RFR",
-            "Monarch ID": "249313436.0"
-          },
-          {
-            "Position": "16",
-            "Name": "El Bango Wifo",
-            "Score": "321539094.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212377832.0"
-          },
-          {
-            "Position": "17",
-            "Name": "Zed DarknI8",
-            "Score": "281822935.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212809324.0"
-          },
-          {
-            "Position": "18",
-            "Name": "Whatisup",
-            "Score": "211103336.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227722546.0"
-          },
-          {
-            "Position": "19",
-            "Name": "Mąiyara😼",
-            "Score": "54235034.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227663540.0"
-          },
-          {
-            "Position": "20",
-            "Name": "🇹🇷TURK",
-            "Score": "47563323.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227680893.0"
-          },
-          {
-            "Position": "21",
-            "Name": "Kuno1929🔥",
-            "Score": "46660626.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227466349.0"
-          },
-          {
-            "Position": "22",
-            "Name": "M€G∆°",
-            "Score": "30010505.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227583231.0"
-          },
-          {
-            "Position": "23",
-            "Name": "blodymarry",
-            "Score": "20968034.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227667738.0"
-          },
-          {
-            "Position": "24",
-            "Name": "BigPoppa_Trip",
-            "Score": "19629696.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212372000.0"
-          },
-          {
-            "Position": "25",
-            "Name": "Nichoa14",
-            "Score": "18631538.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227474940.0"
-          },
-          {
-            "Position": "26",
-            "Name": "Wi🆔Ant",
-            "Score": "16853635.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227559825.0"
-          },
-          {
-            "Position": "27",
-            "Name": "£@∆¥",
-            "Score": "16478552.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227464363.0"
-          },
-          {
-            "Position": "28",
-            "Name": "Carl_",
-            "Score": "13597705.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227607707.0"
-          },
-          {
-            "Position": "29",
-            "Name": "༺-Raj-༻",
-            "Score": "12708536.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212723878.0"
-          },
-          {
-            "Position": "30",
-            "Name": "KT 37",
-            "Score": "10872281.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227691240.0"
-          },
-          {
-            "Position": "31",
-            "Name": "nomads realm",
-            "Score": "7671381.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227594452.0"
-          },
-          {
-            "Position": "35",
-            "Name": "Miret ⚜️",
-            "Score": "5975400.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212656992.0"
-          },
-          {
-            "Position": "36",
-            "Name": "Skippy :",
-            "Score": "5779927.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212873162.0"
-          },
-          {
-            "Position": "37",
-            "Name": "🐉 Draķøn",
-            "Score": "3555884.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212423000.0"
-          },
-          {
-            "Position": "38",
-            "Name": "🐀ЯaT🐀",
-            "Score": "3501618.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227782897.0"
-          },
-          {
-            "Position": "39",
-            "Name": "Witty calf",
-            "Score": "3401500.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212729512.0"
-          },
-          {
-            "Position": "40",
-            "Name": "薔薇真音",
-            "Score": "3321400.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212634404.0"
-          },
-          {
-            "Position": "41",
-            "Name": "revx73",
-            "Score": "3066000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212728426.0"
-          },
-          {
-            "Position": "42",
-            "Name": "Demy'an🪂",
-            "Score": "2977130.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227777618.0"
-          },
-          {
-            "Position": "43",
-            "Name": "ZebZ",
-            "Score": "2745315.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212681134.0"
-          },
-          {
-            "Position": "44",
-            "Name": "Adæbrak95",
-            "Score": "2520942.0",
-            "Alliance": "RFR",
-            "Monarch ID": "247899350.0"
-          },
-          {
-            "Position": "45",
-            "Name": "Alexander545",
-            "Score": "2500000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "227482847.0"
-          },
-          {
-            "Position": "46",
-            "Name": "Rev…Salomé",
-            "Score": "2403000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "227682215.0"
-          },
-          {
-            "Position": "47",
-            "Name": "💫Mirabella",
-            "Score": "2346800.0",
-            "Alliance": "R62",
-            "Monarch ID": "227520951.0"
-          },
-          {
-            "Position": "48",
-            "Name": "~uoslod~💀",
-            "Score": "2278500.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212446060.0"
-          },
-          {
-            "Position": "49",
-            "Name": "T@ni9",
-            "Score": "1891900.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212726670.0"
-          },
-          {
-            "Position": "50",
-            "Name": "🦄 dr@gyn",
-            "Score": "1847943.0",
-            "Alliance": "RFR",
-            "Monarch ID": "213148786.0"
-          },
-          {
-            "Position": "51",
-            "Name": "Ballboy-Ref",
-            "Score": "1745505.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227600651.0"
-          },
-          {
-            "Position": "52",
-            "Name": "Shadowfax23",
-            "Score": "1741000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213143241.0"
-          },
-          {
-            "Position": "53",
-            "Name": "PriTle",
-            "Score": "1700000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "337439248.0"
-          },
-          {
-            "Position": "54",
-            "Name": "XuKa_17",
-            "Score": "1515500.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212759680.0"
-          },
-          {
-            "Position": "56",
-            "Name": "LC Peoria",
-            "Score": "1242000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "227724599.0"
-          },
-          {
-            "Position": "55",
-            "Name": "MönNôr🫟",
-            "Score": "1481500.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227445408.0"
-          },
-          {
-            "Position": "57",
-            "Name": "Lipofortro",
-            "Score": "1230500.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212523984.0"
-          },
-          {
-            "Position": "58",
-            "Name": "Lost Calis",
-            "Score": "1175000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213129311.0"
-          },
-          {
-            "Position": "59",
-            "Name": "Lipoghosto",
-            "Score": "1127000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212704196.0"
-          },
-          {
-            "Position": "62",
-            "Name": "yvan70",
-            "Score": "1100000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212733396.0"
-          },
-          {
-            "Position": "60",
-            "Name": "tony 12.00",
-            "Score": "1101500.0",
-            "Alliance": "R62",
-            "Monarch ID": "212727872.0"
-          },
-          {
-            "Position": "61",
-            "Name": "Victoria.¶",
-            "Score": "1100000.0",
-            "Alliance": "WIP",
-            "Monarch ID": "228328590.0"
-          },
-          {
-            "Position": "63",
-            "Name": "Jessivan24",
-            "Score": "1049628.0",
-            "Alliance": "R62",
-            "Monarch ID": "227558402.0"
-          },
-          {
-            "Position": "64",
-            "Name": "southpaw31",
-            "Score": "1040444.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227730774.0"
-          },
-          {
-            "Position": "65",
-            "Name": "Auz | FM 00.0",
-            "Score": "942613.0",
-            "Alliance": "tag",
-            "Monarch ID": "268518039.0"
-          },
-          {
-            "Position": "66",
-            "Name": "Tuckahoe Bob",
-            "Score": "937618.0",
-            "Alliance": "KGT",
-            "Monarch ID": "283081947.0"
-          },
-          {
-            "Position": "67",
-            "Name": "Storm ..",
-            "Score": "857000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212695146.0"
-          },
-          {
-            "Position": "68",
-            "Name": "Armored Saint",
-            "Score": "801500.0",
-            "Alliance": "RFR",
-            "Monarch ID": "213132035.0"
-          },
-          {
-            "Position": "70",
-            "Name": "Spincaster",
-            "Score": "800000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213146668.0"
-          },
-          {
-            "Position": "71",
-            "Name": "BigFin 🔱",
-            "Score": "786200.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212753470.0"
-          },
-          {
-            "Position": "69",
-            "Name": "Bill⚔️Bo",
-            "Score": "800000.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227547297.0"
-          },
-          {
-            "Position": "72",
-            "Name": "Lob€lia🔹",
-            "Score": "726600.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212666492.0"
-          },
-          {
-            "Position": "74",
-            "Name": "<ŤŞ>",
-            "Score": "669700.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212573924.0"
-          },
-          {
-            "Position": "75",
-            "Name": "Monarc Tonito",
-            "Score": "660000.0",
-            "Alliance": "tag",
-            "Monarch ID": "227576789.0"
-          },
-          {
-            "Position": "73",
-            "Name": "Warden Ves",
-            "Score": "700000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "268222487.0"
-          },
-          {
-            "Position": "76",
-            "Name": "Ëurøpastår",
-            "Score": "641000.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212690198.0"
-          },
-          {
-            "Position": "80",
-            "Name": "Lineman Sweet",
-            "Score": "600000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213115911.0"
-          },
-          {
-            "Position": "81",
-            "Name": "Pόnτος",
-            "Score": "600000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212226071.0"
-          },
-          {
-            "Position": "77",
-            "Name": "Ironman-79",
-            "Score": "621000.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212644067.0"
-          },
-          {
-            "Position": "78",
-            "Name": "Becks Prime",
-            "Score": "610500.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213108732.0"
-          },
-          {
-            "Position": "79",
-            "Name": "T R I D E V",
-            "Score": "600000.0",
-            "Alliance": "R62",
-            "Monarch ID": "227683562.0"
-          },
-          {
-            "Position": "82",
-            "Name": "HuckleberryPi",
-            "Score": "597500.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212666102.0"
-          },
-          {
-            "Position": "83",
-            "Name": "Dusty616",
-            "Score": "594621.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213064806.0"
-          },
-          {
-            "Position": "87",
-            "Name": "Uriah's Heap",
-            "Score": "503000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213193476.0"
-          },
-          {
-            "Position": "84",
-            "Name": "α Scorpii",
-            "Score": "570500.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227486771.0"
-          },
-          {
-            "Position": "85",
-            "Name": "SavetheEarth",
-            "Score": "537500.0",
-            "Alliance": "R62",
-            "Monarch ID": "227683076.0"
-          },
-          {
-            "Position": "86",
-            "Name": "Blackmagic9",
-            "Score": "518000.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212743899.0"
-          },
-          {
-            "Position": "88",
-            "Name": "Chesty LaRue",
-            "Score": "501529.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227700070.0"
-          },
-          {
-            "Position": "91",
-            "Name": "😎 KW",
-            "Score": "500000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212669676.0"
-          },
-          {
-            "Position": "92",
-            "Name": "Bailey 78",
-            "Score": "500000.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212493596.0"
-          },
-          {
-            "Position": "89",
-            "Name": "Tusnicht",
-            "Score": "501500.0",
-            "Alliance": "RFR",
-            "Monarch ID": "237765908.0"
-          },
-          {
-            "Position": "90",
-            "Name": "MO.G",
-            "Score": "500000.0",
-            "Alliance": "HTS",
-            "Monarch ID": "227535019.0"
-          },
-          {
-            "Position": "93",
-            "Name": "gueofstyria",
-            "Score": "498432.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227757064.0"
-          },
-          {
-            "Position": "94",
-            "Name": "SaraPalestine",
-            "Score": "448000.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227578404.0"
-          },
-          {
-            "Position": "95",
-            "Name": "Queen  Chaos",
-            "Score": "447500.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212748266.0"
-          },
-          {
-            "Position": "96",
-            "Name": "Red Princessa",
-            "Score": "437500.0",
-            "Alliance": "JFF",
-            "Monarch ID": "272719153.0"
-          },
-          {
-            "Position": "97",
-            "Name": "H0n3y~B@dg3R",
-            "Score": "401500.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212654856.0"
-          },
-          {
-            "Position": "99",
-            "Name": "TITANIUS WAR",
-            "Score": "374757.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227754221.0"
-          },
-          {
-            "Position": "100",
-            "Name": "jsyphil d2",
-            "Score": "353751.0",
-            "Alliance": "TDS",
-            "Monarch ID": "239702456.0"
-          },
-          {
-            "Position": "98",
-            "Name": "Flynx",
-            "Score": "400000.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212638976.0"
-          },
-          {
-            "Position": null,
-            "Name": null,
-            "Score": "35119270006.0",
-            "Alliance": null,
-            "Monarch ID": null
-          },
-          {
-            "Position": "Created with Ragebot",
-            "Name": null,
-            "Score": null,
-            "Alliance": null,
-            "Monarch ID": null
-          },
-          {
-            "Position": "http://rage.systems",
-            "Name": null,
-            "Score": null,
-            "Alliance": null,
-            "Monarch ID": null
-          }
-        ]
-      }
+  "positive": [
+    {
+      "position": 1,
+      "name": "Kosmy01",
+      "score": 7783213314.0,
+      "alliance": "WIP",
+      "monarchId": "227549021.0"
     },
-    "analysis": {
-      "success": true,
-      "data_quality": {
-        "total_rows": 100,
-        "total_columns": 5,
-        "total_cells": 500,
-        "filled_cells": "488",
-        "empty_cells": "12",
-        "completeness": 97.6,
-        "duplicate_rows": "0",
-        "overall_score": 97.6
-      },
-      "column_analysis": {
-        "Position": {
-          "type": "object",
-          "null_count": "1",
-          "unique_count": 99,
-          "completeness": 99.0
-        },
-        "Name": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 97,
-          "completeness": 97.0
-        },
-        "Score": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 92,
-          "completeness": 98.0
-        },
-        "Alliance": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 10,
-          "completeness": 97.0
-        },
-        "Monarch ID": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 97,
-          "completeness": 97.0
-        }
-      }
-    }
-  },
-  "Negative": {
-    "sheets": {
-      "Negative": {
-        "rows": 65,
-        "columns": 5,
-        "column_names": [
-          "Position",
-          "Name",
-          "Score",
-          "Alliance",
-          "Monarch ID"
-        ],
-        "data": [
-          {
-            "Position": "1",
-            "Name": "Ť.ý.ł.ë.r",
-            "Score": "-7158793216.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212693195.0"
-          },
-          {
-            "Position": "2",
-            "Name": "Kosmy01",
-            "Score": "-5506206720.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227549021.0"
-          },
-          {
-            "Position": "3",
-            "Name": "Battlefish23",
-            "Score": "-4532495872.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227503580.0"
-          },
-          {
-            "Position": "4",
-            "Name": "Tpel",
-            "Score": "-3108196608.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213131326.0"
-          },
-          {
-            "Position": "5",
-            "Name": "🤓Liquid",
-            "Score": "-2703941888.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213237494.0"
-          },
-          {
-            "Position": "6",
-            "Name": "Ãńmãÿ👊",
-            "Score": "-2677435648.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213195433.0"
-          },
-          {
-            "Position": "7",
-            "Name": "Mobile Suit",
-            "Score": "-1473505280.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227565900.0"
-          },
-          {
-            "Position": "8",
-            "Name": ".Ghoul.",
-            "Score": "-1273221120.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227475434.0"
-          },
-          {
-            "Position": "9",
-            "Name": "N A I M A N",
-            "Score": "-1056293056.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227676775.0"
-          },
-          {
-            "Position": "10",
-            "Name": "бляяя",
-            "Score": "-924866112.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212526963.0"
-          },
-          {
-            "Position": "11",
-            "Name": "Hiriamu-saki",
-            "Score": "-877361856.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227673343.0"
-          },
-          {
-            "Position": "12",
-            "Name": "LuckyL👀",
-            "Score": "-816217664.0",
-            "Alliance": "WIP",
-            "Monarch ID": "236039997.0"
-          },
-          {
-            "Position": "13",
-            "Name": "gigi猫💕",
-            "Score": "-628049472.0",
-            "Alliance": "EDO",
-            "Monarch ID": "212462547.0"
-          },
-          {
-            "Position": "14",
-            "Name": "El Bango Wifo",
-            "Score": "-559656192.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212377832.0"
-          },
-          {
-            "Position": "16",
-            "Name": "ZebZ",
-            "Score": "-422609984.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212681134.0"
-          },
-          {
-            "Position": "17",
-            "Name": "Abramelin-san",
-            "Score": "-378426880.0",
-            "Alliance": "R62",
-            "Monarch ID": "227563676.0"
-          },
-          {
-            "Position": "18",
-            "Name": "Whatisup",
-            "Score": "-328908928.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227722546.0"
-          },
-          {
-            "Position": "19",
-            "Name": "🇹🇷TURK",
-            "Score": "-265510304.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227680893.0"
-          },
-          {
-            "Position": "20",
-            "Name": "Zed DarknI8",
-            "Score": "-252181184.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212809324.0"
-          },
-          {
-            "Position": "21",
-            "Name": "Ten🅰️nt",
-            "Score": "-216143888.0",
-            "Alliance": "RFR",
-            "Monarch ID": "249313436.0"
-          },
-          {
-            "Position": "22",
-            "Name": "Skippy :",
-            "Score": "-202011056.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212873162.0"
-          },
-          {
-            "Position": "15",
-            "Name": "Carl_",
-            "Score": "-461826944.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227607707.0"
-          },
-          {
-            "Position": "25",
-            "Name": "TITANIUS WAR",
-            "Score": "-162595440.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227754221.0"
-          },
-          {
-            "Position": "28",
-            "Name": "Cogitoergo€",
-            "Score": "-125965664.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227629211.0"
-          },
-          {
-            "Position": "30",
-            "Name": "Mąiyara😼",
-            "Score": "-81240888.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227663540.0"
-          },
-          {
-            "Position": "32",
-            "Name": "爪adDoğȤȤ",
-            "Score": "-70812000.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213124942.0"
-          },
-          {
-            "Position": "23",
-            "Name": "🐀ЯaT🐀",
-            "Score": "-172558080.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227782897.0"
-          },
-          {
-            "Position": "24",
-            "Name": "Jessivan24",
-            "Score": "-169663696.0",
-            "Alliance": "R62",
-            "Monarch ID": "227558402.0"
-          },
-          {
-            "Position": "26",
-            "Name": "Kuno1929🔥",
-            "Score": "-136731088.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227466349.0"
-          },
-          {
-            "Position": "27",
-            "Name": "Nichoa14",
-            "Score": "-128133520.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227474940.0"
-          },
-          {
-            "Position": "29",
-            "Name": "southpaw31",
-            "Score": "-102600456.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227730774.0"
-          },
-          {
-            "Position": "31",
-            "Name": "KODIAK EMPIRE",
-            "Score": "-78793272.0",
-            "Alliance": "R62",
-            "Monarch ID": "227469282.0"
-          },
-          {
-            "Position": "33",
-            "Name": "M€G∆°",
-            "Score": "-65161676.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227583231.0"
-          },
-          {
-            "Position": "35",
-            "Name": "Wi🆔Ant",
-            "Score": "-46501344.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227559825.0"
-          },
-          {
-            "Position": "37",
-            "Name": "Monarch227582255",
-            "Score": "-40700060.0",
-            "Alliance": "AXE",
-            "Monarch ID": "227582255.0"
-          },
-          {
-            "Position": "38",
-            "Name": "KT 37",
-            "Score": "-36854576.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227691240.0"
-          },
-          {
-            "Position": "39",
-            "Name": "nosocialogica",
-            "Score": "-30281296.0",
-            "Alliance": "tag",
-            "Monarch ID": "227724394.0"
-          },
-          {
-            "Position": "40",
-            "Name": "£@∆¥",
-            "Score": "-23484188.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227464363.0"
-          },
-          {
-            "Position": "42",
-            "Name": "nomads realm",
-            "Score": "-21772808.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227594452.0"
-          },
-          {
-            "Position": "34",
-            "Name": "gueofstyria",
-            "Score": "-60498760.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227757064.0"
-          },
-          {
-            "Position": "36",
-            "Name": "Raven1/4All",
-            "Score": "-45922500.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227703006.0"
-          },
-          {
-            "Position": "41",
-            "Name": "ottoman-state",
-            "Score": "-23012028.0",
-            "Alliance": "WIP",
-            "Monarch ID": "280798391.0"
-          },
-          {
-            "Position": "43",
-            "Name": "🐉 Draķøn",
-            "Score": "-10717453.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212423000.0"
-          },
-          {
-            "Position": "47",
-            "Name": "🦄 dr@gyn",
-            "Score": "-9972204.0",
-            "Alliance": "RFR",
-            "Monarch ID": "213148786.0"
-          },
-          {
-            "Position": "51",
-            "Name": "Dusty616",
-            "Score": "-1673000.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213064806.0"
-          },
-          {
-            "Position": "44",
-            "Name": "Auz | FM 00.0",
-            "Score": "-10656854.0",
-            "Alliance": "tag",
-            "Monarch ID": "268518039.0"
-          },
-          {
-            "Position": "45",
-            "Name": "Demy'an🪂",
-            "Score": "-10324026.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227777618.0"
-          },
-          {
-            "Position": "46",
-            "Name": "Adæbrak95",
-            "Score": "-9974689.0",
-            "Alliance": "RFR",
-            "Monarch ID": "247899350.0"
-          },
-          {
-            "Position": "48",
-            "Name": "Chesty LaRue",
-            "Score": "-4915489.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227700070.0"
-          },
-          {
-            "Position": "49",
-            "Name": "J@smiπe",
-            "Score": "-4906125.0",
-            "Alliance": "EDO",
-            "Monarch ID": "212423549.0"
-          },
-          {
-            "Position": "50",
-            "Name": "Monarch227566737",
-            "Score": "-2881545.0",
-            "Alliance": "SMP",
-            "Monarch ID": "227566737.0"
-          },
-          {
-            "Position": "52",
-            "Name": "Panzer'sTOM",
-            "Score": "-1111900.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212815871.0"
-          },
-          {
-            "Position": "53",
-            "Name": "blodymarry",
-            "Score": "-964759.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227667738.0"
-          },
-          {
-            "Position": "54",
-            "Name": "BigPoppa_Trip",
-            "Score": "-760387.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212372000.0"
-          },
-          {
-            "Position": "55",
-            "Name": "💫Mirabella",
-            "Score": "-328468.0",
-            "Alliance": "R62",
-            "Monarch ID": "227520951.0"
-          },
-          {
-            "Position": "56",
-            "Name": "Zippitydooda",
-            "Score": "-149900.0",
-            "Alliance": "TDS",
-            "Monarch ID": "213144490.0"
-          },
-          {
-            "Position": "57",
-            "Name": "JimmyTerrific",
-            "Score": "-59060.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227509745.0"
-          },
-          {
-            "Position": "58",
-            "Name": "jsyphil d2",
-            "Score": "-43470.0",
-            "Alliance": "TDS",
-            "Monarch ID": "239702456.0"
-          },
-          {
-            "Position": "60",
-            "Name": "Spirit Box 13",
-            "Score": "-12540.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227482667.0"
-          },
-          {
-            "Position": "61",
-            "Name": "༺-Raj-༻",
-            "Score": "-12180.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212723878.0"
-          },
-          {
-            "Position": "62",
-            "Name": "Tuckahoe Bob",
-            "Score": "-45.0",
-            "Alliance": "KGT",
-            "Monarch ID": "283081947.0"
-          },
-          {
-            "Position": "59",
-            "Name": "Ball Butter",
-            "Score": "-23393.0",
-            "Alliance": "KGT",
-            "Monarch ID": "361625567.0"
-          },
-          {
-            "Position": null,
-            "Name": null,
-            "Score": "-37516630699.0",
-            "Alliance": null,
-            "Monarch ID": null
-          },
-          {
-            "Position": "Created with Ragebot",
-            "Name": null,
-            "Score": null,
-            "Alliance": null,
-            "Monarch ID": null
-          },
-          {
-            "Position": "http://rage.systems",
-            "Name": null,
-            "Score": null,
-            "Alliance": null,
-            "Monarch ID": null
-          }
-        ]
-      }
+    {
+      "position": 2,
+      "name": "Battlefish23",
+      "score": 6365671040.0,
+      "alliance": "RFR",
+      "monarchId": "227503580.0"
     },
-    "analysis": {
-      "success": true,
-      "data_quality": {
-        "total_rows": 65,
-        "total_columns": 5,
-        "total_cells": 325,
-        "filled_cells": "313",
-        "empty_cells": "12",
-        "completeness": 96.3076923076923,
-        "duplicate_rows": "0",
-        "overall_score": 96.3076923076923
-      },
-      "column_analysis": {
-        "Position": {
-          "type": "object",
-          "null_count": "1",
-          "unique_count": 64,
-          "completeness": 98.46153846153847
-        },
-        "Name": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 62,
-          "completeness": 95.38461538461539
-        },
-        "Score": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 63,
-          "completeness": 96.92307692307692
-        },
-        "Alliance": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 11,
-          "completeness": 95.38461538461539
-        },
-        "Monarch ID": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 62,
-          "completeness": 95.38461538461539
-        }
-      }
-    }
-  },
-  "Combined": {
-    "sheets": {
-      "Combined": {
-        "rows": 114,
-        "columns": 7,
-        "column_names": [
-          "Position",
-          "Name",
-          "Total Score",
-          "Positive",
-          "Negative",
-          "Alliance",
-          "Monarch ID"
-        ],
-        "data": [
-          {
-            "Position": "1",
-            "Name": "Kosmy01",
-            "Total Score": "2277006594.0",
-            "Positive": "7783213314.0",
-            "Negative": "-5506206720.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227549021.0"
-          },
-          {
-            "Position": "2",
-            "Name": "Battlefish23",
-            "Total Score": "1833175168.0",
-            "Positive": "6365671040.0",
-            "Negative": "-4532495872.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227503580.0"
-          },
-          {
-            "Position": "3",
-            "Name": "Tpel",
-            "Total Score": "768857151.0",
-            "Positive": "3877053759.0",
-            "Negative": "-3108196608.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213131326.0"
-          },
-          {
-            "Position": "4",
-            "Name": "🤓Liquid",
-            "Total Score": "535054971.0",
-            "Positive": "3238996859.0",
-            "Negative": "-2703941888.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213237494.0"
-          },
-          {
-            "Position": "5",
-            "Name": "爪adDoğȤȤ",
-            "Total Score": "487555956.0",
-            "Positive": "558367956.0",
-            "Negative": "-70812000.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213124942.0"
-          },
-          {
-            "Position": "6",
-            "Name": "Ten🅰️nt",
-            "Total Score": "112480855.0",
-            "Positive": "328624743.0",
-            "Negative": "-216143888.0",
-            "Alliance": "RFR",
-            "Monarch ID": "249313436.0"
-          },
-          {
-            "Position": "7",
-            "Name": "Zed DarknI8",
-            "Total Score": "29641751.0",
-            "Positive": "281822935.0",
-            "Negative": "-252181184.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212809324.0"
-          },
-          {
-            "Position": "8",
-            "Name": "blodymarry",
-            "Total Score": "20003275.0",
-            "Positive": "20968034.0",
-            "Negative": "-964759.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227667738.0"
-          },
-          {
-            "Position": "9",
-            "Name": "BigPoppa_Trip",
-            "Total Score": "18869309.0",
-            "Positive": "19629696.0",
-            "Negative": "-760387.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212372000.0"
-          },
-          {
-            "Position": "10",
-            "Name": "༺-Raj-༻",
-            "Total Score": "12696356.0",
-            "Positive": "12708536.0",
-            "Negative": "-12180.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212723878.0"
-          },
-          {
-            "Position": "11",
-            "Name": "Miret ⚜️",
-            "Total Score": "5975400.0",
-            "Positive": "5975400.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212656992.0"
-          },
-          {
-            "Position": "12",
-            "Name": "Witty calf",
-            "Total Score": "3401500.0",
-            "Positive": "3401500.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212729512.0"
-          },
-          {
-            "Position": "13",
-            "Name": "薔薇真音",
-            "Total Score": "3321400.0",
-            "Positive": "3321400.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212634404.0"
-          },
-          {
-            "Position": "14",
-            "Name": "revx73",
-            "Total Score": "3066000.0",
-            "Positive": "3066000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212728426.0"
-          },
-          {
-            "Position": "15",
-            "Name": "Alexander545",
-            "Total Score": "2500000.0",
-            "Positive": "2500000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "227482847.0"
-          },
-          {
-            "Position": "16",
-            "Name": "Rev…Salomé",
-            "Total Score": "2403000.0",
-            "Positive": "2403000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "227682215.0"
-          },
-          {
-            "Position": "17",
-            "Name": "~uoslod~💀",
-            "Total Score": "2278500.0",
-            "Positive": "2278500.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212446060.0"
-          },
-          {
-            "Position": "18",
-            "Name": "💫Mirabella",
-            "Total Score": "2018332.0",
-            "Positive": "2346800.0",
-            "Negative": "-328468.0",
-            "Alliance": "R62",
-            "Monarch ID": "227520951.0"
-          },
-          {
-            "Position": "19",
-            "Name": "T@ni9",
-            "Total Score": "1891900.0",
-            "Positive": "1891900.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212726670.0"
-          },
-          {
-            "Position": "20",
-            "Name": "Ballboy-Ref",
-            "Total Score": "1745505.0",
-            "Positive": "1745505.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227600651.0"
-          },
-          {
-            "Position": "21",
-            "Name": "Shadowfax23",
-            "Total Score": "1741000.0",
-            "Positive": "1741000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213143241.0"
-          },
-          {
-            "Position": "22",
-            "Name": "PriTle",
-            "Total Score": "1700000.0",
-            "Positive": "1700000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "337439248.0"
-          },
-          {
-            "Position": "23",
-            "Name": "XuKa_17",
-            "Total Score": "1515500.0",
-            "Positive": "1515500.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212759680.0"
-          },
-          {
-            "Position": "24",
-            "Name": "MönNôr🫟",
-            "Total Score": "1481500.0",
-            "Positive": "1481500.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227445408.0"
-          },
-          {
-            "Position": "25",
-            "Name": "LC Peoria",
-            "Total Score": "1242000.0",
-            "Positive": "1242000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "227724599.0"
-          },
-          {
-            "Position": "26",
-            "Name": "Lipofortro",
-            "Total Score": "1230500.0",
-            "Positive": "1230500.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212523984.0"
-          },
-          {
-            "Position": "27",
-            "Name": "Lost Calis",
-            "Total Score": "1175000.0",
-            "Positive": "1175000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213129311.0"
-          },
-          {
-            "Position": "28",
-            "Name": "Lipoghosto",
-            "Total Score": "1127000.0",
-            "Positive": "1127000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212704196.0"
-          },
-          {
-            "Position": "29",
-            "Name": "tony 12.00",
-            "Total Score": "1101500.0",
-            "Positive": "1101500.0",
-            "Negative": "0.0",
-            "Alliance": "R62",
-            "Monarch ID": "212727872.0"
-          },
-          {
-            "Position": "30",
-            "Name": "yvan70",
-            "Total Score": "1100000.0",
-            "Positive": "1100000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212733396.0"
-          },
-          {
-            "Position": "31",
-            "Name": "Victoria.¶",
-            "Total Score": "1100000.0",
-            "Positive": "1100000.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "228328590.0"
-          },
-          {
-            "Position": "32",
-            "Name": "Tuckahoe Bob",
-            "Total Score": "937573.0",
-            "Positive": "937618.0",
-            "Negative": "-45.0",
-            "Alliance": "KGT",
-            "Monarch ID": "283081947.0"
-          },
-          {
-            "Position": "33",
-            "Name": "Storm ..",
-            "Total Score": "857000.0",
-            "Positive": "857000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212695146.0"
-          },
-          {
-            "Position": "34",
-            "Name": "Armored Saint",
-            "Total Score": "801500.0",
-            "Positive": "801500.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "213132035.0"
-          },
-          {
-            "Position": "35",
-            "Name": "Spincaster",
-            "Total Score": "800000.0",
-            "Positive": "800000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213146668.0"
-          },
-          {
-            "Position": "36",
-            "Name": "Bill⚔️Bo",
-            "Total Score": "800000.0",
-            "Positive": "800000.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227547297.0"
-          },
-          {
-            "Position": "37",
-            "Name": "BigFin 🔱",
-            "Total Score": "786200.0",
-            "Positive": "786200.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212753470.0"
-          },
-          {
-            "Position": "38",
-            "Name": "Lob€lia🔹",
-            "Total Score": "726600.0",
-            "Positive": "726600.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212666492.0"
-          },
-          {
-            "Position": "39",
-            "Name": "Warden Ves",
-            "Total Score": "700000.0",
-            "Positive": "700000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "268222487.0"
-          },
-          {
-            "Position": "40",
-            "Name": "<ŤŞ>",
-            "Total Score": "669700.0",
-            "Positive": "669700.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212573924.0"
-          },
-          {
-            "Position": "41",
-            "Name": "Monarc Tonito",
-            "Total Score": "660000.0",
-            "Positive": "660000.0",
-            "Negative": "0.0",
-            "Alliance": "tag",
-            "Monarch ID": "227576789.0"
-          },
-          {
-            "Position": "42",
-            "Name": "Ëurøpastår",
-            "Total Score": "641000.0",
-            "Positive": "641000.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212690198.0"
-          },
-          {
-            "Position": "43",
-            "Name": "Ironman-79",
-            "Total Score": "621000.0",
-            "Positive": "621000.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212644067.0"
-          },
-          {
-            "Position": "44",
-            "Name": "Becks Prime",
-            "Total Score": "610500.0",
-            "Positive": "610500.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213108732.0"
-          },
-          {
-            "Position": "45",
-            "Name": "Lineman Sweet",
-            "Total Score": "600000.0",
-            "Positive": "600000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213115911.0"
-          },
-          {
-            "Position": "46",
-            "Name": "Pόnτος",
-            "Total Score": "600000.0",
-            "Positive": "600000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212226071.0"
-          },
-          {
-            "Position": "47",
-            "Name": "T R I D E V",
-            "Total Score": "600000.0",
-            "Positive": "600000.0",
-            "Negative": "0.0",
-            "Alliance": "R62",
-            "Monarch ID": "227683562.0"
-          },
-          {
-            "Position": "48",
-            "Name": "HuckleberryPi",
-            "Total Score": "597500.0",
-            "Positive": "597500.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212666102.0"
-          },
-          {
-            "Position": "49",
-            "Name": "α Scorpii",
-            "Total Score": "570500.0",
-            "Positive": "570500.0",
-            "Negative": "0.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227486771.0"
-          },
-          {
-            "Position": "50",
-            "Name": "SavetheEarth",
-            "Total Score": "537500.0",
-            "Positive": "537500.0",
-            "Negative": "0.0",
-            "Alliance": "R62",
-            "Monarch ID": "227683076.0"
-          },
-          {
-            "Position": "51",
-            "Name": "Blackmagic9",
-            "Total Score": "518000.0",
-            "Positive": "518000.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212743899.0"
-          },
-          {
-            "Position": "52",
-            "Name": "Uriah's Heap",
-            "Total Score": "503000.0",
-            "Positive": "503000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "213193476.0"
-          },
-          {
-            "Position": "53",
-            "Name": "Tusnicht",
-            "Total Score": "501500.0",
-            "Positive": "501500.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "237765908.0"
-          },
-          {
-            "Position": "54",
-            "Name": "😎 KW",
-            "Total Score": "500000.0",
-            "Positive": "500000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212669676.0"
-          },
-          {
-            "Position": "55",
-            "Name": "Bailey 78",
-            "Total Score": "500000.0",
-            "Positive": "500000.0",
-            "Negative": "0.0",
-            "Alliance": "PHX",
-            "Monarch ID": "212493596.0"
-          },
-          {
-            "Position": "56",
-            "Name": "MO.G",
-            "Total Score": "500000.0",
-            "Positive": "500000.0",
-            "Negative": "0.0",
-            "Alliance": "HTS",
-            "Monarch ID": "227535019.0"
-          },
-          {
-            "Position": "57",
-            "Name": "SaraPalestine",
-            "Total Score": "448000.0",
-            "Positive": "448000.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227578404.0"
-          },
-          {
-            "Position": "58",
-            "Name": "Queen  Chaos",
-            "Total Score": "447500.0",
-            "Positive": "447500.0",
-            "Negative": "0.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212748266.0"
-          },
-          {
-            "Position": "59",
-            "Name": "Red Princessa",
-            "Total Score": "437500.0",
-            "Positive": "437500.0",
-            "Negative": "0.0",
-            "Alliance": "JFF",
-            "Monarch ID": "272719153.0"
-          },
-          {
-            "Position": "60",
-            "Name": "H0n3y~B@dg3R",
-            "Total Score": "401500.0",
-            "Positive": "401500.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212654856.0"
-          },
-          {
-            "Position": "61",
-            "Name": "Flynx",
-            "Total Score": "400000.0",
-            "Positive": "400000.0",
-            "Negative": "0.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212638976.0"
-          },
-          {
-            "Position": "62",
-            "Name": "jsyphil d2",
-            "Total Score": "310281.0",
-            "Positive": "353751.0",
-            "Negative": "-43470.0",
-            "Alliance": "TDS",
-            "Monarch ID": "239702456.0"
-          },
-          {
-            "Position": "63",
-            "Name": "Spirit Box 13",
-            "Total Score": "-12540.0",
-            "Positive": "0.0",
-            "Negative": "-12540.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227482667.0"
-          },
-          {
-            "Position": "64",
-            "Name": "Ball Butter",
-            "Total Score": "-23393.0",
-            "Positive": "0.0",
-            "Negative": "-23393.0",
-            "Alliance": "KGT",
-            "Monarch ID": "361625567.0"
-          },
-          {
-            "Position": "65",
-            "Name": "JimmyTerrific",
-            "Total Score": "-59060.0",
-            "Positive": "0.0",
-            "Negative": "-59060.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227509745.0"
-          },
-          {
-            "Position": "66",
-            "Name": "Zippitydooda",
-            "Total Score": "-149900.0",
-            "Positive": "0.0",
-            "Negative": "-149900.0",
-            "Alliance": "TDS",
-            "Monarch ID": "213144490.0"
-          },
-          {
-            "Position": "67",
-            "Name": "Dusty616",
-            "Total Score": "-1078379.0",
-            "Positive": "594621.0",
-            "Negative": "-1673000.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213064806.0"
-          },
-          {
-            "Position": "68",
-            "Name": "Panzer'sTOM",
-            "Total Score": "-1111900.0",
-            "Positive": "0.0",
-            "Negative": "-1111900.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212815871.0"
-          },
-          {
-            "Position": "69",
-            "Name": "Monarch227566737",
-            "Total Score": "-2881545.0",
-            "Positive": "0.0",
-            "Negative": "-2881545.0",
-            "Alliance": "SMP",
-            "Monarch ID": "227566737.0"
-          },
-          {
-            "Position": "70",
-            "Name": "Chesty LaRue",
-            "Total Score": "-4413960.0",
-            "Positive": "501529.0",
-            "Negative": "-4915489.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227700070.0"
-          },
-          {
-            "Position": "71",
-            "Name": "J@smiπe",
-            "Total Score": "-4906125.0",
-            "Positive": "0.0",
-            "Negative": "-4906125.0",
-            "Alliance": "EDO",
-            "Monarch ID": "212423549.0"
-          },
-          {
-            "Position": "72",
-            "Name": "£@∆¥",
-            "Total Score": "-7005636.0",
-            "Positive": "16478552.0",
-            "Negative": "-23484188.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227464363.0"
-          },
-          {
-            "Position": "73",
-            "Name": "🐉 Draķøn",
-            "Total Score": "-7161569.0",
-            "Positive": "3555884.0",
-            "Negative": "-10717453.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212423000.0"
-          },
-          {
-            "Position": "74",
-            "Name": "Demy'an🪂",
-            "Total Score": "-7346896.0",
-            "Positive": "2977130.0",
-            "Negative": "-10324026.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227777618.0"
-          },
-          {
-            "Position": "75",
-            "Name": "Adæbrak95",
-            "Total Score": "-7453747.0",
-            "Positive": "2520942.0",
-            "Negative": "-9974689.0",
-            "Alliance": "RFR",
-            "Monarch ID": "247899350.0"
-          },
-          {
-            "Position": "76",
-            "Name": "🦄 dr@gyn",
-            "Total Score": "-8124261.0",
-            "Positive": "1847943.0",
-            "Negative": "-9972204.0",
-            "Alliance": "RFR",
-            "Monarch ID": "213148786.0"
-          },
-          {
-            "Position": "77",
-            "Name": "Auz | FM 00.0",
-            "Total Score": "-9714241.0",
-            "Positive": "942613.0",
-            "Negative": "-10656854.0",
-            "Alliance": "tag",
-            "Monarch ID": "268518039.0"
-          },
-          {
-            "Position": "78",
-            "Name": "nomads realm",
-            "Total Score": "-14101427.0",
-            "Positive": "7671381.0",
-            "Negative": "-21772808.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227594452.0"
-          },
-          {
-            "Position": "79",
-            "Name": "ottoman-state",
-            "Total Score": "-23012028.0",
-            "Positive": "0.0",
-            "Negative": "-23012028.0",
-            "Alliance": "WIP",
-            "Monarch ID": "280798391.0"
-          },
-          {
-            "Position": "80",
-            "Name": "KT 37",
-            "Total Score": "-25982295.0",
-            "Positive": "10872281.0",
-            "Negative": "-36854576.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227691240.0"
-          },
-          {
-            "Position": "81",
-            "Name": "Mąiyara😼",
-            "Total Score": "-27005854.0",
-            "Positive": "54235034.0",
-            "Negative": "-81240888.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227663540.0"
-          },
-          {
-            "Position": "82",
-            "Name": "Wi🆔Ant",
-            "Total Score": "-29647709.0",
-            "Positive": "16853635.0",
-            "Negative": "-46501344.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227559825.0"
-          },
-          {
-            "Position": "83",
-            "Name": "nosocialogica",
-            "Total Score": "-30281296.0",
-            "Positive": "0.0",
-            "Negative": "-30281296.0",
-            "Alliance": "tag",
-            "Monarch ID": "227724394.0"
-          },
-          {
-            "Position": "84",
-            "Name": "бляяя",
-            "Total Score": "-33882223.0",
-            "Positive": "890983889.0",
-            "Negative": "-924866112.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212526963.0"
-          },
-          {
-            "Position": "85",
-            "Name": "M€G∆°",
-            "Total Score": "-35151171.0",
-            "Positive": "30010505.0",
-            "Negative": "-65161676.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227583231.0"
-          },
-          {
-            "Position": "86",
-            "Name": "Monarch227582255",
-            "Total Score": "-40700060.0",
-            "Positive": "0.0",
-            "Negative": "-40700060.0",
-            "Alliance": "AXE",
-            "Monarch ID": "227582255.0"
-          },
-          {
-            "Position": "87",
-            "Name": "Raven1/4All",
-            "Total Score": "-45922500.0",
-            "Positive": "0.0",
-            "Negative": "-45922500.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227703006.0"
-          },
-          {
-            "Position": "88",
-            "Name": "gueofstyria",
-            "Total Score": "-60000328.0",
-            "Positive": "498432.0",
-            "Negative": "-60498760.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227757064.0"
-          },
-          {
-            "Position": "89",
-            "Name": "KODIAK EMPIRE",
-            "Total Score": "-78793272.0",
-            "Positive": "0.0",
-            "Negative": "-78793272.0",
-            "Alliance": "R62",
-            "Monarch ID": "227469282.0"
-          },
-          {
-            "Position": "90",
-            "Name": "Mobile Suit",
-            "Total Score": "-83700990.0",
-            "Positive": "1389804290.0",
-            "Negative": "-1473505280.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227565900.0"
-          },
-          {
-            "Position": "91",
-            "Name": "Kuno1929🔥",
-            "Total Score": "-90070462.0",
-            "Positive": "46660626.0",
-            "Negative": "-136731088.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227466349.0"
-          },
-          {
-            "Position": "92",
-            "Name": "southpaw31",
-            "Total Score": "-101560012.0",
-            "Positive": "1040444.0",
-            "Negative": "-102600456.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227730774.0"
-          },
-          {
-            "Position": "93",
-            "Name": "Nichoa14",
-            "Total Score": "-109501982.0",
-            "Positive": "18631538.0",
-            "Negative": "-128133520.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227474940.0"
-          },
-          {
-            "Position": "94",
-            "Name": "Whatisup",
-            "Total Score": "-117805592.0",
-            "Positive": "211103336.0",
-            "Negative": "-328908928.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227722546.0"
-          },
-          {
-            "Position": "95",
-            "Name": "gigi猫💕",
-            "Total Score": "-124764477.0",
-            "Positive": "503284995.0",
-            "Negative": "-628049472.0",
-            "Alliance": "EDO",
-            "Monarch ID": "212462547.0"
-          },
-          {
-            "Position": "96",
-            "Name": "Cogitoergo€",
-            "Total Score": "-125965664.0",
-            "Positive": "0.0",
-            "Negative": "-125965664.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227629211.0"
-          },
-          {
-            "Position": "97",
-            "Name": "TITANIUS WAR",
-            "Total Score": "-162220683.0",
-            "Positive": "374757.0",
-            "Negative": "-162595440.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227754221.0"
-          },
-          {
-            "Position": "98",
-            "Name": "Jessivan24",
-            "Total Score": "-168614068.0",
-            "Positive": "1049628.0",
-            "Negative": "-169663696.0",
-            "Alliance": "R62",
-            "Monarch ID": "227558402.0"
-          },
-          {
-            "Position": "99",
-            "Name": "🐀ЯaT🐀",
-            "Total Score": "-169056462.0",
-            "Positive": "3501618.0",
-            "Negative": "-172558080.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227782897.0"
-          },
-          {
-            "Position": "100",
-            "Name": "Skippy :",
-            "Total Score": "-196231129.0",
-            "Positive": "5779927.0",
-            "Negative": "-202011056.0",
-            "Alliance": "RFR",
-            "Monarch ID": "212873162.0"
-          },
-          {
-            "Position": "101",
-            "Name": "🇹🇷TURK",
-            "Total Score": "-217946981.0",
-            "Positive": "47563323.0",
-            "Negative": "-265510304.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227680893.0"
-          },
-          {
-            "Position": "102",
-            "Name": "El Bango Wifo",
-            "Total Score": "-238117098.0",
-            "Positive": "321539094.0",
-            "Negative": "-559656192.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212377832.0"
-          },
-          {
-            "Position": "103",
-            "Name": "LuckyL👀",
-            "Total Score": "-276204648.0",
-            "Positive": "540013016.0",
-            "Negative": "-816217664.0",
-            "Alliance": "WIP",
-            "Monarch ID": "236039997.0"
-          },
-          {
-            "Position": "104",
-            "Name": "Abramelin-san",
-            "Total Score": "-378426880.0",
-            "Positive": "0.0",
-            "Negative": "-378426880.0",
-            "Alliance": "R62",
-            "Monarch ID": "227563676.0"
-          },
-          {
-            "Position": "105",
-            "Name": "ZebZ",
-            "Total Score": "-419864669.0",
-            "Positive": "2745315.0",
-            "Negative": "-422609984.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212681134.0"
-          },
-          {
-            "Position": "106",
-            "Name": "N A I M A N",
-            "Total Score": "-419900948.0",
-            "Positive": "636392108.0",
-            "Negative": "-1056293056.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227676775.0"
-          },
-          {
-            "Position": "107",
-            "Name": "Carl_",
-            "Total Score": "-448229239.0",
-            "Positive": "13597705.0",
-            "Negative": "-461826944.0",
-            "Alliance": "JFF",
-            "Monarch ID": "227607707.0"
-          },
-          {
-            "Position": "108",
-            "Name": ".Ghoul.",
-            "Total Score": "-486086547.0",
-            "Positive": "787134573.0",
-            "Negative": "-1273221120.0",
-            "Alliance": "WIP",
-            "Monarch ID": "227475434.0"
-          },
-          {
-            "Position": "109",
-            "Name": "Hiriamu-saki",
-            "Total Score": "-487929066.0",
-            "Positive": "389432790.0",
-            "Negative": "-877361856.0",
-            "Alliance": "RFR",
-            "Monarch ID": "227673343.0"
-          },
-          {
-            "Position": "110",
-            "Name": "Ãńmãÿ👊",
-            "Total Score": "-617976424.0",
-            "Positive": "2059459224.0",
-            "Negative": "-2677435648.0",
-            "Alliance": "WIP",
-            "Monarch ID": "213195433.0"
-          },
-          {
-            "Position": "111",
-            "Name": "Ť.ý.ł.ë.r",
-            "Total Score": "-2608304134.0",
-            "Positive": "4550489082.0",
-            "Negative": "-7158793216.0",
-            "Alliance": "WIP",
-            "Monarch ID": "212693195.0"
-          },
-          {
-            "Position": null,
-            "Name": null,
-            "Total Score": "-2397360693.0",
-            "Positive": "35119270006.0",
-            "Negative": "-37516630699.0",
-            "Alliance": null,
-            "Monarch ID": null
-          },
-          {
-            "Position": "Created with Ragebot",
-            "Name": null,
-            "Total Score": null,
-            "Positive": null,
-            "Negative": null,
-            "Alliance": null,
-            "Monarch ID": null
-          },
-          {
-            "Position": "http://rage.systems",
-            "Name": null,
-            "Total Score": null,
-            "Positive": null,
-            "Negative": null,
-            "Alliance": null,
-            "Monarch ID": null
-          }
-        ]
-      }
+    {
+      "position": 3,
+      "name": "Ť.ý.ł.ë.r",
+      "score": 4550489082.0,
+      "alliance": "WIP",
+      "monarchId": "212693195.0"
     },
-    "analysis": {
-      "success": true,
-      "data_quality": {
-        "total_rows": 114,
-        "total_columns": 7,
-        "total_cells": 798,
-        "filled_cells": "782",
-        "empty_cells": "16",
-        "completeness": 97.99498746867168,
-        "duplicate_rows": "0",
-        "overall_score": 97.99498746867168
-      },
-      "column_analysis": {
-        "Position": {
-          "type": "object",
-          "null_count": "1",
-          "unique_count": 113,
-          "completeness": 99.12280701754386
-        },
-        "Name": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 111,
-          "completeness": 97.36842105263158
-        },
-        "Total Score": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 106,
-          "completeness": 98.24561403508771
-        },
-        "Positive": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 93,
-          "completeness": 98.24561403508771
-        },
-        "Negative": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 64,
-          "completeness": 98.24561403508771
-        },
-        "Alliance": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 12,
-          "completeness": 97.36842105263158
-        },
-        "Monarch ID": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 111,
-          "completeness": 97.36842105263158
-        }
-      }
-    }
-  },
-  "Alliance": {
-    "sheets": {
-      "Alliance": {
-        "rows": 15,
-        "columns": 5,
-        "column_names": [
-          "Position",
-          "Alliance",
-          "Total Score",
-          "Positive",
-          "Negative"
-        ],
-        "data": [
-          {
-            "Position": "1",
-            "Alliance": "RFR",
-            "Total Score": "299287067.0",
-            "Positive": "8374234952.0",
-            "Negative": "-8074947885.0"
-          },
-          {
-            "Position": "2",
-            "Alliance": "PHX",
-            "Total Score": "52869209.0",
-            "Positive": "53629596.0",
-            "Negative": "-760387.0"
-          },
-          {
-            "Position": "3",
-            "Alliance": "KGT",
-            "Total Score": "914180.0",
-            "Positive": "937618.0",
-            "Negative": "-23438.0"
-          },
-          {
-            "Position": "4",
-            "Alliance": "HTS",
-            "Total Score": "500000.0",
-            "Positive": "500000.0",
-            "Negative": "0.0"
-          },
-          {
-            "Position": "5",
-            "Alliance": "TDS",
-            "Total Score": "160381.0",
-            "Positive": "353751.0",
-            "Negative": "-193370.0"
-          },
-          {
-            "Position": "6",
-            "Alliance": "SMP",
-            "Total Score": "-2881545.0",
-            "Positive": "0.0",
-            "Negative": "-2881545.0"
-          },
-          {
-            "Position": "7",
-            "Alliance": "tag",
-            "Total Score": "-39335537.0",
-            "Positive": "1602613.0",
-            "Negative": "-40938150.0"
-          },
-          {
-            "Position": "8",
-            "Alliance": "AXE",
-            "Total Score": "-40700060.0",
-            "Positive": "0.0",
-            "Negative": "-40700060.0"
-          },
-          {
-            "Position": "9",
-            "Alliance": "EDO",
-            "Total Score": "-129670602.0",
-            "Positive": "503284995.0",
-            "Negative": "-632955597.0"
-          },
-          {
-            "Position": "10",
-            "Alliance": "R62",
-            "Total Score": "-621576888.0",
-            "Positive": "5635428.0",
-            "Negative": "-627212316.0"
-          },
-          {
-            "Position": "11",
-            "Alliance": "JFF",
-            "Total Score": "-933262523.0",
-            "Positive": "38277737.0",
-            "Negative": "-971540260.0"
-          },
-          {
-            "Position": "12",
-            "Alliance": "WIP",
-            "Total Score": "-983664375.0",
-            "Positive": "26140813316.0",
-            "Negative": "-27124477691.0"
-          },
-          {
-            "Position": null,
-            "Alliance": null,
-            "Total Score": null,
-            "Positive": "35119270006.0",
-            "Negative": "-37516630699.0"
-          },
-          {
-            "Position": "Created with Ragebot",
-            "Alliance": null,
-            "Total Score": null,
-            "Positive": null,
-            "Negative": null
-          },
-          {
-            "Position": "http://rage.systems",
-            "Alliance": null,
-            "Total Score": null,
-            "Positive": null,
-            "Negative": null
-          }
-        ]
-      }
+    {
+      "position": 4,
+      "name": "Tpel",
+      "score": 3877053759.0,
+      "alliance": "WIP",
+      "monarchId": "213131326.0"
     },
-    "analysis": {
-      "success": true,
-      "data_quality": {
-        "total_rows": 15,
-        "total_columns": 5,
-        "total_cells": 75,
-        "filled_cells": "64",
-        "empty_cells": "11",
-        "completeness": 85.33333333333334,
-        "duplicate_rows": "0",
-        "overall_score": 85.33333333333334
-      },
-      "column_analysis": {
-        "Position": {
-          "type": "object",
-          "null_count": "1",
-          "unique_count": 14,
-          "completeness": 93.33333333333333
-        },
-        "Alliance": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 12,
-          "completeness": 80.0
-        },
-        "Total Score": {
-          "type": "object",
-          "null_count": "3",
-          "unique_count": 12,
-          "completeness": 80.0
-        },
-        "Positive": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 12,
-          "completeness": 86.66666666666667
-        },
-        "Negative": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 13,
-          "completeness": 86.66666666666667
-        }
-      }
-    }
-  },
-  "All Monarchs": {
-    "sheets": {
-      "All Monarchs": {
-        "rows": 113,
-        "columns": 3,
-        "column_names": [
-          "Monarch ID",
-          "Alliance",
-          "Name"
-        ],
-        "data": [
-          {
-            "Monarch ID": "227549021",
-            "Alliance": "WIP",
-            "Name": "Kosmy01"
-          },
-          {
-            "Monarch ID": "227503580",
-            "Alliance": "RFR",
-            "Name": "Battlefish23"
-          },
-          {
-            "Monarch ID": "213131326",
-            "Alliance": "WIP",
-            "Name": "Tpel"
-          },
-          {
-            "Monarch ID": "213237494",
-            "Alliance": "WIP",
-            "Name": "🤓Liquid"
-          },
-          {
-            "Monarch ID": "213124942",
-            "Alliance": "WIP",
-            "Name": "爪adDoğȤȤ"
-          },
-          {
-            "Monarch ID": "249313436",
-            "Alliance": "RFR",
-            "Name": "Ten🅰️nt"
-          },
-          {
-            "Monarch ID": "212809324",
-            "Alliance": "RFR",
-            "Name": "Zed DarknI8"
-          },
-          {
-            "Monarch ID": "227667738",
-            "Alliance": "WIP",
-            "Name": "blodymarry"
-          },
-          {
-            "Monarch ID": "212372000",
-            "Alliance": "PHX",
-            "Name": "BigPoppa_Trip"
-          },
-          {
-            "Monarch ID": "212723878",
-            "Alliance": "WIP",
-            "Name": "༺-Raj-༻"
-          },
-          {
-            "Monarch ID": "212656992",
-            "Alliance": "PHX",
-            "Name": "Miret ⚜️"
-          },
-          {
-            "Monarch ID": "212729512",
-            "Alliance": "PHX",
-            "Name": "Witty calf"
-          },
-          {
-            "Monarch ID": "212634404",
-            "Alliance": "WIP",
-            "Name": "薔薇真音"
-          },
-          {
-            "Monarch ID": "212728426",
-            "Alliance": "PHX",
-            "Name": "revx73"
-          },
-          {
-            "Monarch ID": "227482847",
-            "Alliance": "PHX",
-            "Name": "Alexander545"
-          },
-          {
-            "Monarch ID": "227682215",
-            "Alliance": "PHX",
-            "Name": "Rev…Salomé"
-          },
-          {
-            "Monarch ID": "212446060",
-            "Alliance": "PHX",
-            "Name": "~uoslod~💀"
-          },
-          {
-            "Monarch ID": "227520951",
-            "Alliance": "R62",
-            "Name": "💫Mirabella"
-          },
-          {
-            "Monarch ID": "212726670",
-            "Alliance": "WIP",
-            "Name": "T@ni9"
-          },
-          {
-            "Monarch ID": "227600651",
-            "Alliance": "WIP",
-            "Name": "Ballboy-Ref"
-          },
-          {
-            "Monarch ID": "213143241",
-            "Alliance": "PHX",
-            "Name": "Shadowfax23"
-          },
-          {
-            "Monarch ID": "337439248",
-            "Alliance": "PHX",
-            "Name": "PriTle"
-          },
-          {
-            "Monarch ID": "212759680",
-            "Alliance": "RFR",
-            "Name": "XuKa_17"
-          },
-          {
-            "Monarch ID": "227445408",
-            "Alliance": "RFR",
-            "Name": "MönNôr🫟"
-          },
-          {
-            "Monarch ID": "227724599",
-            "Alliance": "PHX",
-            "Name": "LC Peoria"
-          },
-          {
-            "Monarch ID": "212523984",
-            "Alliance": "PHX",
-            "Name": "Lipofortro"
-          },
-          {
-            "Monarch ID": "213129311",
-            "Alliance": "PHX",
-            "Name": "Lost Calis"
-          },
-          {
-            "Monarch ID": "212704196",
-            "Alliance": "PHX",
-            "Name": "Lipoghosto"
-          },
-          {
-            "Monarch ID": "212727872",
-            "Alliance": "R62",
-            "Name": "tony 12.00"
-          },
-          {
-            "Monarch ID": "212733396",
-            "Alliance": "PHX",
-            "Name": "yvan70"
-          },
-          {
-            "Monarch ID": "228328590",
-            "Alliance": "WIP",
-            "Name": "Victoria.¶"
-          },
-          {
-            "Monarch ID": "283081947",
-            "Alliance": "KGT",
-            "Name": "Tuckahoe Bob"
-          },
-          {
-            "Monarch ID": "212695146",
-            "Alliance": "PHX",
-            "Name": "Storm .."
-          },
-          {
-            "Monarch ID": "213132035",
-            "Alliance": "RFR",
-            "Name": "Armored Saint"
-          },
-          {
-            "Monarch ID": "213146668",
-            "Alliance": "PHX",
-            "Name": "Spincaster"
-          },
-          {
-            "Monarch ID": "227547297",
-            "Alliance": "RFR",
-            "Name": "Bill⚔️Bo"
-          },
-          {
-            "Monarch ID": "212753470",
-            "Alliance": "WIP",
-            "Name": "BigFin 🔱"
-          },
-          {
-            "Monarch ID": "212666492",
-            "Alliance": "WIP",
-            "Name": "Lob€lia🔹"
-          },
-          {
-            "Monarch ID": "268222487",
-            "Alliance": "PHX",
-            "Name": "Warden Ves"
-          },
-          {
-            "Monarch ID": "212573924",
-            "Alliance": "WIP",
-            "Name": "<ŤŞ>"
-          },
-          {
-            "Monarch ID": "227576789",
-            "Alliance": "tag",
-            "Name": "Monarc Tonito"
-          },
-          {
-            "Monarch ID": "212690198",
-            "Alliance": "RFR",
-            "Name": "Ëurøpastår"
-          },
-          {
-            "Monarch ID": "212644067",
-            "Alliance": "WIP",
-            "Name": "Ironman-79"
-          },
-          {
-            "Monarch ID": "213108732",
-            "Alliance": "WIP",
-            "Name": "Becks Prime"
-          },
-          {
-            "Monarch ID": "213115911",
-            "Alliance": "PHX",
-            "Name": "Lineman Sweet"
-          },
-          {
-            "Monarch ID": "212226071",
-            "Alliance": "PHX",
-            "Name": "Pόnτος"
-          },
-          {
-            "Monarch ID": "227683562",
-            "Alliance": "R62",
-            "Name": "T R I D E V"
-          },
-          {
-            "Monarch ID": "212666102",
-            "Alliance": "WIP",
-            "Name": "HuckleberryPi"
-          },
-          {
-            "Monarch ID": "227486771",
-            "Alliance": "JFF",
-            "Name": "α Scorpii"
-          },
-          {
-            "Monarch ID": "227683076",
-            "Alliance": "R62",
-            "Name": "SavetheEarth"
-          },
-          {
-            "Monarch ID": "212743899",
-            "Alliance": "RFR",
-            "Name": "Blackmagic9"
-          },
-          {
-            "Monarch ID": "213193476",
-            "Alliance": "PHX",
-            "Name": "Uriah's Heap"
-          },
-          {
-            "Monarch ID": "237765908",
-            "Alliance": "RFR",
-            "Name": "Tusnicht"
-          },
-          {
-            "Monarch ID": "212669676",
-            "Alliance": "PHX",
-            "Name": "😎 KW"
-          },
-          {
-            "Monarch ID": "212493596",
-            "Alliance": "PHX",
-            "Name": "Bailey 78"
-          },
-          {
-            "Monarch ID": "227535019",
-            "Alliance": "HTS",
-            "Name": "MO.G"
-          },
-          {
-            "Monarch ID": "227578404",
-            "Alliance": "RFR",
-            "Name": "SaraPalestine"
-          },
-          {
-            "Monarch ID": "212748266",
-            "Alliance": "WIP",
-            "Name": "Queen  Chaos"
-          },
-          {
-            "Monarch ID": "272719153",
-            "Alliance": "JFF",
-            "Name": "Red Princessa"
-          },
-          {
-            "Monarch ID": "212654856",
-            "Alliance": "RFR",
-            "Name": "H0n3y~B@dg3R"
-          },
-          {
-            "Monarch ID": "212638976",
-            "Alliance": "RFR",
-            "Name": "Flynx"
-          },
-          {
-            "Monarch ID": "239702456",
-            "Alliance": "TDS",
-            "Name": "jsyphil d2"
-          },
-          {
-            "Monarch ID": "227482667",
-            "Alliance": "RFR",
-            "Name": "Spirit Box 13"
-          },
-          {
-            "Monarch ID": "361625567",
-            "Alliance": "KGT",
-            "Name": "Ball Butter"
-          },
-          {
-            "Monarch ID": "227509745",
-            "Alliance": "RFR",
-            "Name": "JimmyTerrific"
-          },
-          {
-            "Monarch ID": "213144490",
-            "Alliance": "TDS",
-            "Name": "Zippitydooda"
-          },
-          {
-            "Monarch ID": "213064806",
-            "Alliance": "WIP",
-            "Name": "Dusty616"
-          },
-          {
-            "Monarch ID": "212815871",
-            "Alliance": "WIP",
-            "Name": "Panzer'sTOM"
-          },
-          {
-            "Monarch ID": "227566737",
-            "Alliance": "SMP",
-            "Name": "Monarch227566737"
-          },
-          {
-            "Monarch ID": "227700070",
-            "Alliance": "RFR",
-            "Name": "Chesty LaRue"
-          },
-          {
-            "Monarch ID": "212423549",
-            "Alliance": "EDO",
-            "Name": "J@smiπe"
-          },
-          {
-            "Monarch ID": "227464363",
-            "Alliance": "RFR",
-            "Name": "£@∆¥"
-          },
-          {
-            "Monarch ID": "212423000",
-            "Alliance": "RFR",
-            "Name": "🐉 Draķøn"
-          },
-          {
-            "Monarch ID": "227777618",
-            "Alliance": "RFR",
-            "Name": "Demy'an🪂"
-          },
-          {
-            "Monarch ID": "247899350",
-            "Alliance": "RFR",
-            "Name": "Adæbrak95"
-          },
-          {
-            "Monarch ID": "213148786",
-            "Alliance": "RFR",
-            "Name": "🦄 dr@gyn"
-          },
-          {
-            "Monarch ID": "268518039",
-            "Alliance": "tag",
-            "Name": "Auz | FM 00.0"
-          },
-          {
-            "Monarch ID": "227594452",
-            "Alliance": "RFR",
-            "Name": "nomads realm"
-          },
-          {
-            "Monarch ID": "280798391",
-            "Alliance": "WIP",
-            "Name": "ottoman-state"
-          },
-          {
-            "Monarch ID": "227691240",
-            "Alliance": "RFR",
-            "Name": "KT 37"
-          },
-          {
-            "Monarch ID": "227663540",
-            "Alliance": "RFR",
-            "Name": "Mąiyara😼"
-          },
-          {
-            "Monarch ID": "227559825",
-            "Alliance": "RFR",
-            "Name": "Wi🆔Ant"
-          },
-          {
-            "Monarch ID": "227724394",
-            "Alliance": "tag",
-            "Name": "nosocialogica"
-          },
-          {
-            "Monarch ID": "212526963",
-            "Alliance": "WIP",
-            "Name": "бляяя"
-          },
-          {
-            "Monarch ID": "227583231",
-            "Alliance": "RFR",
-            "Name": "M€G∆°"
-          },
-          {
-            "Monarch ID": "227582255",
-            "Alliance": "AXE",
-            "Name": "Monarch227582255"
-          },
-          {
-            "Monarch ID": "227703006",
-            "Alliance": "JFF",
-            "Name": "Raven1/4All"
-          },
-          {
-            "Monarch ID": "227757064",
-            "Alliance": "JFF",
-            "Name": "gueofstyria"
-          },
-          {
-            "Monarch ID": "227469282",
-            "Alliance": "R62",
-            "Name": "KODIAK EMPIRE"
-          },
-          {
-            "Monarch ID": "227565900",
-            "Alliance": "WIP",
-            "Name": "Mobile Suit"
-          },
-          {
-            "Monarch ID": "227466349",
-            "Alliance": "WIP",
-            "Name": "Kuno1929🔥"
-          },
-          {
-            "Monarch ID": "227730774",
-            "Alliance": "JFF",
-            "Name": "southpaw31"
-          },
-          {
-            "Monarch ID": "227474940",
-            "Alliance": "JFF",
-            "Name": "Nichoa14"
-          },
-          {
-            "Monarch ID": "227722546",
-            "Alliance": "RFR",
-            "Name": "Whatisup"
-          },
-          {
-            "Monarch ID": "212462547",
-            "Alliance": "EDO",
-            "Name": "gigi猫💕"
-          },
-          {
-            "Monarch ID": "227629211",
-            "Alliance": "RFR",
-            "Name": "Cogitoergo€"
-          },
-          {
-            "Monarch ID": "227754221",
-            "Alliance": "RFR",
-            "Name": "TITANIUS WAR"
-          },
-          {
-            "Monarch ID": "227558402",
-            "Alliance": "R62",
-            "Name": "Jessivan24"
-          },
-          {
-            "Monarch ID": "227782897",
-            "Alliance": "JFF",
-            "Name": "🐀ЯaT🐀"
-          },
-          {
-            "Monarch ID": "212873162",
-            "Alliance": "RFR",
-            "Name": "Skippy :"
-          },
-          {
-            "Monarch ID": "227680893",
-            "Alliance": "WIP",
-            "Name": "🇹🇷TURK"
-          },
-          {
-            "Monarch ID": "212377832",
-            "Alliance": "WIP",
-            "Name": "El Bango Wifo"
-          },
-          {
-            "Monarch ID": "236039997",
-            "Alliance": "WIP",
-            "Name": "LuckyL👀"
-          },
-          {
-            "Monarch ID": "227563676",
-            "Alliance": "R62",
-            "Name": "Abramelin-san"
-          },
-          {
-            "Monarch ID": "212681134",
-            "Alliance": "WIP",
-            "Name": "ZebZ"
-          },
-          {
-            "Monarch ID": "227676775",
-            "Alliance": "RFR",
-            "Name": "N A I M A N"
-          },
-          {
-            "Monarch ID": "227607707",
-            "Alliance": "JFF",
-            "Name": "Carl_"
-          },
-          {
-            "Monarch ID": "227475434",
-            "Alliance": "WIP",
-            "Name": ".Ghoul."
-          },
-          {
-            "Monarch ID": "227673343",
-            "Alliance": "RFR",
-            "Name": "Hiriamu-saki"
-          },
-          {
-            "Monarch ID": "213195433",
-            "Alliance": "WIP",
-            "Name": "Ãńmãÿ👊"
-          },
-          {
-            "Monarch ID": "212693195",
-            "Alliance": "WIP",
-            "Name": "Ť.ý.ł.ë.r"
-          },
-          {
-            "Monarch ID": "Created with Ragebot",
-            "Alliance": null,
-            "Name": null
-          },
-          {
-            "Monarch ID": "http://rage.systems",
-            "Alliance": null,
-            "Name": null
-          }
-        ]
-      }
+    {
+      "position": 5,
+      "name": "🤓Liquid",
+      "score": 3238996859.0,
+      "alliance": "WIP",
+      "monarchId": "213237494.0"
     },
-    "analysis": {
-      "success": true,
-      "data_quality": {
-        "total_rows": 113,
-        "total_columns": 3,
-        "total_cells": 339,
-        "filled_cells": "335",
-        "empty_cells": "4",
-        "completeness": 98.82005899705014,
-        "duplicate_rows": "0",
-        "overall_score": 98.82005899705014
-      },
-      "column_analysis": {
-        "Monarch ID": {
-          "type": "object",
-          "null_count": "0",
-          "unique_count": 113,
-          "completeness": 100.0
-        },
-        "Alliance": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 12,
-          "completeness": 98.23008849557522
-        },
-        "Name": {
-          "type": "object",
-          "null_count": "2",
-          "unique_count": 111,
-          "completeness": 98.23008849557522
-        }
-      }
+    {
+      "position": 6,
+      "name": "Ãńmãÿ👊",
+      "score": 2059459224.0,
+      "alliance": "WIP",
+      "monarchId": "213195433.0"
+    },
+    {
+      "position": 7,
+      "name": "Mobile Suit",
+      "score": 1389804290.0,
+      "alliance": "WIP",
+      "monarchId": "227565900.0"
+    },
+    {
+      "position": 8,
+      "name": "бляяя",
+      "score": 890983889.0,
+      "alliance": "WIP",
+      "monarchId": "212526963.0"
+    },
+    {
+      "position": 9,
+      "name": ".Ghoul.",
+      "score": 787134573.0,
+      "alliance": "WIP",
+      "monarchId": "227475434.0"
+    },
+    {
+      "position": 10,
+      "name": "N A I M A N",
+      "score": 636392108.0,
+      "alliance": "RFR",
+      "monarchId": "227676775.0"
+    },
+    {
+      "position": 11,
+      "name": "爪adDoğȤȤ",
+      "score": 558367956.0,
+      "alliance": "WIP",
+      "monarchId": "213124942.0"
+    },
+    {
+      "position": 12,
+      "name": "LuckyL👀",
+      "score": 540013016.0,
+      "alliance": "WIP",
+      "monarchId": "236039997.0"
+    },
+    {
+      "position": 13,
+      "name": "gigi猫💕",
+      "score": 503284995.0,
+      "alliance": "EDO",
+      "monarchId": "212462547.0"
+    },
+    {
+      "position": 14,
+      "name": "Hiriamu-saki",
+      "score": 389432790.0,
+      "alliance": "RFR",
+      "monarchId": "227673343.0"
+    },
+    {
+      "position": 15,
+      "name": "Ten🅰️nt",
+      "score": 328624743.0,
+      "alliance": "RFR",
+      "monarchId": "249313436.0"
+    },
+    {
+      "position": 16,
+      "name": "El Bango Wifo",
+      "score": 321539094.0,
+      "alliance": "WIP",
+      "monarchId": "212377832.0"
+    },
+    {
+      "position": 17,
+      "name": "Zed DarknI8",
+      "score": 281822935.0,
+      "alliance": "RFR",
+      "monarchId": "212809324.0"
+    },
+    {
+      "position": 18,
+      "name": "Whatisup",
+      "score": 211103336.0,
+      "alliance": "RFR",
+      "monarchId": "227722546.0"
+    },
+    {
+      "position": 19,
+      "name": "Mąiyara😼",
+      "score": 54235034.0,
+      "alliance": "RFR",
+      "monarchId": "227663540.0"
+    },
+    {
+      "position": 20,
+      "name": "🇹🇷TURK",
+      "score": 47563323.0,
+      "alliance": "WIP",
+      "monarchId": "227680893.0"
+    },
+    {
+      "position": 21,
+      "name": "Kuno1929🔥",
+      "score": 46660626.0,
+      "alliance": "WIP",
+      "monarchId": "227466349.0"
+    },
+    {
+      "position": 22,
+      "name": "M€G∆°",
+      "score": 30010505.0,
+      "alliance": "RFR",
+      "monarchId": "227583231.0"
+    },
+    {
+      "position": 23,
+      "name": "blodymarry",
+      "score": 20968034.0,
+      "alliance": "WIP",
+      "monarchId": "227667738.0"
+    },
+    {
+      "position": 24,
+      "name": "BigPoppa_Trip",
+      "score": 19629696.0,
+      "alliance": "PHX",
+      "monarchId": "212372000.0"
+    },
+    {
+      "position": 25,
+      "name": "Nichoa14",
+      "score": 18631538.0,
+      "alliance": "JFF",
+      "monarchId": "227474940.0"
+    },
+    {
+      "position": 26,
+      "name": "Wi🆔Ant",
+      "score": 16853635.0,
+      "alliance": "RFR",
+      "monarchId": "227559825.0"
+    },
+    {
+      "position": 27,
+      "name": "£@∆¥",
+      "score": 16478552.0,
+      "alliance": "RFR",
+      "monarchId": "227464363.0"
+    },
+    {
+      "position": 28,
+      "name": "Carl_",
+      "score": 13597705.0,
+      "alliance": "JFF",
+      "monarchId": "227607707.0"
+    },
+    {
+      "position": 29,
+      "name": "༺-Raj-༻",
+      "score": 12708536.0,
+      "alliance": "WIP",
+      "monarchId": "212723878.0"
+    },
+    {
+      "position": 30,
+      "name": "KT 37",
+      "score": 10872281.0,
+      "alliance": "RFR",
+      "monarchId": "227691240.0"
+    },
+    {
+      "position": 31,
+      "name": "nomads realm",
+      "score": 7671381.0,
+      "alliance": "RFR",
+      "monarchId": "227594452.0"
+    },
+    {
+      "position": 35,
+      "name": "Miret ⚜️",
+      "score": 5975400.0,
+      "alliance": "PHX",
+      "monarchId": "212656992.0"
+    },
+    {
+      "position": 36,
+      "name": "Skippy :",
+      "score": 5779927.0,
+      "alliance": "RFR",
+      "monarchId": "212873162.0"
+    },
+    {
+      "position": 37,
+      "name": "🐉 Draķøn",
+      "score": 3555884.0,
+      "alliance": "RFR",
+      "monarchId": "212423000.0"
+    },
+    {
+      "position": 38,
+      "name": "🐀ЯaT🐀",
+      "score": 3501618.0,
+      "alliance": "JFF",
+      "monarchId": "227782897.0"
+    },
+    {
+      "position": 39,
+      "name": "Witty calf",
+      "score": 3401500.0,
+      "alliance": "PHX",
+      "monarchId": "212729512.0"
+    },
+    {
+      "position": 40,
+      "name": "薔薇真音",
+      "score": 3321400.0,
+      "alliance": "WIP",
+      "monarchId": "212634404.0"
+    },
+    {
+      "position": 41,
+      "name": "revx73",
+      "score": 3066000.0,
+      "alliance": "PHX",
+      "monarchId": "212728426.0"
+    },
+    {
+      "position": 42,
+      "name": "Demy'an🪂",
+      "score": 2977130.0,
+      "alliance": "RFR",
+      "monarchId": "227777618.0"
+    },
+    {
+      "position": 43,
+      "name": "ZebZ",
+      "score": 2745315.0,
+      "alliance": "WIP",
+      "monarchId": "212681134.0"
+    },
+    {
+      "position": 44,
+      "name": "Adæbrak95",
+      "score": 2520942.0,
+      "alliance": "RFR",
+      "monarchId": "247899350.0"
+    },
+    {
+      "position": 45,
+      "name": "Alexander545",
+      "score": 2500000.0,
+      "alliance": "PHX",
+      "monarchId": "227482847.0"
+    },
+    {
+      "position": 46,
+      "name": "Rev…Salomé",
+      "score": 2403000.0,
+      "alliance": "PHX",
+      "monarchId": "227682215.0"
+    },
+    {
+      "position": 47,
+      "name": "💫Mirabella",
+      "score": 2346800.0,
+      "alliance": "R62",
+      "monarchId": "227520951.0"
+    },
+    {
+      "position": 48,
+      "name": "~uoslod~💀",
+      "score": 2278500.0,
+      "alliance": "PHX",
+      "monarchId": "212446060.0"
+    },
+    {
+      "position": 49,
+      "name": "T@ni9",
+      "score": 1891900.0,
+      "alliance": "WIP",
+      "monarchId": "212726670.0"
+    },
+    {
+      "position": 50,
+      "name": "🦄 dr@gyn",
+      "score": 1847943.0,
+      "alliance": "RFR",
+      "monarchId": "213148786.0"
+    },
+    {
+      "position": 51,
+      "name": "Ballboy-Ref",
+      "score": 1745505.0,
+      "alliance": "WIP",
+      "monarchId": "227600651.0"
+    },
+    {
+      "position": 52,
+      "name": "Shadowfax23",
+      "score": 1741000.0,
+      "alliance": "PHX",
+      "monarchId": "213143241.0"
+    },
+    {
+      "position": 53,
+      "name": "PriTle",
+      "score": 1700000.0,
+      "alliance": "PHX",
+      "monarchId": "337439248.0"
+    },
+    {
+      "position": 54,
+      "name": "XuKa_17",
+      "score": 1515500.0,
+      "alliance": "RFR",
+      "monarchId": "212759680.0"
+    },
+    {
+      "position": 56,
+      "name": "LC Peoria",
+      "score": 1242000.0,
+      "alliance": "PHX",
+      "monarchId": "227724599.0"
+    },
+    {
+      "position": 55,
+      "name": "MönNôr🫟",
+      "score": 1481500.0,
+      "alliance": "RFR",
+      "monarchId": "227445408.0"
+    },
+    {
+      "position": 57,
+      "name": "Lipofortro",
+      "score": 1230500.0,
+      "alliance": "PHX",
+      "monarchId": "212523984.0"
+    },
+    {
+      "position": 58,
+      "name": "Lost Calis",
+      "score": 1175000.0,
+      "alliance": "PHX",
+      "monarchId": "213129311.0"
+    },
+    {
+      "position": 59,
+      "name": "Lipoghosto",
+      "score": 1127000.0,
+      "alliance": "PHX",
+      "monarchId": "212704196.0"
+    },
+    {
+      "position": 62,
+      "name": "yvan70",
+      "score": 1100000.0,
+      "alliance": "PHX",
+      "monarchId": "212733396.0"
+    },
+    {
+      "position": 60,
+      "name": "tony 12.00",
+      "score": 1101500.0,
+      "alliance": "R62",
+      "monarchId": "212727872.0"
+    },
+    {
+      "position": 61,
+      "name": "Victoria.¶",
+      "score": 1100000.0,
+      "alliance": "WIP",
+      "monarchId": "228328590.0"
+    },
+    {
+      "position": 63,
+      "name": "Jessivan24",
+      "score": 1049628.0,
+      "alliance": "R62",
+      "monarchId": "227558402.0"
+    },
+    {
+      "position": 64,
+      "name": "southpaw31",
+      "score": 1040444.0,
+      "alliance": "JFF",
+      "monarchId": "227730774.0"
+    },
+    {
+      "position": 65,
+      "name": "Auz | FM 00.0",
+      "score": 942613.0,
+      "alliance": "tag",
+      "monarchId": "268518039.0"
+    },
+    {
+      "position": 66,
+      "name": "Tuckahoe Bob",
+      "score": 937618.0,
+      "alliance": "KGT",
+      "monarchId": "283081947.0"
+    },
+    {
+      "position": 67,
+      "name": "Storm ..",
+      "score": 857000.0,
+      "alliance": "PHX",
+      "monarchId": "212695146.0"
+    },
+    {
+      "position": 68,
+      "name": "Armored Saint",
+      "score": 801500.0,
+      "alliance": "RFR",
+      "monarchId": "213132035.0"
+    },
+    {
+      "position": 70,
+      "name": "Spincaster",
+      "score": 800000.0,
+      "alliance": "PHX",
+      "monarchId": "213146668.0"
+    },
+    {
+      "position": 71,
+      "name": "BigFin 🔱",
+      "score": 786200.0,
+      "alliance": "WIP",
+      "monarchId": "212753470.0"
+    },
+    {
+      "position": 69,
+      "name": "Bill⚔️Bo",
+      "score": 800000.0,
+      "alliance": "RFR",
+      "monarchId": "227547297.0"
+    },
+    {
+      "position": 72,
+      "name": "Lob€lia🔹",
+      "score": 726600.0,
+      "alliance": "WIP",
+      "monarchId": "212666492.0"
+    },
+    {
+      "position": 74,
+      "name": "<ŤŞ>",
+      "score": 669700.0,
+      "alliance": "WIP",
+      "monarchId": "212573924.0"
+    },
+    {
+      "position": 75,
+      "name": "Monarc Tonito",
+      "score": 660000.0,
+      "alliance": "tag",
+      "monarchId": "227576789.0"
+    },
+    {
+      "position": 73,
+      "name": "Warden Ves",
+      "score": 700000.0,
+      "alliance": "PHX",
+      "monarchId": "268222487.0"
+    },
+    {
+      "position": 76,
+      "name": "Ëurøpastår",
+      "score": 641000.0,
+      "alliance": "RFR",
+      "monarchId": "212690198.0"
+    },
+    {
+      "position": 80,
+      "name": "Lineman Sweet",
+      "score": 600000.0,
+      "alliance": "PHX",
+      "monarchId": "213115911.0"
+    },
+    {
+      "position": 81,
+      "name": "Pόnτος",
+      "score": 600000.0,
+      "alliance": "PHX",
+      "monarchId": "212226071.0"
+    },
+    {
+      "position": 77,
+      "name": "Ironman-79",
+      "score": 621000.0,
+      "alliance": "WIP",
+      "monarchId": "212644067.0"
+    },
+    {
+      "position": 78,
+      "name": "Becks Prime",
+      "score": 610500.0,
+      "alliance": "WIP",
+      "monarchId": "213108732.0"
+    },
+    {
+      "position": 79,
+      "name": "T R I D E V",
+      "score": 600000.0,
+      "alliance": "R62",
+      "monarchId": "227683562.0"
+    },
+    {
+      "position": 82,
+      "name": "HuckleberryPi",
+      "score": 597500.0,
+      "alliance": "WIP",
+      "monarchId": "212666102.0"
+    },
+    {
+      "position": 83,
+      "name": "Dusty616",
+      "score": 594621.0,
+      "alliance": "WIP",
+      "monarchId": "213064806.0"
+    },
+    {
+      "position": 87,
+      "name": "Uriah's Heap",
+      "score": 503000.0,
+      "alliance": "PHX",
+      "monarchId": "213193476.0"
+    },
+    {
+      "position": 84,
+      "name": "α Scorpii",
+      "score": 570500.0,
+      "alliance": "JFF",
+      "monarchId": "227486771.0"
+    },
+    {
+      "position": 85,
+      "name": "SavetheEarth",
+      "score": 537500.0,
+      "alliance": "R62",
+      "monarchId": "227683076.0"
+    },
+    {
+      "position": 86,
+      "name": "Blackmagic9",
+      "score": 518000.0,
+      "alliance": "RFR",
+      "monarchId": "212743899.0"
+    },
+    {
+      "position": 88,
+      "name": "Chesty LaRue",
+      "score": 501529.0,
+      "alliance": "RFR",
+      "monarchId": "227700070.0"
+    },
+    {
+      "position": 91,
+      "name": "😎 KW",
+      "score": 500000.0,
+      "alliance": "PHX",
+      "monarchId": "212669676.0"
+    },
+    {
+      "position": 92,
+      "name": "Bailey 78",
+      "score": 500000.0,
+      "alliance": "PHX",
+      "monarchId": "212493596.0"
+    },
+    {
+      "position": 89,
+      "name": "Tusnicht",
+      "score": 501500.0,
+      "alliance": "RFR",
+      "monarchId": "237765908.0"
+    },
+    {
+      "position": 90,
+      "name": "MO.G",
+      "score": 500000.0,
+      "alliance": "HTS",
+      "monarchId": "227535019.0"
+    },
+    {
+      "position": 93,
+      "name": "gueofstyria",
+      "score": 498432.0,
+      "alliance": "JFF",
+      "monarchId": "227757064.0"
+    },
+    {
+      "position": 94,
+      "name": "SaraPalestine",
+      "score": 448000.0,
+      "alliance": "RFR",
+      "monarchId": "227578404.0"
+    },
+    {
+      "position": 95,
+      "name": "Queen  Chaos",
+      "score": 447500.0,
+      "alliance": "WIP",
+      "monarchId": "212748266.0"
+    },
+    {
+      "position": 96,
+      "name": "Red Princessa",
+      "score": 437500.0,
+      "alliance": "JFF",
+      "monarchId": "272719153.0"
+    },
+    {
+      "position": 97,
+      "name": "H0n3y~B@dg3R",
+      "score": 401500.0,
+      "alliance": "RFR",
+      "monarchId": "212654856.0"
+    },
+    {
+      "position": 99,
+      "name": "TITANIUS WAR",
+      "score": 374757.0,
+      "alliance": "RFR",
+      "monarchId": "227754221.0"
+    },
+    {
+      "position": 100,
+      "name": "jsyphil d2",
+      "score": 353751.0,
+      "alliance": "TDS",
+      "monarchId": "239702456.0"
+    },
+    {
+      "position": 98,
+      "name": "Flynx",
+      "score": 400000.0,
+      "alliance": "RFR",
+      "monarchId": "212638976.0"
     }
+  ],
+  "negative": [
+    {
+      "position": 1,
+      "name": "Ť.ý.ł.ë.r",
+      "score": -7158793216.0,
+      "alliance": "WIP",
+      "monarchId": "212693195.0"
+    },
+    {
+      "position": 2,
+      "name": "Kosmy01",
+      "score": -5506206720.0,
+      "alliance": "WIP",
+      "monarchId": "227549021.0"
+    },
+    {
+      "position": 3,
+      "name": "Battlefish23",
+      "score": -4532495872.0,
+      "alliance": "RFR",
+      "monarchId": "227503580.0"
+    },
+    {
+      "position": 4,
+      "name": "Tpel",
+      "score": -3108196608.0,
+      "alliance": "WIP",
+      "monarchId": "213131326.0"
+    },
+    {
+      "position": 5,
+      "name": "🤓Liquid",
+      "score": -2703941888.0,
+      "alliance": "WIP",
+      "monarchId": "213237494.0"
+    },
+    {
+      "position": 6,
+      "name": "Ãńmãÿ👊",
+      "score": -2677435648.0,
+      "alliance": "WIP",
+      "monarchId": "213195433.0"
+    },
+    {
+      "position": 7,
+      "name": "Mobile Suit",
+      "score": -1473505280.0,
+      "alliance": "WIP",
+      "monarchId": "227565900.0"
+    },
+    {
+      "position": 8,
+      "name": ".Ghoul.",
+      "score": -1273221120.0,
+      "alliance": "WIP",
+      "monarchId": "227475434.0"
+    },
+    {
+      "position": 9,
+      "name": "N A I M A N",
+      "score": -1056293056.0,
+      "alliance": "RFR",
+      "monarchId": "227676775.0"
+    },
+    {
+      "position": 10,
+      "name": "бляяя",
+      "score": -924866112.0,
+      "alliance": "WIP",
+      "monarchId": "212526963.0"
+    },
+    {
+      "position": 11,
+      "name": "Hiriamu-saki",
+      "score": -877361856.0,
+      "alliance": "RFR",
+      "monarchId": "227673343.0"
+    },
+    {
+      "position": 12,
+      "name": "LuckyL👀",
+      "score": -816217664.0,
+      "alliance": "WIP",
+      "monarchId": "236039997.0"
+    },
+    {
+      "position": 13,
+      "name": "gigi猫💕",
+      "score": -628049472.0,
+      "alliance": "EDO",
+      "monarchId": "212462547.0"
+    },
+    {
+      "position": 14,
+      "name": "El Bango Wifo",
+      "score": -559656192.0,
+      "alliance": "WIP",
+      "monarchId": "212377832.0"
+    },
+    {
+      "position": 16,
+      "name": "ZebZ",
+      "score": -422609984.0,
+      "alliance": "WIP",
+      "monarchId": "212681134.0"
+    },
+    {
+      "position": 17,
+      "name": "Abramelin-san",
+      "score": -378426880.0,
+      "alliance": "R62",
+      "monarchId": "227563676.0"
+    },
+    {
+      "position": 18,
+      "name": "Whatisup",
+      "score": -328908928.0,
+      "alliance": "RFR",
+      "monarchId": "227722546.0"
+    },
+    {
+      "position": 19,
+      "name": "🇹🇷TURK",
+      "score": -265510304.0,
+      "alliance": "WIP",
+      "monarchId": "227680893.0"
+    },
+    {
+      "position": 20,
+      "name": "Zed DarknI8",
+      "score": -252181184.0,
+      "alliance": "RFR",
+      "monarchId": "212809324.0"
+    },
+    {
+      "position": 21,
+      "name": "Ten🅰️nt",
+      "score": -216143888.0,
+      "alliance": "RFR",
+      "monarchId": "249313436.0"
+    },
+    {
+      "position": 22,
+      "name": "Skippy :",
+      "score": -202011056.0,
+      "alliance": "RFR",
+      "monarchId": "212873162.0"
+    },
+    {
+      "position": 15,
+      "name": "Carl_",
+      "score": -461826944.0,
+      "alliance": "JFF",
+      "monarchId": "227607707.0"
+    },
+    {
+      "position": 25,
+      "name": "TITANIUS WAR",
+      "score": -162595440.0,
+      "alliance": "RFR",
+      "monarchId": "227754221.0"
+    },
+    {
+      "position": 28,
+      "name": "Cogitoergo€",
+      "score": -125965664.0,
+      "alliance": "RFR",
+      "monarchId": "227629211.0"
+    },
+    {
+      "position": 30,
+      "name": "Mąiyara😼",
+      "score": -81240888.0,
+      "alliance": "RFR",
+      "monarchId": "227663540.0"
+    },
+    {
+      "position": 32,
+      "name": "爪adDoğȤȤ",
+      "score": -70812000.0,
+      "alliance": "WIP",
+      "monarchId": "213124942.0"
+    },
+    {
+      "position": 23,
+      "name": "🐀ЯaT🐀",
+      "score": -172558080.0,
+      "alliance": "JFF",
+      "monarchId": "227782897.0"
+    },
+    {
+      "position": 24,
+      "name": "Jessivan24",
+      "score": -169663696.0,
+      "alliance": "R62",
+      "monarchId": "227558402.0"
+    },
+    {
+      "position": 26,
+      "name": "Kuno1929🔥",
+      "score": -136731088.0,
+      "alliance": "WIP",
+      "monarchId": "227466349.0"
+    },
+    {
+      "position": 27,
+      "name": "Nichoa14",
+      "score": -128133520.0,
+      "alliance": "JFF",
+      "monarchId": "227474940.0"
+    },
+    {
+      "position": 29,
+      "name": "southpaw31",
+      "score": -102600456.0,
+      "alliance": "JFF",
+      "monarchId": "227730774.0"
+    },
+    {
+      "position": 31,
+      "name": "KODIAK EMPIRE",
+      "score": -78793272.0,
+      "alliance": "R62",
+      "monarchId": "227469282.0"
+    },
+    {
+      "position": 33,
+      "name": "M€G∆°",
+      "score": -65161676.0,
+      "alliance": "RFR",
+      "monarchId": "227583231.0"
+    },
+    {
+      "position": 35,
+      "name": "Wi🆔Ant",
+      "score": -46501344.0,
+      "alliance": "RFR",
+      "monarchId": "227559825.0"
+    },
+    {
+      "position": 37,
+      "name": "Monarch227582255",
+      "score": -40700060.0,
+      "alliance": "AXE",
+      "monarchId": "227582255.0"
+    },
+    {
+      "position": 38,
+      "name": "KT 37",
+      "score": -36854576.0,
+      "alliance": "RFR",
+      "monarchId": "227691240.0"
+    },
+    {
+      "position": 39,
+      "name": "nosocialogica",
+      "score": -30281296.0,
+      "alliance": "tag",
+      "monarchId": "227724394.0"
+    },
+    {
+      "position": 40,
+      "name": "£@∆¥",
+      "score": -23484188.0,
+      "alliance": "RFR",
+      "monarchId": "227464363.0"
+    },
+    {
+      "position": 42,
+      "name": "nomads realm",
+      "score": -21772808.0,
+      "alliance": "RFR",
+      "monarchId": "227594452.0"
+    },
+    {
+      "position": 34,
+      "name": "gueofstyria",
+      "score": -60498760.0,
+      "alliance": "JFF",
+      "monarchId": "227757064.0"
+    },
+    {
+      "position": 36,
+      "name": "Raven1/4All",
+      "score": -45922500.0,
+      "alliance": "JFF",
+      "monarchId": "227703006.0"
+    },
+    {
+      "position": 41,
+      "name": "ottoman-state",
+      "score": -23012028.0,
+      "alliance": "WIP",
+      "monarchId": "280798391.0"
+    },
+    {
+      "position": 43,
+      "name": "🐉 Draķøn",
+      "score": -10717453.0,
+      "alliance": "RFR",
+      "monarchId": "212423000.0"
+    },
+    {
+      "position": 47,
+      "name": "🦄 dr@gyn",
+      "score": -9972204.0,
+      "alliance": "RFR",
+      "monarchId": "213148786.0"
+    },
+    {
+      "position": 51,
+      "name": "Dusty616",
+      "score": -1673000.0,
+      "alliance": "WIP",
+      "monarchId": "213064806.0"
+    },
+    {
+      "position": 44,
+      "name": "Auz | FM 00.0",
+      "score": -10656854.0,
+      "alliance": "tag",
+      "monarchId": "268518039.0"
+    },
+    {
+      "position": 45,
+      "name": "Demy'an🪂",
+      "score": -10324026.0,
+      "alliance": "RFR",
+      "monarchId": "227777618.0"
+    },
+    {
+      "position": 46,
+      "name": "Adæbrak95",
+      "score": -9974689.0,
+      "alliance": "RFR",
+      "monarchId": "247899350.0"
+    },
+    {
+      "position": 48,
+      "name": "Chesty LaRue",
+      "score": -4915489.0,
+      "alliance": "RFR",
+      "monarchId": "227700070.0"
+    },
+    {
+      "position": 49,
+      "name": "J@smiπe",
+      "score": -4906125.0,
+      "alliance": "EDO",
+      "monarchId": "212423549.0"
+    },
+    {
+      "position": 50,
+      "name": "Monarch227566737",
+      "score": -2881545.0,
+      "alliance": "SMP",
+      "monarchId": "227566737.0"
+    },
+    {
+      "position": 52,
+      "name": "Panzer'sTOM",
+      "score": -1111900.0,
+      "alliance": "WIP",
+      "monarchId": "212815871.0"
+    },
+    {
+      "position": 53,
+      "name": "blodymarry",
+      "score": -964759.0,
+      "alliance": "WIP",
+      "monarchId": "227667738.0"
+    },
+    {
+      "position": 54,
+      "name": "BigPoppa_Trip",
+      "score": -760387.0,
+      "alliance": "PHX",
+      "monarchId": "212372000.0"
+    },
+    {
+      "position": 55,
+      "name": "💫Mirabella",
+      "score": -328468.0,
+      "alliance": "R62",
+      "monarchId": "227520951.0"
+    },
+    {
+      "position": 56,
+      "name": "Zippitydooda",
+      "score": -149900.0,
+      "alliance": "TDS",
+      "monarchId": "213144490.0"
+    },
+    {
+      "position": 57,
+      "name": "JimmyTerrific",
+      "score": -59060.0,
+      "alliance": "RFR",
+      "monarchId": "227509745.0"
+    },
+    {
+      "position": 58,
+      "name": "jsyphil d2",
+      "score": -43470.0,
+      "alliance": "TDS",
+      "monarchId": "239702456.0"
+    },
+    {
+      "position": 60,
+      "name": "Spirit Box 13",
+      "score": -12540.0,
+      "alliance": "RFR",
+      "monarchId": "227482667.0"
+    },
+    {
+      "position": 61,
+      "name": "༺-Raj-༻",
+      "score": -12180.0,
+      "alliance": "WIP",
+      "monarchId": "212723878.0"
+    },
+    {
+      "position": 62,
+      "name": "Tuckahoe Bob",
+      "score": -45.0,
+      "alliance": "KGT",
+      "monarchId": "283081947.0"
+    },
+    {
+      "position": 59,
+      "name": "Ball Butter",
+      "score": -23393.0,
+      "alliance": "KGT",
+      "monarchId": "361625567.0"
+    }
+  ],
+  "combined": [
+    {
+      "position": 1,
+      "name": "Kosmy01",
+      "score": 2277006594.0,
+      "positive": 7783213314.0,
+      "negative": -5506206720.0,
+      "alliance": "WIP",
+      "monarchId": "227549021.0"
+    },
+    {
+      "position": 2,
+      "name": "Battlefish23",
+      "score": 1833175168.0,
+      "positive": 6365671040.0,
+      "negative": -4532495872.0,
+      "alliance": "RFR",
+      "monarchId": "227503580.0"
+    },
+    {
+      "position": 3,
+      "name": "Tpel",
+      "score": 768857151.0,
+      "positive": 3877053759.0,
+      "negative": -3108196608.0,
+      "alliance": "WIP",
+      "monarchId": "213131326.0"
+    },
+    {
+      "position": 4,
+      "name": "🤓Liquid",
+      "score": 535054971.0,
+      "positive": 3238996859.0,
+      "negative": -2703941888.0,
+      "alliance": "WIP",
+      "monarchId": "213237494.0"
+    },
+    {
+      "position": 5,
+      "name": "爪adDoğȤȤ",
+      "score": 487555956.0,
+      "positive": 558367956.0,
+      "negative": -70812000.0,
+      "alliance": "WIP",
+      "monarchId": "213124942.0"
+    },
+    {
+      "position": 6,
+      "name": "Ten🅰️nt",
+      "score": 112480855.0,
+      "positive": 328624743.0,
+      "negative": -216143888.0,
+      "alliance": "RFR",
+      "monarchId": "249313436.0"
+    },
+    {
+      "position": 7,
+      "name": "Zed DarknI8",
+      "score": 29641751.0,
+      "positive": 281822935.0,
+      "negative": -252181184.0,
+      "alliance": "RFR",
+      "monarchId": "212809324.0"
+    },
+    {
+      "position": 8,
+      "name": "blodymarry",
+      "score": 20003275.0,
+      "positive": 20968034.0,
+      "negative": -964759.0,
+      "alliance": "WIP",
+      "monarchId": "227667738.0"
+    },
+    {
+      "position": 9,
+      "name": "BigPoppa_Trip",
+      "score": 18869309.0,
+      "positive": 19629696.0,
+      "negative": -760387.0,
+      "alliance": "PHX",
+      "monarchId": "212372000.0"
+    },
+    {
+      "position": 10,
+      "name": "༺-Raj-༻",
+      "score": 12696356.0,
+      "positive": 12708536.0,
+      "negative": -12180.0,
+      "alliance": "WIP",
+      "monarchId": "212723878.0"
+    },
+    {
+      "position": 11,
+      "name": "Miret ⚜️",
+      "score": 5975400.0,
+      "positive": 5975400.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212656992.0"
+    },
+    {
+      "position": 12,
+      "name": "Witty calf",
+      "score": 3401500.0,
+      "positive": 3401500.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212729512.0"
+    },
+    {
+      "position": 13,
+      "name": "薔薇真音",
+      "score": 3321400.0,
+      "positive": 3321400.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212634404.0"
+    },
+    {
+      "position": 14,
+      "name": "revx73",
+      "score": 3066000.0,
+      "positive": 3066000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212728426.0"
+    },
+    {
+      "position": 15,
+      "name": "Alexander545",
+      "score": 2500000.0,
+      "positive": 2500000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "227482847.0"
+    },
+    {
+      "position": 16,
+      "name": "Rev…Salomé",
+      "score": 2403000.0,
+      "positive": 2403000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "227682215.0"
+    },
+    {
+      "position": 17,
+      "name": "~uoslod~💀",
+      "score": 2278500.0,
+      "positive": 2278500.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212446060.0"
+    },
+    {
+      "position": 18,
+      "name": "💫Mirabella",
+      "score": 2018332.0,
+      "positive": 2346800.0,
+      "negative": -328468.0,
+      "alliance": "R62",
+      "monarchId": "227520951.0"
+    },
+    {
+      "position": 19,
+      "name": "T@ni9",
+      "score": 1891900.0,
+      "positive": 1891900.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212726670.0"
+    },
+    {
+      "position": 20,
+      "name": "Ballboy-Ref",
+      "score": 1745505.0,
+      "positive": 1745505.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "227600651.0"
+    },
+    {
+      "position": 21,
+      "name": "Shadowfax23",
+      "score": 1741000.0,
+      "positive": 1741000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "213143241.0"
+    },
+    {
+      "position": 22,
+      "name": "PriTle",
+      "score": 1700000.0,
+      "positive": 1700000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "337439248.0"
+    },
+    {
+      "position": 23,
+      "name": "XuKa_17",
+      "score": 1515500.0,
+      "positive": 1515500.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "212759680.0"
+    },
+    {
+      "position": 24,
+      "name": "MönNôr🫟",
+      "score": 1481500.0,
+      "positive": 1481500.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "227445408.0"
+    },
+    {
+      "position": 25,
+      "name": "LC Peoria",
+      "score": 1242000.0,
+      "positive": 1242000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "227724599.0"
+    },
+    {
+      "position": 26,
+      "name": "Lipofortro",
+      "score": 1230500.0,
+      "positive": 1230500.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212523984.0"
+    },
+    {
+      "position": 27,
+      "name": "Lost Calis",
+      "score": 1175000.0,
+      "positive": 1175000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "213129311.0"
+    },
+    {
+      "position": 28,
+      "name": "Lipoghosto",
+      "score": 1127000.0,
+      "positive": 1127000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212704196.0"
+    },
+    {
+      "position": 29,
+      "name": "tony 12.00",
+      "score": 1101500.0,
+      "positive": 1101500.0,
+      "negative": 0.0,
+      "alliance": "R62",
+      "monarchId": "212727872.0"
+    },
+    {
+      "position": 30,
+      "name": "yvan70",
+      "score": 1100000.0,
+      "positive": 1100000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212733396.0"
+    },
+    {
+      "position": 31,
+      "name": "Victoria.¶",
+      "score": 1100000.0,
+      "positive": 1100000.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "228328590.0"
+    },
+    {
+      "position": 32,
+      "name": "Tuckahoe Bob",
+      "score": 937573.0,
+      "positive": 937618.0,
+      "negative": -45.0,
+      "alliance": "KGT",
+      "monarchId": "283081947.0"
+    },
+    {
+      "position": 33,
+      "name": "Storm ..",
+      "score": 857000.0,
+      "positive": 857000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212695146.0"
+    },
+    {
+      "position": 34,
+      "name": "Armored Saint",
+      "score": 801500.0,
+      "positive": 801500.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "213132035.0"
+    },
+    {
+      "position": 35,
+      "name": "Spincaster",
+      "score": 800000.0,
+      "positive": 800000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "213146668.0"
+    },
+    {
+      "position": 36,
+      "name": "Bill⚔️Bo",
+      "score": 800000.0,
+      "positive": 800000.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "227547297.0"
+    },
+    {
+      "position": 37,
+      "name": "BigFin 🔱",
+      "score": 786200.0,
+      "positive": 786200.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212753470.0"
+    },
+    {
+      "position": 38,
+      "name": "Lob€lia🔹",
+      "score": 726600.0,
+      "positive": 726600.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212666492.0"
+    },
+    {
+      "position": 39,
+      "name": "Warden Ves",
+      "score": 700000.0,
+      "positive": 700000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "268222487.0"
+    },
+    {
+      "position": 40,
+      "name": "<ŤŞ>",
+      "score": 669700.0,
+      "positive": 669700.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212573924.0"
+    },
+    {
+      "position": 41,
+      "name": "Monarc Tonito",
+      "score": 660000.0,
+      "positive": 660000.0,
+      "negative": 0.0,
+      "alliance": "tag",
+      "monarchId": "227576789.0"
+    },
+    {
+      "position": 42,
+      "name": "Ëurøpastår",
+      "score": 641000.0,
+      "positive": 641000.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "212690198.0"
+    },
+    {
+      "position": 43,
+      "name": "Ironman-79",
+      "score": 621000.0,
+      "positive": 621000.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212644067.0"
+    },
+    {
+      "position": 44,
+      "name": "Becks Prime",
+      "score": 610500.0,
+      "positive": 610500.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "213108732.0"
+    },
+    {
+      "position": 45,
+      "name": "Lineman Sweet",
+      "score": 600000.0,
+      "positive": 600000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "213115911.0"
+    },
+    {
+      "position": 46,
+      "name": "Pόnτος",
+      "score": 600000.0,
+      "positive": 600000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212226071.0"
+    },
+    {
+      "position": 47,
+      "name": "T R I D E V",
+      "score": 600000.0,
+      "positive": 600000.0,
+      "negative": 0.0,
+      "alliance": "R62",
+      "monarchId": "227683562.0"
+    },
+    {
+      "position": 48,
+      "name": "HuckleberryPi",
+      "score": 597500.0,
+      "positive": 597500.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212666102.0"
+    },
+    {
+      "position": 49,
+      "name": "α Scorpii",
+      "score": 570500.0,
+      "positive": 570500.0,
+      "negative": 0.0,
+      "alliance": "JFF",
+      "monarchId": "227486771.0"
+    },
+    {
+      "position": 50,
+      "name": "SavetheEarth",
+      "score": 537500.0,
+      "positive": 537500.0,
+      "negative": 0.0,
+      "alliance": "R62",
+      "monarchId": "227683076.0"
+    },
+    {
+      "position": 51,
+      "name": "Blackmagic9",
+      "score": 518000.0,
+      "positive": 518000.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "212743899.0"
+    },
+    {
+      "position": 52,
+      "name": "Uriah's Heap",
+      "score": 503000.0,
+      "positive": 503000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "213193476.0"
+    },
+    {
+      "position": 53,
+      "name": "Tusnicht",
+      "score": 501500.0,
+      "positive": 501500.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "237765908.0"
+    },
+    {
+      "position": 54,
+      "name": "😎 KW",
+      "score": 500000.0,
+      "positive": 500000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212669676.0"
+    },
+    {
+      "position": 55,
+      "name": "Bailey 78",
+      "score": 500000.0,
+      "positive": 500000.0,
+      "negative": 0.0,
+      "alliance": "PHX",
+      "monarchId": "212493596.0"
+    },
+    {
+      "position": 56,
+      "name": "MO.G",
+      "score": 500000.0,
+      "positive": 500000.0,
+      "negative": 0.0,
+      "alliance": "HTS",
+      "monarchId": "227535019.0"
+    },
+    {
+      "position": 57,
+      "name": "SaraPalestine",
+      "score": 448000.0,
+      "positive": 448000.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "227578404.0"
+    },
+    {
+      "position": 58,
+      "name": "Queen  Chaos",
+      "score": 447500.0,
+      "positive": 447500.0,
+      "negative": 0.0,
+      "alliance": "WIP",
+      "monarchId": "212748266.0"
+    },
+    {
+      "position": 59,
+      "name": "Red Princessa",
+      "score": 437500.0,
+      "positive": 437500.0,
+      "negative": 0.0,
+      "alliance": "JFF",
+      "monarchId": "272719153.0"
+    },
+    {
+      "position": 60,
+      "name": "H0n3y~B@dg3R",
+      "score": 401500.0,
+      "positive": 401500.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "212654856.0"
+    },
+    {
+      "position": 61,
+      "name": "Flynx",
+      "score": 400000.0,
+      "positive": 400000.0,
+      "negative": 0.0,
+      "alliance": "RFR",
+      "monarchId": "212638976.0"
+    },
+    {
+      "position": 62,
+      "name": "jsyphil d2",
+      "score": 310281.0,
+      "positive": 353751.0,
+      "negative": -43470.0,
+      "alliance": "TDS",
+      "monarchId": "239702456.0"
+    },
+    {
+      "position": 63,
+      "name": "Spirit Box 13",
+      "score": -12540.0,
+      "positive": 0.0,
+      "negative": -12540.0,
+      "alliance": "RFR",
+      "monarchId": "227482667.0"
+    },
+    {
+      "position": 64,
+      "name": "Ball Butter",
+      "score": -23393.0,
+      "positive": 0.0,
+      "negative": -23393.0,
+      "alliance": "KGT",
+      "monarchId": "361625567.0"
+    },
+    {
+      "position": 65,
+      "name": "JimmyTerrific",
+      "score": -59060.0,
+      "positive": 0.0,
+      "negative": -59060.0,
+      "alliance": "RFR",
+      "monarchId": "227509745.0"
+    },
+    {
+      "position": 66,
+      "name": "Zippitydooda",
+      "score": -149900.0,
+      "positive": 0.0,
+      "negative": -149900.0,
+      "alliance": "TDS",
+      "monarchId": "213144490.0"
+    },
+    {
+      "position": 67,
+      "name": "Dusty616",
+      "score": -1078379.0,
+      "positive": 594621.0,
+      "negative": -1673000.0,
+      "alliance": "WIP",
+      "monarchId": "213064806.0"
+    },
+    {
+      "position": 68,
+      "name": "Panzer'sTOM",
+      "score": -1111900.0,
+      "positive": 0.0,
+      "negative": -1111900.0,
+      "alliance": "WIP",
+      "monarchId": "212815871.0"
+    },
+    {
+      "position": 69,
+      "name": "Monarch227566737",
+      "score": -2881545.0,
+      "positive": 0.0,
+      "negative": -2881545.0,
+      "alliance": "SMP",
+      "monarchId": "227566737.0"
+    },
+    {
+      "position": 70,
+      "name": "Chesty LaRue",
+      "score": -4413960.0,
+      "positive": 501529.0,
+      "negative": -4915489.0,
+      "alliance": "RFR",
+      "monarchId": "227700070.0"
+    },
+    {
+      "position": 71,
+      "name": "J@smiπe",
+      "score": -4906125.0,
+      "positive": 0.0,
+      "negative": -4906125.0,
+      "alliance": "EDO",
+      "monarchId": "212423549.0"
+    },
+    {
+      "position": 72,
+      "name": "£@∆¥",
+      "score": -7005636.0,
+      "positive": 16478552.0,
+      "negative": -23484188.0,
+      "alliance": "RFR",
+      "monarchId": "227464363.0"
+    },
+    {
+      "position": 73,
+      "name": "🐉 Draķøn",
+      "score": -7161569.0,
+      "positive": 3555884.0,
+      "negative": -10717453.0,
+      "alliance": "RFR",
+      "monarchId": "212423000.0"
+    },
+    {
+      "position": 74,
+      "name": "Demy'an🪂",
+      "score": -7346896.0,
+      "positive": 2977130.0,
+      "negative": -10324026.0,
+      "alliance": "RFR",
+      "monarchId": "227777618.0"
+    },
+    {
+      "position": 75,
+      "name": "Adæbrak95",
+      "score": -7453747.0,
+      "positive": 2520942.0,
+      "negative": -9974689.0,
+      "alliance": "RFR",
+      "monarchId": "247899350.0"
+    },
+    {
+      "position": 76,
+      "name": "🦄 dr@gyn",
+      "score": -8124261.0,
+      "positive": 1847943.0,
+      "negative": -9972204.0,
+      "alliance": "RFR",
+      "monarchId": "213148786.0"
+    },
+    {
+      "position": 77,
+      "name": "Auz | FM 00.0",
+      "score": -9714241.0,
+      "positive": 942613.0,
+      "negative": -10656854.0,
+      "alliance": "tag",
+      "monarchId": "268518039.0"
+    },
+    {
+      "position": 78,
+      "name": "nomads realm",
+      "score": -14101427.0,
+      "positive": 7671381.0,
+      "negative": -21772808.0,
+      "alliance": "RFR",
+      "monarchId": "227594452.0"
+    },
+    {
+      "position": 79,
+      "name": "ottoman-state",
+      "score": -23012028.0,
+      "positive": 0.0,
+      "negative": -23012028.0,
+      "alliance": "WIP",
+      "monarchId": "280798391.0"
+    },
+    {
+      "position": 80,
+      "name": "KT 37",
+      "score": -25982295.0,
+      "positive": 10872281.0,
+      "negative": -36854576.0,
+      "alliance": "RFR",
+      "monarchId": "227691240.0"
+    },
+    {
+      "position": 81,
+      "name": "Mąiyara😼",
+      "score": -27005854.0,
+      "positive": 54235034.0,
+      "negative": -81240888.0,
+      "alliance": "RFR",
+      "monarchId": "227663540.0"
+    },
+    {
+      "position": 82,
+      "name": "Wi🆔Ant",
+      "score": -29647709.0,
+      "positive": 16853635.0,
+      "negative": -46501344.0,
+      "alliance": "RFR",
+      "monarchId": "227559825.0"
+    },
+    {
+      "position": 83,
+      "name": "nosocialogica",
+      "score": -30281296.0,
+      "positive": 0.0,
+      "negative": -30281296.0,
+      "alliance": "tag",
+      "monarchId": "227724394.0"
+    },
+    {
+      "position": 84,
+      "name": "бляяя",
+      "score": -33882223.0,
+      "positive": 890983889.0,
+      "negative": -924866112.0,
+      "alliance": "WIP",
+      "monarchId": "212526963.0"
+    },
+    {
+      "position": 85,
+      "name": "M€G∆°",
+      "score": -35151171.0,
+      "positive": 30010505.0,
+      "negative": -65161676.0,
+      "alliance": "RFR",
+      "monarchId": "227583231.0"
+    },
+    {
+      "position": 86,
+      "name": "Monarch227582255",
+      "score": -40700060.0,
+      "positive": 0.0,
+      "negative": -40700060.0,
+      "alliance": "AXE",
+      "monarchId": "227582255.0"
+    },
+    {
+      "position": 87,
+      "name": "Raven1/4All",
+      "score": -45922500.0,
+      "positive": 0.0,
+      "negative": -45922500.0,
+      "alliance": "JFF",
+      "monarchId": "227703006.0"
+    },
+    {
+      "position": 88,
+      "name": "gueofstyria",
+      "score": -60000328.0,
+      "positive": 498432.0,
+      "negative": -60498760.0,
+      "alliance": "JFF",
+      "monarchId": "227757064.0"
+    },
+    {
+      "position": 89,
+      "name": "KODIAK EMPIRE",
+      "score": -78793272.0,
+      "positive": 0.0,
+      "negative": -78793272.0,
+      "alliance": "R62",
+      "monarchId": "227469282.0"
+    },
+    {
+      "position": 90,
+      "name": "Mobile Suit",
+      "score": -83700990.0,
+      "positive": 1389804290.0,
+      "negative": -1473505280.0,
+      "alliance": "WIP",
+      "monarchId": "227565900.0"
+    },
+    {
+      "position": 91,
+      "name": "Kuno1929🔥",
+      "score": -90070462.0,
+      "positive": 46660626.0,
+      "negative": -136731088.0,
+      "alliance": "WIP",
+      "monarchId": "227466349.0"
+    },
+    {
+      "position": 92,
+      "name": "southpaw31",
+      "score": -101560012.0,
+      "positive": 1040444.0,
+      "negative": -102600456.0,
+      "alliance": "JFF",
+      "monarchId": "227730774.0"
+    },
+    {
+      "position": 93,
+      "name": "Nichoa14",
+      "score": -109501982.0,
+      "positive": 18631538.0,
+      "negative": -128133520.0,
+      "alliance": "JFF",
+      "monarchId": "227474940.0"
+    },
+    {
+      "position": 94,
+      "name": "Whatisup",
+      "score": -117805592.0,
+      "positive": 211103336.0,
+      "negative": -328908928.0,
+      "alliance": "RFR",
+      "monarchId": "227722546.0"
+    },
+    {
+      "position": 95,
+      "name": "gigi猫💕",
+      "score": -124764477.0,
+      "positive": 503284995.0,
+      "negative": -628049472.0,
+      "alliance": "EDO",
+      "monarchId": "212462547.0"
+    },
+    {
+      "position": 96,
+      "name": "Cogitoergo€",
+      "score": -125965664.0,
+      "positive": 0.0,
+      "negative": -125965664.0,
+      "alliance": "RFR",
+      "monarchId": "227629211.0"
+    },
+    {
+      "position": 97,
+      "name": "TITANIUS WAR",
+      "score": -162220683.0,
+      "positive": 374757.0,
+      "negative": -162595440.0,
+      "alliance": "RFR",
+      "monarchId": "227754221.0"
+    },
+    {
+      "position": 98,
+      "name": "Jessivan24",
+      "score": -168614068.0,
+      "positive": 1049628.0,
+      "negative": -169663696.0,
+      "alliance": "R62",
+      "monarchId": "227558402.0"
+    },
+    {
+      "position": 99,
+      "name": "🐀ЯaT🐀",
+      "score": -169056462.0,
+      "positive": 3501618.0,
+      "negative": -172558080.0,
+      "alliance": "JFF",
+      "monarchId": "227782897.0"
+    },
+    {
+      "position": 100,
+      "name": "Skippy :",
+      "score": -196231129.0,
+      "positive": 5779927.0,
+      "negative": -202011056.0,
+      "alliance": "RFR",
+      "monarchId": "212873162.0"
+    },
+    {
+      "position": 101,
+      "name": "🇹🇷TURK",
+      "score": -217946981.0,
+      "positive": 47563323.0,
+      "negative": -265510304.0,
+      "alliance": "WIP",
+      "monarchId": "227680893.0"
+    },
+    {
+      "position": 102,
+      "name": "El Bango Wifo",
+      "score": -238117098.0,
+      "positive": 321539094.0,
+      "negative": -559656192.0,
+      "alliance": "WIP",
+      "monarchId": "212377832.0"
+    },
+    {
+      "position": 103,
+      "name": "LuckyL👀",
+      "score": -276204648.0,
+      "positive": 540013016.0,
+      "negative": -816217664.0,
+      "alliance": "WIP",
+      "monarchId": "236039997.0"
+    },
+    {
+      "position": 104,
+      "name": "Abramelin-san",
+      "score": -378426880.0,
+      "positive": 0.0,
+      "negative": -378426880.0,
+      "alliance": "R62",
+      "monarchId": "227563676.0"
+    },
+    {
+      "position": 105,
+      "name": "ZebZ",
+      "score": -419864669.0,
+      "positive": 2745315.0,
+      "negative": -422609984.0,
+      "alliance": "WIP",
+      "monarchId": "212681134.0"
+    },
+    {
+      "position": 106,
+      "name": "N A I M A N",
+      "score": -419900948.0,
+      "positive": 636392108.0,
+      "negative": -1056293056.0,
+      "alliance": "RFR",
+      "monarchId": "227676775.0"
+    },
+    {
+      "position": 107,
+      "name": "Carl_",
+      "score": -448229239.0,
+      "positive": 13597705.0,
+      "negative": -461826944.0,
+      "alliance": "JFF",
+      "monarchId": "227607707.0"
+    },
+    {
+      "position": 108,
+      "name": ".Ghoul.",
+      "score": -486086547.0,
+      "positive": 787134573.0,
+      "negative": -1273221120.0,
+      "alliance": "WIP",
+      "monarchId": "227475434.0"
+    },
+    {
+      "position": 109,
+      "name": "Hiriamu-saki",
+      "score": -487929066.0,
+      "positive": 389432790.0,
+      "negative": -877361856.0,
+      "alliance": "RFR",
+      "monarchId": "227673343.0"
+    },
+    {
+      "position": 110,
+      "name": "Ãńmãÿ👊",
+      "score": -617976424.0,
+      "positive": 2059459224.0,
+      "negative": -2677435648.0,
+      "alliance": "WIP",
+      "monarchId": "213195433.0"
+    },
+    {
+      "position": 111,
+      "name": "Ť.ý.ł.ë.r",
+      "score": -2608304134.0,
+      "positive": 4550489082.0,
+      "negative": -7158793216.0,
+      "alliance": "WIP",
+      "monarchId": "212693195.0"
+    }
+  ],
+  "metadata": {
+    "totalPlayers": 111,
+    "totalAlliances": 12,
+    "lastUpdate": "2025-11-27T12:00:00Z",
+    "dataFile": "monday_data.json"
   }
 }
