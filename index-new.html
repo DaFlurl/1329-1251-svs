@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 AgentDaf1.1 - Live Gaming Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">🏆 AgentDaf1.1</h1>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalPlayersDisplay">0</span>
+                        <span class="stat-label">Aktive Spieler</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalAlliancesDisplay">0</span>
+                        <span class="stat-label">Allianzen</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="updateStatus">Lade...</span>
+                        <span class="stat-label">Status</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Quick Stats -->
+            <section class="quick-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalScore">-</div>
+                        <div class="stat-label">Gesamtpunkte</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgScore">-</div>
+                        <div class="stat-label">Durchschnitt</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="highestScore">-</div>
+                        <div class="stat-label">Höchste Punktzahl</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeGames">-</div>
+                        <div class="stat-label">Aktive Spiele</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Top Players -->
+            <section class="top-players">
+                <div class="section-header">
+                    <h2>Top Spieler</h2>
+                    <button class="btn btn-secondary" onclick="showAllPlayers()">Alle anzeigen</button>
+                </div>
+                <div class="players-list" id="topPlayersList">
+                    <div class="loading">Lade Spielerdaten...</div>
+                </div>
+            </section>
+
+            <!-- Alliance Ranking -->
+            <section class="alliance-ranking">
+                <div class="section-header">
+                    <h2>Allianz-Ranking</h2>
+                    <button class="btn btn-secondary" onclick="showAllianceDetails()">Details</button>
+                </div>
+                <div class="alliances-list" id="allianceRanking">
+                    <div class="loading">Lade Allianzdaten...</div>
+                </div>
+            </section>
+
+            <!-- Data Selector -->
+            <section class="data-selector">
+                <div class="selector-group">
+                    <label for="dataFileSelect">Datenquelle:</label>
+                    <select id="dataFileSelect" onchange="loadDataFile(this.value)">
+                        <option value="monday_data.json">Montag, 24. Nov 2025</option>
+                        <option value="scoreboard-data.json">Sonntag, 16. Nov 2025</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync-alt"></i> Aktualisieren
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>🤖 AgentDaf1.1 Dashboard System | Zuletzt aktualisiert: <span id="lastUpdate">Lade...</span></p>
+                <div class="footer-links">
+                    <a href="https://github.com/DaFlurl/1329-1251-svs" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <button class="btn btn-small" onclick="installPWA()">
+                        <i class="fas fa-download"></i> Installieren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h2>Lade Dashboard...</h2>
+            <p>Verarbeite Spieldaten</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="dashboard.js"></script>
+</body>
+</html>
