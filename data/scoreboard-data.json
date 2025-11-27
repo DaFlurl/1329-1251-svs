@@ -1,0 +1,43 @@
+{
+  "positive": [
+    {
+      "Position": 1,
+      "Name": "Test Player 1",
+      "Score": 15000,
+      "Alliance": "Alpha",
+      "Monarch ID": "12345"
+    },
+    {
+      "Position": 2,
+      "Name": "Test Player 2", 
+      "Score": 14500,
+      "Alliance": "Beta",
+      "Monarch ID": "67890"
+    }
+  ],
+  "negative": [
+    {
+      "Position": 1,
+      "Name": "Test Player 3",
+      "Score": -500,
+      "Alliance": "Gamma",
+      "Monarch ID": "11111"
+    }
+  ],
+  "combined": [
+    {
+      "Position": 1,
+      "Name": "Test Player 1",
+      "Score": 15000,
+      "Alliance": "Alpha",
+      "Monarch ID": "12345"
+    },
+    {
+      "Position": 2,
+      "Name": "Test Player 2",
+      "Score": 14500,
+      "Alliance": "Beta", 
+      "Monarch ID": "67890"
+    }
+  ]
+}
