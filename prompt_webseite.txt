@@ -1,0 +1,181 @@
+📝 Prompt für dein Projekt
+Prompt:
+
+
+🎨 Design‑Vorschlag
+Farbpalette
+• 	Hintergrund: Dunkelgrau (#1E1E2F)
+• 	Primärfarbe: Neon‑Grün (#00FF88) → für Scores
+• 	Sekundärfarbe: Weiß (#FFFFFF) → für Text
+• 	Akzent: Rot (#FF3355) → für „Game Over“ oder wichtige Hinweise
+Layout
+• 	Header:
+• 	Titel „🏆 Live Scoreboard“
+• 	Dropdown für History‑Dateien rechts oben
+• 	Main Section:
+• 	Grid mit zwei Spalten: Team A  Team B
+• 	Große Zahlen für Scores (fett, neon‑grün)
+• 	Teamnamen in klarer Sans‑Serif Schrift (z. B. Montserrat)
+• 	Footer:
+• 	Hinweis „Updated via Python Script“
+• 	Kleines GitHub‑Icon für Repo‑Link
+
+
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Scoreboard</title>
+  <style>
+    body {
+      background: #1E1E2F;
+      color: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+    .scoreboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 50px auto;
+      max-width: 600px;
+    }
+    .team {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .score {
+      font-size: 5em;
+      color: #00FF88;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.8em;
+      opacity: 0.7;
+    }
+    select {
+      background: #1E1E2F;
+      color: #FFFFFF;
+      border: 1px solid #00FF88;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏆 Live Scoreboard</h1>
+    <select id="history">
+      <option>Version wählen...</option>
+    </select>
+  </header>
+  <div class="scoreboard">
+    <div>
+      <div class="team">Team A</div>
+      <div class="score">42</div>
+    </div>
+    <div>
+      <div class="team">Team B</div>
+      <div class="score">38</div>
+    </div>
+  </div>
+  <footer>
+    Updated via Python Script | <a href="#">GitHub Repo</a>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+beisp+iel 2
+
+
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Match Scores</title>
+  <style>
+    body {
+      background: #F5F5F5;
+      color: #333333;
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      padding: 20px;
+      background: #FFFFFF;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    select {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .scoreboard {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 50px auto;
+    }
+    .card {
+      background: #FFFFFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 200px;
+    }
+    .team {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .score {
+      font-size: 4em;
+      font-weight: bold;
+    }
+    .teamA .score { color: #3366FF; }
+    .teamB .score { color: #FF9933; }
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      background: #FFFFFF;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Live Match Scores</h1>
+    <select id="history">
+      <option>Version wählen...</option>
+    </select>
+  </header>
+  <div class="scoreboard">
+    <div class="card teamA">
+      <div class="team">Team A</div>
+      <div class="score">55</div>
+    </div>
+    <div class="card teamB">
+      <div class="team">Team B</div>
+      <div class="score">47</div>
+    </div>
+  </div>
+  <footer>
+    Powered by Python Script
+  </footer>
+</body>
+</html>
+
