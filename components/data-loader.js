@@ -92,33 +92,33 @@ class DataLoader {
     // Process positive data
     if (rawData.positive && Array.isArray(rawData.positive)) {
       processed.positive = rawData.positive.map((player, index) => ({
-        position: index + 1,
-        name: player.Name || player.name || 'Unknown',
-        score: parseInt(player.Score || player.score || 0),
-        alliance: player.Alliance || player.alliance || 'None',
-        monarchId: player['Monarch ID'] || player.monarchId || 'N/A'
+        position: player.position || index + 1,
+        name: player.name || player.Name || 'Unknown',
+        score: parseInt(player.score || player.Score || 0),
+        alliance: player.alliance || player.Alliance || 'None',
+        monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
       }));
     }
 
     // Process negative data
     if (rawData.negative && Array.isArray(rawData.negative)) {
       processed.negative = rawData.negative.map((player, index) => ({
-        position: index + 1,
-        name: player.Name || player.name || 'Unknown',
-        score: parseInt(player.Score || player.score || 0),
-        alliance: player.Alliance || player.alliance || 'None',
-        monarchId: player['Monarch ID'] || player.monarchId || 'N/A'
+        position: player.position || index + 1,
+        name: player.name || player.Name || 'Unknown',
+        score: parseInt(player.score || player.Score || 0),
+        alliance: player.alliance || player.Alliance || 'None',
+        monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
       }));
     }
 
     // Process combined data
     if (rawData.combined && Array.isArray(rawData.combined)) {
       processed.combined = rawData.combined.map((player, index) => ({
-        position: index + 1,
-        name: player.Name || player.name || 'Unknown',
-        score: parseInt(player.Score || player.score || 0),
-        alliance: player.Alliance || player.alliance || 'None',
-        monarchId: player['Monarch ID'] || player.monarchId || 'N/A'
+        position: player.position || index + 1,
+        name: player.name || player.Name || 'Unknown',
+        score: parseInt(player.score || player.Score || 0),
+        alliance: player.alliance || player.Alliance || 'None',
+        monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
       }));
     }
 
