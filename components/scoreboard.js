@@ -58,9 +58,17 @@ class Scoreboard {
   }
 
   handleDataUpdate(dataDetail) {
+    console.log('Scoreboard received data update:', {
+      hasData: !!dataDetail.data,
+      playersCount: dataDetail.data?.combined?.length || 0,
+      metadata: dataDetail.data?.metadata
+    });
+    
     const { data } = dataDetail;
     this.players = data.combined || [];
     this.filteredPlayers = [...this.players];
+    
+    console.log('Scoreboard players set:', this.players.length);
     
     // Update UI components
     this.updateOverview();
@@ -144,6 +152,8 @@ class Scoreboard {
 
   updateQuickStats() {
     const stats = this.getStatistics();
+    
+    console.log('Updating quick stats with:', stats);
     
     this.updateElement('totalScore', this.formatScore(stats.totalScore));
     this.updateElement('avgScore', this.formatScore(stats.averageScore));

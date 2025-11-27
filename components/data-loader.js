@@ -222,6 +222,12 @@ class DataLoader {
   }
 
   dispatchDataLoaded() {
+    console.log('Dispatching dataLoaded event with:', {
+      dataKeys: this.data ? Object.keys(this.data) : 'null',
+      playersCount: this.data ? this.data.combined?.length || 0 : 0,
+      dataFile: this.currentDataFile
+    });
+    
     const event = new CustomEvent('dataLoaded', {
       detail: {
         data: this.data,
