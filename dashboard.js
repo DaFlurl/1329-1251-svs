@@ -9,13 +9,16 @@ class Dashboard {
     async init() {
         console.log('🚀 Initializing AgentDaf1.1 Dashboard...');
         
-        // Hide loading overlay after initialization
-        setTimeout(() => {
-            this.hideLoading();
-        }, 2000);
-
+        // Wait a bit for DOM to be fully ready
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
         // Load initial data
         await this.loadData(this.currentFile);
+        
+        // Hide loading overlay after data is loaded
+        setTimeout(() => {
+            this.hideLoading();
+        }, 1000);
         
         // Setup auto-refresh
         this.setupAutoRefresh();
