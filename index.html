@@ -471,8 +471,13 @@
         // Load available data files
         async function loadFileList() {
             try {
+                console.log('Loading file list...');
                 const response = await fetch('./data/file_list.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
                 const files = await response.json();
+                console.log('Files loaded:', files);
                 
                 const select = document.getElementById('dataFileSelect');
                 select.innerHTML = '';
@@ -485,11 +490,21 @@
                 });
                 
                 if (files.length > 0) {
+                    console.log('Loading first file:', files[0]);
                     loadData(files[0]);
                 }
             } catch (error) {
                 console.error('Error loading file list:', error);
-                showError('Fehler beim Laden der Dateiliste');
+                showError('Fehler beim Laden der Dateiliste: ' + error.message);
+                
+                // Fallback: Try to load default file directly
+                console.log('Trying fallback file...');
+                try {
+                    await loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+                } catch (fallbackError) {
+                    console.error('Fallback also failed:', fallbackError);
+                    showError('Konnte keine Daten laden');
+                }
             }
         }
 
@@ -497,8 +512,16 @@
         async function loadData(filename) {
             try {
                 console.log('Loading data:', filename);
-                const response = await fetch(`./data/${encodeURIComponent(filename)}`);
+                const url = `./data/${encodeURIComponent(filename)}`;
+                console.log('Fetching from:', url);
+                
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
                 const data = await response.json();
+                console.log('Data received:', typeof data, Object.keys(data));
                 
                 currentData = data;
                 currentFile = filename;
