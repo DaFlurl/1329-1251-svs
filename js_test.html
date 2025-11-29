@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Test</title>
+</head>
+<body>
+    <h1>JavaScript Test</h1>
+    <div id="test-output">JavaScript not loaded yet...</div>
+    
+    <script>
+        console.log('✅ JavaScript is working!');
+        document.getElementById('test-output').innerHTML = '✅ JavaScript loaded successfully!';
+        
+        // Test fetch
+        fetch('./data/file_list.json')
+            .then(response => {
+                console.log('Fetch response:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Fetch data:', data);
+                document.getElementById('test-output').innerHTML += '<br>✅ Fetch working: ' + JSON.stringify(data);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                document.getElementById('test-output').innerHTML += '<br>❌ Fetch error: ' + error.message;
+            });
+    </script>
+</body>
+</html>
