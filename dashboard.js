@@ -23,11 +23,21 @@ class Dashboard {
     
     init() {
         console.log('🚀 Initializing Dashboard...');
+        
+        // Add visible debugging
+        const loadingText = document.querySelector('.loading-content p');
+        if (loadingText) {
+            loadingText.textContent = 'JavaScript wird geladen...';
+        }
+        
         this.setupEventListeners();
         
         // Don't hide loading overlay immediately - wait for data
         this.loadInitialData();
         this.setupAutoRefresh();
+        
+        // Expose to window for debugging
+        window.dashboard = this;
     }
     
     setupEventListeners() {
@@ -84,6 +94,12 @@ class Dashboard {
     async loadInitialData() {
         console.log('🔄 Loading initial data...');
         
+        // Add visible debugging
+        const loadingText = document.querySelector('.loading-content p');
+        if (loadingText) {
+            loadingText.textContent = 'Lade Datenliste...';
+        }
+        
         // Try to load the most recent data file
         try {
             console.log('📡 Fetching file list...');
@@ -129,6 +145,12 @@ class Dashboard {
         console.log(`📊 Loading data file: ${filename}`);
         this.state.isLoading = true;
         this.showLoading();
+        
+        // Add visible debugging
+        const loadingText = document.querySelector('.loading-content p');
+        if (loadingText) {
+            loadingText.textContent = `Lade Datei: ${filename.substring(0, 20)}...`;
+        }
         
         // Add debugging info
         console.log('🔍 Debug info:', {
