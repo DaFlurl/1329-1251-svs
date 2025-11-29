@@ -1,195 +1,373 @@
-// AgentDaf1.1 Dashboard - Simplified and Working Version
+// AgentDaf1.1 Dashboard - Fixed Version for GitHub Pages
+// Handles both flat local JSON format and nested GitHub Pages format
 class Dashboard {
     constructor() {
-        this.currentData = null;
-        this.currentFile = 'monday_data.json';
+        this.config = {
+            dataPath: './data/',
+            autoRefreshInterval: 60000,
+            enableDebugMode: false
+        };
+        
+        this.state = {
+            currentData: null,
+            currentFile: null,
+            lastUpdate: null,
+            isLoading: false
+        };
+        
         this.init();
     }
-
-    async init() {
-        console.log('🚀 Initializing AgentDaf1.1 Dashboard...');
-        
-        // Wait a bit for DOM to be fully ready
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-        // Load initial data
-        await this.loadData(this.currentFile);
-        
-        // Hide loading overlay after data is loaded
-        setTimeout(() => {
-            this.hideLoading();
-        }, 1000);
-        
-        // Setup auto-refresh
+    
+    init() {
+        console.log('🚀 Initializing Dashboard...');
+        this.setupEventListeners();
+        this.loadInitialData();
         this.setupAutoRefresh();
-        
-        console.log('✅ Dashboard initialized successfully');
     }
-
-    async loadData(filename) {
+    
+    setupEventListeners() {
+        // File selector
+        const fileSelect = document.getElementById('dataFileSelect');
+        if (fileSelect) {
+            fileSelect.addEventListener('change', (e) => {
+                if (e.target.value) {
+                    this.loadData(e.target.value);
+                }
+            });
+        }
+        
+        // Refresh button
+        const refreshBtn = document.getElementById('refreshBtn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                this.refreshData();
+            });
+        }
+    }
+    
+    async loadInitialData() {
+        // Try to load the most recent data file
         try {
-            console.log(`📊 Loading data from: ${filename}`);
+            const response = await fetch('./data/file_list.json');
+            if (response.ok) {
+                const files = await response.json();
+                if (files.length > 0) {
+                    // Load the most recent file
+                    await this.loadData(files[0]);
+                    return;
+                }
+            }
+        } catch (error) {
+            console.log('No file list found, using default file');
+        }
+        
+        // Fallback to default file
+        await this.loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+    }
+    
+    async loadData(filename) {
+        if (this.state.isLoading) return;
+        
+        console.log(`📊 Loading data file: ${filename}`);
+        this.state.isLoading = true;
+        this.showLoading();
+        
+        try {
+            const response = await fetch(`${this.config.dataPath}${encodeURIComponent(filename)}`);
             
-            const response = await fetch(`data/${filename}`);
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
             
-            const data = await response.json();
-            this.currentData = this.processData(data);
-            this.currentFile = filename;
-            
-            console.log('✅ Data loaded successfully:', {
-                players: this.currentData.combined.length,
-                alliances: this.currentData.metadata.totalAlliances,
-                file: filename
+            const rawData = await response.json();
+            console.log('✅ Raw data loaded:', {
+                keys: Object.keys(rawData),
+                hasPositive: !!rawData.positive,
+                hasNegative: !!rawData.negative,
+                hasCombined: !!rawData.combined
             });
             
+            const processedData = this.processData(rawData);
+            this.currentData = processedData;
+            this.currentFile = filename;
+            this.lastUpdate = new Date().toISOString();
+            
             this.updateUI();
+            this.hideLoading();
+            
+            console.log('✅ Data loaded and processed successfully');
             
         } catch (error) {
             console.error('❌ Error loading data:', error);
-            this.showError('Fehler beim Laden der Daten');
+            this.showError(`Fehler beim Laden der Daten: ${error.message}`);
+        } finally {
+            this.state.isLoading = false;
         }
     }
-
+    
     processData(rawData) {
-        // Ensure data structure is correct
+        console.log('🔄 Processing raw data...', {
+            keys: Object.keys(rawData),
+            hasPositive: !!rawData.positive,
+            hasNegative: !!rawData.negative,
+            hasCombined: !!rawData.combined
+        });
+
+        // Extract data from flat structure (current format)
+        const positiveData = rawData.positive || [];
+        const negativeData = rawData.negative || [];
+        let combinedData = rawData.combined || [];
+        
+        // Normalize data field names and filter out invalid entries
+        const normalizePlayer = (player) => {
+            if (!player || !player.Name || player.Name === null) return null;
+            
+            return {
+                position: parseInt(player.Position) || 0,
+                name: player.Name,
+                score: parseFloat(player.Score || 0),
+                alliance: player.Alliance || 'None',
+                monarchId: parseFloat(player["Monarch ID"]) || 0
+            };
+        };
+        
+        // Normalize and filter data
+        const normalizedPositive = positiveData.map(normalizePlayer).filter(p => p !== null);
+        const normalizedNegative = negativeData.map(normalizePlayer).filter(p => p !== null);
+        let normalizedCombined = combinedData.map(normalizePlayer).filter(p => p !== null);
+        
+        // If no combined data, create it from positive and negative
+        if (normalizedCombined.length === 0 && (normalizedPositive.length > 0 || normalizedNegative.length > 0)) {
+            console.log('🔗 Creating combined data from positive and negative datasets');
+            const playerMap = new Map();
+            
+            // Add positive players
+            normalizedPositive.forEach(player => {
+                const key = `${player.name}_${player.monarchId}`;
+                playerMap.set(key, {
+                    ...player,
+                    positiveScore: player.score,
+                    negativeScore: 0
+                });
+            });
+            
+            // Add negative players (if they exist)
+            normalizedNegative.forEach(player => {
+                const key = `${player.name}_${player.monarchId}`;
+                if (playerMap.has(key)) {
+                    const existing = playerMap.get(key);
+                    existing.negativeScore = Math.abs(player.score);
+                    existing.score = existing.positiveScore - existing.negativeScore;
+                } else {
+                    playerMap.set(key, {
+                        ...player,
+                        score: -Math.abs(player.score),
+                        positiveScore: 0,
+                        negativeScore: Math.abs(player.score)
+                    });
+                }
+            });
+            
+            normalizedCombined = Array.from(playerMap.values())
+                .filter(p => p.name && p.name !== 'null')
+                .sort((a, b) => b.score - a.score);
+            
+            // Add position rankings
+            normalizedCombined.forEach((player, index) => {
+                player.position = index + 1;
+            });
+        }
+        
+        // Calculate alliances
+        const alliances = this.calculateAlliances(normalizedCombined);
+        
+        // Calculate statistics
+        const validScores = normalizedCombined.map(p => p.score || 0).filter(s => s !== 0 && !isNaN(s));
+        const statistics = {
+            totalPlayers: normalizedCombined.length,
+            totalAlliances: alliances.length,
+            totalScore: validScores.reduce((sum, score) => sum + score, 0),
+            averageScore: validScores.length > 0 ? Math.round(validScores.reduce((sum, score) => sum + score, 0) / validScores.length) : 0,
+            highestScore: validScores.length > 0 ? Math.max(...validScores) : 0,
+            activeGames: normalizedCombined.length
+        };
+        
         const processed = {
-            positive: rawData.positive || [],
-            negative: rawData.negative || [],
-            combined: rawData.combined || [],
-            metadata: rawData.metadata || {
-                totalPlayers: 0,
-                totalAlliances: 0,
+            positive: normalizedPositive,
+            negative: normalizedNegative,
+            combined: normalizedCombined,
+            alliances: alliances,
+            statistics: statistics,
+            metadata: {
+                totalPlayers: statistics.totalPlayers,
+                totalAlliances: statistics.totalAlliances,
                 lastUpdate: new Date().toISOString(),
-                dataFile: this.currentFile
+                dataFile: this.currentFile,
+                source: 'local-json'
             }
         };
 
-        // Calculate statistics
-        const allPlayers = processed.combined;
-        const scores = allPlayers.map(p => p.score).filter(s => s > 0);
-        const alliances = this.calculateAlliances(allPlayers);
-        
-        processed.statistics = {
-            totalPlayers: allPlayers.length,
-            totalAlliances: alliances.length,
-            totalScore: scores.reduce((sum, score) => sum + score, 0),
-            averageScore: scores.length > 0 ? Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length) : 0,
-            highestScore: scores.length > 0 ? Math.max(...scores) : 0,
-            activeGames: allPlayers.length
-        };
+        console.log('✅ Data processed successfully:', {
+            source: processed.metadata.source,
+            totalPlayers: processed.statistics.totalPlayers,
+            totalAlliances: processed.statistics.totalAlliances,
+            positiveCount: normalizedPositive.length,
+            negativeCount: normalizedNegative.length,
+            combinedCount: normalizedCombined.length,
+            allianceCount: alliances.length
+        });
 
         return processed;
     }
-
+    
     calculateAlliances(players) {
         const allianceMap = new Map();
         
         players.forEach(player => {
-            if (player.alliance && player.alliance !== 'None') {
+            if (player && player.alliance && player.alliance !== 'None' && player.alliance !== null) {
                 if (!allianceMap.has(player.alliance)) {
                     allianceMap.set(player.alliance, {
                         name: player.alliance,
                         players: [],
                         totalScore: 0,
-                        averageScore: 0
+                        averageScore: 0,
+                        positiveScore: 0,
+                        negativeScore: 0
                     });
                 }
                 const alliance = allianceMap.get(player.alliance);
                 alliance.players.push(player);
-                alliance.totalScore += player.score;
+                alliance.totalScore += (player.score || 0);
+                alliance.positiveScore += (player.positiveScore || 0);
+                alliance.negativeScore += (player.negativeScore || 0);
             }
         });
         
         // Calculate averages
         allianceMap.forEach(alliance => {
-            alliance.averageScore = Math.round(alliance.totalScore / alliance.players.length);
+            alliance.averageScore = alliance.players.length > 0 ? Math.round(alliance.totalScore / alliance.players.length) : 0;
         });
         
         return Array.from(allianceMap.values()).sort((a, b) => b.totalScore - a.totalScore);
     }
-
+    
     updateUI() {
-        if (!this.currentData) return;
+        if (!this.currentData) {
+            console.warn('⚠️ No current data available for UI update');
+            return;
+        }
         
         console.log('🔄 Updating UI with current data...');
         
-        // Update header stats
-        this.updateElement('totalPlayersDisplay', this.currentData.metadata.totalPlayers);
-        this.updateElement('totalAlliancesDisplay', this.currentData.metadata.totalAlliances);
-        this.updateElement('updateStatus', 'Live');
-        
-        // Update quick stats
-        const stats = this.currentData.statistics;
-        this.updateElement('totalScore', this.formatNumber(stats.totalScore));
-        this.updateElement('avgScore', this.formatNumber(stats.averageScore));
-        this.updateElement('highestScore', this.formatNumber(stats.highestScore));
-        this.updateElement('activeGames', stats.activeGames);
-        
-        // Update top players
-        this.updateTopPlayers();
-        
-        // Update alliance ranking
-        this.updateAllianceRanking();
-        
-        // Update last update time
-        this.updateElement('lastUpdate', new Date().toLocaleTimeString('de-DE'));
-        
-        console.log('✅ UI updated successfully');
+        try {
+            // Update header stats
+            this.updateElement('totalPlayersDisplay', this.currentData.metadata?.totalPlayers || 0);
+            this.updateElement('totalAlliancesDisplay', this.currentData.metadata?.totalAlliances || 0);
+            this.updateElement('updateStatus', 'Live');
+            
+            // Update quick stats
+            const stats = this.currentData.statistics || {};
+            this.updateElement('totalScore', this.formatNumber(stats.totalScore || 0));
+            this.updateElement('avgScore', this.formatNumber(stats.averageScore || 0));
+            this.updateElement('highestScore', this.formatNumber(stats.highestScore || 0));
+            this.updateElement('activeGames', stats.activeGames || 0);
+            
+            // Update top players
+            this.updateTopPlayers();
+            
+            // Update alliance ranking
+            this.updateAllianceRanking();
+            
+            // Update last update time
+            this.updateElement('lastUpdate', new Date().toLocaleTimeString('de-DE'));
+            
+            // Update file selector
+            const fileSelect = document.getElementById('dataFileSelect');
+            if (fileSelect && this.currentFile) {
+                fileSelect.value = this.currentFile;
+            }
+            
+            console.log('✅ UI updated successfully');
+        } catch (error) {
+            console.error('❌ Error updating UI:', error);
+        }
     }
-
+    
     updateTopPlayers() {
         const container = document.getElementById('topPlayersList');
-        if (!container) return;
+        if (!container) {
+            console.warn('⚠️ Top players container not found');
+            return;
+        }
         
-        const topPlayers = this.currentData.combined.slice(0, 10);
+        const players = this.currentData.combined || [];
+        const topPlayers = players.slice(0, 10);
+        
+        if (topPlayers.length === 0) {
+            container.innerHTML = '<div class="no-data">Keine Spielerdaten verfügbar</div>';
+            return;
+        }
         
         container.innerHTML = topPlayers.map((player, index) => `
             <div class="player-item fade-in">
                 <div class="player-rank">#${player.position || index + 1}</div>
-                <div class="player-name">${this.escapeHtml(player.name)}</div>
-                <div class="player-score">${this.formatNumber(player.score)}</div>
-                <div class="player-alliance">${this.escapeHtml(player.alliance)}</div>
+                <div class="player-name">${this.escapeHtml(player.name || 'Unbekannt')}</div>
+                <div class="player-score">${this.formatNumber(player.score || 0)}</div>
+                <div class="player-alliance">${this.escapeHtml(player.alliance || 'None')}</div>
             </div>
         `).join('');
     }
-
+    
     updateAllianceRanking() {
         const container = document.getElementById('allianceRanking');
-        if (!container) return;
+        if (!container) {
+            console.warn('⚠️ Alliance ranking container not found');
+            return;
+        }
         
-        const alliances = this.calculateAlliances(this.currentData.combined);
+        const alliances = this.currentData.alliances || [];
         const topAlliances = alliances.slice(0, 5);
+        
+        if (topAlliances.length === 0) {
+            container.innerHTML = '<div class="no-data">Keine Allianzdaten verfügbar</div>';
+            return;
+        }
         
         container.innerHTML = topAlliances.map((alliance, index) => `
             <div class="alliance-item fade-in">
                 <div class="alliance-rank">#${index + 1}</div>
-                <div class="alliance-name">${this.escapeHtml(alliance.name)}</div>
-                <div class="alliance-score">${this.formatNumber(alliance.totalScore)}</div>
-                <div class="alliance-players">${alliance.players.length} Spieler</div>
+                <div class="alliance-name">${this.escapeHtml(alliance.name || 'Unbekannt')}</div>
+                <div class="alliance-score">${this.formatNumber(alliance.totalScore || 0)}</div>
+                <div class="alliance-players">${(alliance.players || []).length} Spieler</div>
             </div>
         `).join('');
     }
-
+    
     updateElement(id, content) {
         const element = document.getElementById(id);
         if (element) {
             element.textContent = content;
         }
     }
-
+    
     formatNumber(num) {
         return num.toLocaleString('de-DE');
     }
-
+    
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
-
+    
+    showLoading() {
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay) {
+            overlay.style.display = 'flex';
+            overlay.style.opacity = '1';
+        }
+    }
+    
     hideLoading() {
         const overlay = document.getElementById('loadingOverlay');
         if (overlay) {
@@ -199,9 +377,10 @@ class Dashboard {
             }, 300);
         }
     }
-
+    
     showError(message) {
         this.hideLoading();
+        
         // Create error overlay
         const errorOverlay = document.createElement('div');
         errorOverlay.className = 'loading-overlay';
@@ -215,13 +394,20 @@ class Dashboard {
         `;
         document.body.appendChild(errorOverlay);
     }
-
-    setupAutoRefresh() {
-        // Refresh data every 60 seconds
-        setInterval(async () => {
-            console.log('🔄 Auto-refreshing data...');
+    
+    async refreshData() {
+        if (this.currentFile) {
             await this.loadData(this.currentFile);
-        }, 60000);
+        }
+    }
+    
+    setupAutoRefresh() {
+        console.log(`⏰ Setting up auto-refresh every ${this.config.autoRefreshInterval / 1000} seconds`);
+        
+        setInterval(() => {
+            console.log('🔄 Auto-refreshing data...');
+            this.refreshData();
+        }, this.config.autoRefreshInterval);
     }
 }
 
@@ -229,7 +415,6 @@ class Dashboard {
 window.loadDataFile = async function(filename) {
     if (window.dashboard) {
         await window.dashboard.loadData(filename);
-        document.getElementById('dataFileSelect').value = filename;
     }
 };
 
@@ -237,31 +422,24 @@ window.refreshData = async function() {
     if (window.dashboard) {
         const btn = event.target.closest('button');
         const icon = btn.querySelector('i');
-        icon.classList.add('fa-spin');
+        if (icon) icon.classList.add('fa-spin');
         
-        await window.dashboard.loadData(window.dashboard.currentFile);
+        await window.dashboard.refreshData();
         
         setTimeout(() => {
-            icon.classList.remove('fa-spin');
+            if (icon) icon.classList.remove('fa-spin');
         }, 1000);
     }
 };
 
 window.showAllPlayers = function() {
     console.log('📋 Showing all players...');
-    // This would open a modal or navigate to a detailed view
     alert('Alle Spieler anzeigen - Funktion wird in Kürze implementiert');
 };
 
 window.showAllianceDetails = function() {
     console.log('🏛️ Showing alliance details...');
-    // This would open a modal or navigate to a detailed view
     alert('Allianz-Details - Funktion wird in Kürze implementiert');
-};
-
-window.installPWA = function() {
-    console.log('📱 Installing PWA...');
-    alert('PWA Installation - Funktion wird in Kürze implementiert');
 };
 
 // Initialize dashboard when DOM is ready

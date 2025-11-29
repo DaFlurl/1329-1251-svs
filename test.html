@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - AgentDaf1.1 Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        #results {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 AgentDaf1.1 Dashboard Test</h1>
+    
+    <div class="test-section">
+        <h2>System-Check</h2>
+        <div id="system-status"></div>
+        <button onclick="runTests()">Tests starten</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Daten-Check</h2>
+        <div id="data-status"></div>
+        <button onclick="testData()">Daten testen</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Ergebnisse</h2>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            results.textContent += `[${timestamp}] ${message}\n`;
+        }
+
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        async function runTests() {
+            log('🚀 Starte System-Tests...');
+            
+            // Test 1: Browser-Kompatibilität
+            const features = {
+                'fetch': typeof fetch !== 'undefined',
+                'localStorage': typeof localStorage !== 'undefined',
+                'sessionStorage': typeof sessionStorage !== 'undefined',
+                'JSON': typeof JSON !== 'undefined',
+                'Promise': typeof Promise !== 'undefined'
+            };
+            
+            const allFeaturesSupported = Object.values(features).every(Boolean);
+            if (allFeaturesSupported) {
+                showStatus('system-status', '✅ Alle benötigten Browser-Features sind verfügbar', 'success');
+                log('✅ Browser-Kompatibilität: OK');
+            } else {
+                showStatus('system-status', '⚠️ Einige Features werden nicht unterstützt', 'warning');
+                log('⚠️ Browser-Kompatibilität: ' + JSON.stringify(features, null, 2));
+            }
+
+            // Test 2: CSS-Unterstützung
+            const testElement = document.createElement('div');
+            testElement.style.display = 'flex';
+            const flexSupported = testElement.style.display === 'flex';
+            
+            if (flexSupported) {
+                log('✅ Flexbox-Unterstützung: OK');
+            } else {
+                log('⚠️ Flexbox wird nicht unterstützt');
+            }
+
+            // Test 3: JavaScript-Module
+            try {
+                const testModule = eval('(function() { return { test: true }; })()');
+                if (testModule.test) {
+                    log('✅ JavaScript-Module: OK');
+                }
+            } catch (e) {
+                log('❌ JavaScript-Module: Fehler - ' + e.message);
+            }
+
+            log('✅ System-Tests abgeschlossen');
+        }
+
+        async function testData() {
+            log('📊 Starte Daten-Tests...');
+            
+            const dataFiles = [
+                'data/monday_data.json',
+                'data/scoreboard-data.json'
+            ];
+
+            let allDataValid = true;
+            let totalPlayers = 0;
+            let totalAlliances = 0;
+
+            for (const file of dataFiles) {
+                try {
+                    log(`🔍 Teste ${file}...`);
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const combined = data.combined || [];
+                    const positive = data.positive || [];
+                    const negative = data.negative || [];
+                    
+                    totalPlayers += combined.length;
+                    
+                    log(`✅ ${file}: ${combined.length} combined, ${positive.length} positive, ${negative.length} negative`);
+                    
+                    // Test data structure
+                    if (combined.length > 0) {
+                        const sample = combined[0];
+                        const requiredFields = ['name', 'score', 'alliance'];
+                        const hasRequiredFields = requiredFields.every(field => sample.hasOwnProperty(field));
+                        
+                        if (hasRequiredFields) {
+                            log(`✅ ${file}: Datenstruktur korrekt`);
+                        } else {
+                            log(`⚠️ ${file}: Fehlende Felder in Datenstruktur`);
+                            allDataValid = false;
+                        }
+                    }
+
+                } catch (error) {
+                    log(`❌ ${file}: Fehler - ${error.message}`);
+                    allDataValid = false;
+                }
+            }
+
+            if (allDataValid) {
+                showStatus('data-status', `✅ Alle Daten gültig - ${totalPlayers} Spieler insgesamt`, 'success');
+            } else {
+                showStatus('data-status', '⚠️ Einige Daten haben Probleme', 'warning');
+            }
+
+            log('✅ Daten-Tests abgeschlossen');
+        }
+
+        // Automatischer Test beim Laden
+        window.addEventListener('load', () => {
+            log('🌐 Seite geladen - Bereit für Tests');
+            showStatus('system-status', '⏳ Bereit für Tests', 'warning');
+            showStatus('data-status', '⏳ Bereit für Tests', 'warning');
+        });
+    </script>
+</body>
+</html>

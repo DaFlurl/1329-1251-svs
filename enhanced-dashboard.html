@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 AgentDaf1.1 - Enhanced Gaming Dashboard</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem 2rem;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-info button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Controls Section */
+        .controls {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-success {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            margin: 0 0.25rem;
+        }
+
+        /* Tables */
+        .tables-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .table-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .table-header h3 {
+            font-size: 1.25rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chart-container h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        /* Login Modal */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-content h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error Message */
+        .error-message {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            color: #ff6b6b;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* Player Details */
+        .player-details {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .player-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .sessions-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .session-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tables-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-online {
+            background: #28a745;
+        }
+
+        .status-offline {
+            background: #dc3545;
+        }
+
+        .status-warning {
+            background: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h2>Loading AgentDaf1.1 Dashboard...</h2>
+            <p>Initializing systems and connecting to backend services</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-trophy"></i>
+                AgentDaf1.1 Dashboard
+            </div>
+            <div class="user-info">
+                <span id="connectionStatus">
+                    <span class="status-indicator status-offline"></span>
+                    <span id="statusText">Connecting...</span>
+                </span>
+                <span id="currentUser">Guest</span>
+                <button onclick="dashboard?.api.logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Stats Cards -->
+        <section class="stats-grid">
+            <div class="stat-card fade-in">
+                <span class="stat-number" id="totalPlayers">0</span>
+                <span class="stat-label">Total Players</span>
+            </div>
+            <div class="stat-card fade-in">
+                <span class="stat-number" id="activePlayers">0</span>
+                <span class="stat-label">Active Players</span>
+            </div>
+            <div class="stat-card fade-in">
+                <span class="stat-number" id="totalAlliances">0</span>
+                <span class="stat-label">Total Alliances</span>
+            </div>
+            <div class="stat-card fade-in">
+                <span class="stat-number" id="activeAlliances">0</span>
+                <span class="stat-label">Active Alliances</span>
+            </div>
+            <div class="stat-card fade-in">
+                <span class="stat-number" id="databaseSize">0</span>
+                <span class="stat-label">Database (MB)</span>
+            </div>
+            <div class="stat-card fade-in">
+                <span class="stat-number" id="lastUpdate">--:--</span>
+                <span class="stat-label">Last Update</span>
+            </div>
+        </section>
+
+        <!-- Controls Section -->
+        <section class="controls">
+            <div class="controls-grid">
+                <div class="form-group">
+                    <label for="searchInput">Search Players</label>
+                    <input type="text" id="searchInput" placeholder="Search by name or alliance...">
+                </div>
+                <div class="form-group">
+                    <label for="allianceFilter">Filter by Alliance</label>
+                    <select id="allianceFilter">
+                        <option value="">All Alliances</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="minScoreFilter">Min Score</label>
+                    <input type="number" id="minScoreFilter" placeholder="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="maxScoreFilter">Max Score</label>
+                    <input type="number" id="maxScoreFilter" placeholder="∞">
+                </div>
+                <div class="form-group">
+                    <label for="sortSelect">Sort By</label>
+                    <select id="sortSelect">
+                        <option value="score-desc">Score (High to Low)</option>
+                        <option value="score-asc">Score (Low to High)</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="level-desc">Level (High to Low)</option>
+                        <option value="level-asc">Level (Low to High)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="dashboard?.requestStatsUpdate()">
+                    <i class="fas fa-sync"></i> Refresh Data
+                </button>
+                <button class="btn btn-success" id="addPlayerButton">
+                    <i class="fas fa-plus"></i> Add Player
+                </button>
+                <label class="btn">
+                    <i class="fas fa-upload"></i> Upload Excel
+                    <input type="file" id="fileInput" accept=".xlsx,.xls" style="display: none;">
+                </label>
+                <button class="btn" id="uploadButton">
+                    <i class="fas fa-cloud-upload-alt"></i> Process Upload
+                </button>
+            </div>
+        </section>
+
+        <!-- Tables Section -->
+        <section class="tables-section">
+            <!-- Players Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3><i class="fas fa-users"></i> Players Ranking</h3>
+                    <span id="playerCount">0 players</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                                <th>Alliance</th>
+                                <th>Level</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="playerTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem;">
+                                    Loading players data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Alliances Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3><i class="fas fa-shield-alt"></i> Alliances</h3>
+                    <span id="allianceCount">0 alliances</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Total Score</th>
+                                <th>Members</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allianceTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem;">
+                                    Loading alliances data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <h3><i class="fas fa-chart-bar"></i> Score Distribution</h3>
+                <canvas id="scoreChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3><i class="fas fa-chart-pie"></i> Alliance Distribution</h3>
+                <canvas id="allianceChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="enhanced-dashboard.js"></script>
+    <script>
+        // Initialize charts when dashboard is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for dashboard to initialize
+            setTimeout(() => {
+                if (window.dashboard) {
+                    window.dashboard.initCharts = function() {
+                        this.initScoreChart();
+                        this.initAllianceChart();
+                    };
+                    
+                    // Override updateUI to include charts
+                    const originalUpdateUI = window.dashboard.updateUI;
+                    window.dashboard.updateUI = function() {
+                        originalUpdateUI.call(this);
+                        this.updateCharts();
+                    };
+                    
+                    // Initialize charts
+                    window.dashboard.initCharts();
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

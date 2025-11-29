@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Live Gaming Dashboard mit Echtzeit-Rankings und Allianz-Statistiken">
+    <meta name="keywords" content="gaming, dashboard, rankings, live, agentdaf1">
+    <meta name="author" content="AgentDaf1 Team">
+    <meta name="robots" content="index, follow">
     <title>🏆 AgentDaf1.1 - Live Gaming Dashboard</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <!-- Header -->
@@ -122,5 +127,19 @@
 
     <!-- Scripts -->
     <script src="dashboard.js"></script>
+    <script>
+        // Add fallback error handling
+        window.addEventListener('load', function() {
+            // Check if dashboard loaded properly
+            setTimeout(function() {
+                if (!window.dashboard || !window.dashboard.currentData) {
+                    console.error('❌ Dashboard failed to load properly');
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    document.getElementById('topPlayersList').innerHTML = '<div class="loading">❌ Fehler beim Laden der Daten</div>';
+                    document.getElementById('allianceRanking').innerHTML = '<div class="loading">❌ Fehler beim Laden der Allianzen</div>';
+                }
+            }, 3000);
+        });
+    </script>
 </body>
 </html>

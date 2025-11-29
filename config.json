@@ -1,0 +1,37 @@
+{
+  "title": "🏆 AgentDaf1.1 - Live Gaming Dashboard",
+  "auto_refresh_interval": 60000,
+  "max_players_display": 1000,
+  "default_theme": "gradient",
+  "enable_dark_mode": false,
+  "responsive_design": true,
+  "animations_enabled": true,
+  "dashboard": {
+    "version": "2.0.0",
+    "author": "AgentDaf1 Team",
+    "description": "Live gaming dashboard with real-time rankings and analytics"
+  },
+  "api": {
+    "base_url": "",
+    "timeout": 10000,
+    "retry_attempts": 3
+  },
+  "features": {
+    "live_updates": true,
+    "search": true,
+    "filter": true,
+    "export": true,
+    "themes": true,
+    "animations": true
+  },
+  "data_sources": [
+    "monday_data.json",
+    "scoreboard-data.json"
+  ],
+  "display": {
+    "items_per_page": 50,
+    "show_alliances": true,
+    "show_statistics": true,
+    "highlight_top": 10
+  }
+}
