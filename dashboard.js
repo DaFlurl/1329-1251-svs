@@ -306,7 +306,13 @@ class Dashboard {
             return;
         }
         
-        console.log('🔄 Updating UI with current data...');
+        console.log('🔄 Updating UI with current data...', {
+            hasData: !!this.currentData,
+            totalPlayers: this.currentData.metadata?.totalPlayers,
+            totalAlliances: this.currentData.metadata?.totalAlliances,
+            combinedLength: this.currentData.combined?.length,
+            alliancesLength: this.currentData.alliances?.length
+        });
         
         try {
             // Update header stats
@@ -418,12 +424,16 @@ class Dashboard {
     }
     
     hideLoading() {
+        console.log('🔄 Hiding loading overlay...');
         const overlay = document.getElementById('loadingOverlay');
         if (overlay) {
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
+                console.log('✅ Loading overlay hidden');
             }, 300);
+        } else {
+            console.warn('⚠️ Loading overlay not found');
         }
     }
     
