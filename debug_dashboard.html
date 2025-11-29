@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Dashboard Debug</h1>
+    <div id="debugOutput"></div>
+
+    <script>
+        const debug = document.getElementById('debugOutput');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `debug ${type}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            debug.appendChild(div);
+            console.log(message);
+        }
+
+        async function debugDashboard() {
+            log('🚀 Starting debug...', 'info');
+            
+            try {
+                // Test 1: Fetch data
+                log('📡 Testing data fetch...', 'info');
+                const response = await fetch('./data/Monday, 24 November 2025 1329+1251 v 683+665.json');
+                log(`Response status: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const rawData = await response.json();
+                log(`✅ Data loaded successfully! Keys: ${Object.keys(rawData).join(', ')}`, 'success');
+                log(`📊 Data structure: positive=${rawData.positive?.length || 0}, negative=${rawData.negative?.length || 0}, combined=${rawData.combined?.length || 0}, alliance=${rawData.alliance?.length || 0}`, 'info');
+                
+                // Test 2: Data processing
+                log('🔄 Testing data processing...', 'info');
+                
+                // Normalize player function (from dashboard)
+                const normalizePlayer = (player) => {
+                    if (!player || !player.Name || player.Name === null || player.Name === '') return null;
+                    
+                    return {
+                        position: parseInt(player.Position) || 0,
+                        name: player.Name,
+                        score: parseFloat(player["Total Score"] || player.Score || 0),
+                        alliance: player.Alliance || 'None',
+                        monarchId: parseFloat(player["Monarch ID"]) || 0,
+                        positiveScore: parseFloat(player.Positive || 0),
+                        negativeScore: parseFloat(player.Negative || 0)
+                    };
+                };
+                
+                // Process combined data
+                const combinedData = rawData.combined || [];
+                const normalizedCombined = combinedData.map(normalizePlayer).filter(p => p !== null);
+                log(`✅ Normalized ${normalizedCombined.length} valid players from combined data`, 'success');
+                
+                if (normalizedCombined.length > 0) {
+                    const topPlayer = normalizedCombined[0];
+                    log(`🏆 Top player: ${topPlayer.name} (${topPlayer.score.toLocaleString()} points, ${topPlayer.alliance})`, 'success');
+                }
+                
+                // Test 3: Alliance calculation
+                log('🏛️ Testing alliance calculation...', 'info');
+                
+                const calculateAlliances = (players) => {
+                    const allianceMap = new Map();
+                    
+                    players.forEach(player => {
+                        if (player && player.alliance && player.alliance !== 'None' && player.alliance !== null) {
+                            if (!allianceMap.has(player.alliance)) {
+                                allianceMap.set(player.alliance, {
+                                    name: player.alliance,
+                                    players: [],
+                                    totalScore: 0,
+                                    averageScore: 0,
+                                    positiveScore: 0,
+                                    negativeScore: 0
+                                });
+                            }
+                            const alliance = allianceMap.get(player.alliance);
+                            alliance.players.push(player);
+                            alliance.totalScore += (player.score || 0);
+                            alliance.positiveScore += (player.positiveScore || 0);
+                            alliance.negativeScore += (player.negativeScore || 0);
+                        }
+                    });
+                    
+                    // Calculate averages
+                    allianceMap.forEach(alliance => {
+                        alliance.averageScore = alliance.players.length > 0 ? Math.round(alliance.totalScore / alliance.players.length) : 0;
+                    });
+                    
+                    return Array.from(allianceMap.values()).sort((a, b) => b.totalScore - a.totalScore);
+                };
+                
+                const alliances = calculateAlliances(normalizedCombined);
+                log(`✅ Calculated ${alliances.length} alliances`, 'success');
+                
+                if (alliances.length > 0) {
+                    const topAlliance = alliances[0];
+                    log(`🥇 Top alliance: ${topAlliance.name} (${topAlliance.players.length} players, ${topAlliance.totalScore.toLocaleString()} total points)`, 'success');
+                }
+                
+                // Test 4: Statistics
+                log('📈 Testing statistics calculation...', 'info');
+                
+                const validScores = normalizedCombined.map(p => p.score || 0).filter(s => s !== 0 && !isNaN(s));
+                const statistics = {
+                    totalPlayers: normalizedCombined.length,
+                    totalAlliances: alliances.length,
+                    totalScore: validScores.reduce((sum, score) => sum + score, 0),
+                    averageScore: validScores.length > 0 ? Math.round(validScores.reduce((sum, score) => sum + score, 0) / validScores.length) : 0,
+                    highestScore: validScores.length > 0 ? Math.max(...validScores) : 0,
+                    activeGames: normalizedCombined.length
+                };
+                
+                log(`📊 Statistics: ${statistics.totalPlayers} players, ${statistics.totalAlliances} alliances, avg score: ${statistics.averageScore.toLocaleString()}`, 'success');
+                
+                log('🎉 All tests passed! Dashboard should work.', 'success');
+                
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+                log(`Stack: ${error.stack}`, 'error');
+            }
+        }
+
+        // Run debug when page loads
+        document.addEventListener('DOMContentLoaded', debugDashboard);
+    </script>
+</body>
+</html>
