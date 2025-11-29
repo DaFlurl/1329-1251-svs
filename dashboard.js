@@ -490,7 +490,7 @@ class Dashboard {
     }
     
     updateAllianceTab() {
-        const container = document.getElementById('allianceRanking');
+        const container = document.getElementById('allianceList');
         if (!container) return;
         
         const alliances = this.currentData.alliance || [];
