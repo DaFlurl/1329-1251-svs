@@ -120,14 +120,16 @@ class Dashboard {
         
         // Normalize data field names and filter out invalid entries
         const normalizePlayer = (player) => {
-            if (!player || !player.Name || player.Name === null) return null;
+            if (!player || !player.Name || player.Name === null || player.Name === '') return null;
             
             return {
                 position: parseInt(player.Position) || 0,
                 name: player.Name,
-                score: parseFloat(player.Score || 0),
+                score: parseFloat(player["Total Score"] || player.Score || 0),
                 alliance: player.Alliance || 'None',
-                monarchId: parseFloat(player["Monarch ID"]) || 0
+                monarchId: parseFloat(player["Monarch ID"]) || 0,
+                positiveScore: parseFloat(player.Positive || 0),
+                negativeScore: parseFloat(player.Negative || 0)
             };
         };
         
@@ -178,8 +180,32 @@ class Dashboard {
             });
         }
         
-        // Calculate alliances
-        const alliances = this.calculateAlliances(normalizedCombined);
+        // Calculate alliances from both combined data and alliance data
+        let alliances = this.calculateAlliances(normalizedCombined);
+        
+        // If we have dedicated alliance data, merge it
+        if (rawData.alliance && Array.isArray(rawData.alliance)) {
+            const dedicatedAlliances = rawData.alliance
+                .filter(a => a && a.Alliance && a.Alliance !== '')
+                .map(alliance => ({
+                    name: alliance.Alliance,
+                    totalScore: parseFloat(alliance["Total Score"] || 0),
+                    positiveScore: parseFloat(alliance.Positive || 0),
+                    negativeScore: parseFloat(alliance.Negative || 0),
+                    players: alliances.find(a => a.name === alliance.Alliance)?.players || []
+                }));
+            
+            // Merge alliance data, preferring calculated player counts
+            alliances = dedicatedAlliances.map(dedicated => {
+                const calculated = alliances.find(a => a.name === dedicated.name);
+                return {
+                    ...dedicated,
+                    players: calculated?.players || [],
+                    averageScore: calculated?.players.length > 0 ? 
+                        Math.round(dedicated.totalScore / calculated.players.length) : 0
+                };
+            });
+        }
         
         // Calculate statistics
         const validScores = normalizedCombined.map(p => p.score || 0).filter(s => s !== 0 && !isNaN(s));
