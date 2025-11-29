@@ -130,17 +130,34 @@ class Dashboard {
         this.state.isLoading = true;
         this.showLoading();
         
+        // Add debugging info
+        console.log('🔍 Debug info:', {
+            dataPath: this.config.dataPath,
+            fullUrl: `${this.config.dataPath}${encodeURIComponent(filename)}`,
+            filename: filename
+        });
+        
+        // Add debugging info
+        console.log('🔍 Debug info:', {
+            dataPath: this.config.dataPath,
+            fullUrl: `${this.config.dataPath}${encodeURIComponent(filename)}`,
+            filename: filename
+        });
+        
         try {
             const url = `${this.config.dataPath}${encodeURIComponent(filename)}`;
             console.log('📡 Fetching from:', url);
             
             const response = await fetch(url);
             
+            console.log('📡 Response status:', response.status, response.statusText);
+            
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
             
             const rawData = await response.json();
+            console.log('✅ Raw data received:', typeof rawData, Object.keys(rawData));
             console.log('✅ Raw data loaded:', {
                 keys: Object.keys(rawData),
                 hasPositive: !!rawData.positive,
