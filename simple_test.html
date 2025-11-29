@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dashboard Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #f0f0f0; padding: 20px; border-radius: 5px; }
+        .stats { display: flex; gap: 20px; margin: 20px 0; }
+        .stat { background: #e8f5e8; padding: 15px; border-radius: 5px; text-align: center; }
+        .loading { background: #fff3cd; padding: 20px; border-radius: 5px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏆 Simple Dashboard Test</h1>
+        <div class="stats">
+            <div class="stat">
+                <div id="totalPlayersDisplay">0</div>
+                <div>Players</div>
+            </div>
+            <div class="stat">
+                <div id="totalAlliancesDisplay">0</div>
+                <div>Alliances</div>
+            </div>
+            <div class="stat">
+                <div id="updateStatus">Loading...</div>
+                <div>Status</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="loadingOverlay" class="loading">
+        <h2>Loading Dashboard...</h2>
+        <p>Processing game data</p>
+    </div>
+
+    <script src="simple_dashboard.js"></script>
+</body>
+</html>
