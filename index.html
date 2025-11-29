@@ -465,7 +465,13 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Simple Dashboard initializing...');
-            loadFileList();
+            
+            // Try loading file list first
+            loadFileList().catch(() => {
+                console.log('File list failed, using fallback data');
+                // Fallback: Load default data directly
+                loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+            });
         });
 
         // Load available data files
