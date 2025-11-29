@@ -460,9 +460,9 @@ class Dashboard {
         container.innerHTML = topPlayers.map((player, index) => `
             <div class="player-item fade-in">
                 <div class="player-rank">#${player.Position || index + 1}</div>
-                <div class="player-name">${this.escapeHtml(player.Name || 'Unbekannt')}</div>
-                <div class="player-score">${this.formatNumber(player.Score || 0)}</div>
-                <div class="player-alliance">${this.escapeHtml(player.Alliance || 'None')}</div>
+                <div class="player-name">${this.escapeHtml(player.Name || player.name || 'Unbekannt')}</div>
+                <div class="player-score">${this.formatNumber(player.Score || player.score || player["Total Score"] || 0)}</div>
+                <div class="player-alliance">${this.escapeHtml(player.Alliance || player.alliance || 'None')}</div>
             </div>
         `).join('');
     }
@@ -482,9 +482,9 @@ class Dashboard {
         container.innerHTML = topPlayers.map((player, index) => `
             <div class="player-item fade-in negative">
                 <div class="player-rank">#${player.Position || index + 1}</div>
-                <div class="player-name">${this.escapeHtml(player.Name || 'Unbekannt')}</div>
-                <div class="player-score">${this.formatNumber(player.Score || 0)}</div>
-                <div class="player-alliance">${this.escapeHtml(player.Alliance || 'None')}</div>
+                <div class="player-name">${this.escapeHtml(player.Name || player.name || 'Unbekannt')}</div>
+                <div class="player-score">${this.formatNumber(player.Score || player.score || Math.abs(player["Total Score"]) || 0)}</div>
+                <div class="player-alliance">${this.escapeHtml(player.Alliance || player.alliance || 'None')}</div>
             </div>
         `).join('');
     }
@@ -503,10 +503,10 @@ class Dashboard {
         
         container.innerHTML = topPlayers.map((player, index) => `
             <div class="player-item fade-in">
-                <div class="player-rank">#${player.position || index + 1}</div>
-                <div class="player-name">${this.escapeHtml(player.name || 'Unbekannt')}</div>
-                <div class="player-score">${this.formatNumber(player.score || 0)}</div>
-                <div class="player-alliance">${this.escapeHtml(player.alliance || 'None')}</div>
+                <div class="player-rank">#${player.Position || player.position || index + 1}</div>
+                <div class="player-name">${this.escapeHtml(player.Name || player.name || 'Unbekannt')}</div>
+                <div class="player-score">${this.formatNumber(player["Total Score"] || player.score || 0)}</div>
+                <div class="player-alliance">${this.escapeHtml(player.Alliance || player.alliance || 'None')}</div>
             </div>
         `).join('');
     }
@@ -525,10 +525,10 @@ class Dashboard {
         
         container.innerHTML = topAlliances.map((alliance, index) => `
             <div class="alliance-item fade-in">
-                <div class="alliance-rank">#${index + 1}</div>
-                <div class="alliance-name">${this.escapeHtml(alliance.Alliance || 'Unbekannt')}</div>
-                <div class="alliance-score">${this.formatNumber(alliance["Total Score"] || 0)}</div>
-                <div class="alliance-players">${this.formatNumber(alliance.Positive || 0)} / ${this.formatNumber(alliance.Negative || 0)}</div>
+                <div class="alliance-rank">#${alliance.Position || index + 1}</div>
+                <div class="alliance-name">${this.escapeHtml(alliance.Alliance || alliance.alliance || 'Unbekannt')}</div>
+                <div class="alliance-score">${this.formatNumber(alliance["Total Score"] || alliance.totalScore || 0)}</div>
+                <div class="alliance-players">${this.formatNumber(alliance.Positive || alliance.positive || 0)} / ${this.formatNumber(alliance.Negative || alliance.negative || 0)}</div>
             </div>
         `).join('');
     }
