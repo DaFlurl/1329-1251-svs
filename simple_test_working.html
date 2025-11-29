@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dashboard Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #output { white-space: pre-wrap; font-family: monospace; background: #f8f9fa; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Simple Dashboard Test</h1>
+        
+        <div class="test-section">
+            <h3>JavaScript Test</h3>
+            <div id="js-test">Testing...</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Data Loading Test</h3>
+            <button onclick="testFileList()">Test File List</button>
+            <button onclick="testDataFile()">Test Data File</button>
+            <div id="data-test">Click buttons to test...</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Console Output</h3>
+            <div id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simple logging function
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const output = document.getElementById('output');
+            output.textContent += `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
+            console.log(`[${timestamp}] ${type.toUpperCase()}: ${message}`);
+        }
+
+        // Test JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            log('DOM Content Loaded - JavaScript is working!');
+            document.getElementById('js-test').innerHTML = '<span class="success">✅ JavaScript is working</span>';
+        });
+
+        // Test file list loading
+        async function testFileList() {
+            log('Testing file list loading...');
+            try {
+                const response = await fetch('./data/file_list.json');
+                log(`File list response: ${response.status} ${response.statusText}`);
+                
+                if (response.ok) {
+                    const files = await response.json();
+                    log(`✅ File list loaded: ${JSON.stringify(files)}`);
+                    document.getElementById('data-test').innerHTML = `<span class="success">✅ File list loaded: ${files.length} files</span>`;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ File list error: ${error.message}`, 'error');
+                document.getElementById('data-test').innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        // Test data file loading
+        async function testDataFile() {
+            log('Testing data file loading...');
+            try {
+                const response = await fetch('./data/scoreboard-data.json');
+                log(`Data file response: ${response.status} ${response.statusText}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Data file loaded successfully`);
+                    log(`Data structure: ${JSON.stringify({
+                        keys: Object.keys(data),
+                        positiveCount: data.positive?.length || 0,
+                        negativeCount: data.negative?.length || 0,
+                        combinedCount: data.combined?.length || 0
+                    }, null, 2)}`);
+                    
+                    document.getElementById('data-test').innerHTML = `<span class="success">✅ Data loaded: ${data.positive?.length || 0} players</span>`;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ Data file error: ${error.message}`, 'error');
+                document.getElementById('data-test').innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        // Auto-run tests
+        window.addEventListener('load', function() {
+            log('Page fully loaded');
+            setTimeout(testFileList, 1000);
+            setTimeout(testDataFile, 2000);
+        });
+    </script>
+</body>
+</html>
