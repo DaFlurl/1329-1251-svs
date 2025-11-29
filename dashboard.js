@@ -50,7 +50,10 @@ class Dashboard {
         
         // Try to load the most recent data file
         try {
+            console.log('📡 Fetching file list...');
             const response = await fetch('./data/file_list.json');
+            console.log('📡 File list response:', response.status, response.statusText);
+            
             if (response.ok) {
                 const files = await response.json();
                 console.log('📁 Found file list:', files);
@@ -59,15 +62,31 @@ class Dashboard {
                     console.log('📊 Loading first file:', files[0]);
                     await this.loadData(files[0]);
                     return;
+                } else {
+                    console.warn('⚠️ File list is empty');
                 }
+            } else {
+                console.warn('⚠️ File list response not ok:', response.status);
             }
         } catch (error) {
-            console.log('⚠️ No file list found, using default file:', error);
+            console.error('❌ Error loading file list:', error);
         }
         
         // Fallback to default file
         console.log('📊 Using default file');
-        await this.loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+        try {
+            await this.loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+        } catch (fallbackError) {
+            console.error('❌ Fallback file also failed:', fallbackError);
+            // Try the other file as last resort
+            try {
+                await this.loadData('scoreboard-data.json');
+            } catch (lastResortError) {
+                console.error('❌ All data loading attempts failed:', lastResortError);
+                this.hideLoading();
+                this.showError('Keine Daten konnten geladen werden');
+            }
+        }
     }
     
     async loadData(filename) {
@@ -505,6 +524,15 @@ window.showAllianceDetails = function() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('📱 DOM ready, starting dashboard...');
     window.dashboard = new Dashboard();
+    
+    // Force hide loading overlay after 5 seconds as fallback
+    setTimeout(() => {
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay && overlay.style.display !== 'none') {
+            console.log('⚠️ Force hiding loading overlay after timeout');
+            overlay.style.display = 'none';
+        }
+    }, 5000);
 });
 
 // Handle errors
