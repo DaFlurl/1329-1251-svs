@@ -69,25 +69,82 @@
                 </div>
             </section>
 
-            <!-- Top Players -->
-            <section class="top-players">
-                <div class="section-header">
-                    <h2>Top Spieler</h2>
-                    <button class="btn btn-secondary" onclick="showAllPlayers()">Alle anzeigen</button>
-                </div>
-                <div class="players-list" id="topPlayersList">
-                    <div class="loading">Lade Spielerdaten...</div>
+            <!-- Data Tabs -->
+            <section class="data-tabs">
+                <div class="tab-container">
+                    <button class="tab-btn active" onclick="switchTab('positive')" data-tab="positive">
+                        <i class="fas fa-arrow-up"></i> Positive
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('negative')" data-tab="negative">
+                        <i class="fas fa-arrow-down"></i> Negative
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('combined')" data-tab="combined">
+                        <i class="fas fa-chart-bar"></i> Combined
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('alliance')" data-tab="alliance">
+                        <i class="fas fa-users"></i> Allianzen
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('fifth')" data-tab="fifth">
+                        <i class="fas fa-table"></i> 5. Tab
+                    </button>
                 </div>
             </section>
 
-            <!-- Alliance Ranking -->
-            <section class="alliance-ranking">
-                <div class="section-header">
-                    <h2>Allianz-Ranking</h2>
-                    <button class="btn btn-secondary" onclick="showAllianceDetails()">Details</button>
+            <!-- Tab Content -->
+            <section class="tab-content">
+                <!-- Positive Tab -->
+                <div id="positive-tab" class="tab-pane active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-arrow-up"></i> Positive Spieler</h2>
+                        <button class="btn btn-secondary" onclick="showAllPlayers('positive')">Alle anzeigen</button>
+                    </div>
+                    <div class="players-list" id="positivePlayersList">
+                        <div class="loading">Lade Positive Spieler...</div>
+                    </div>
                 </div>
-                <div class="alliances-list" id="allianceRanking">
-                    <div class="loading">Lade Allianzdaten...</div>
+
+                <!-- Negative Tab -->
+                <div id="negative-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-arrow-down"></i> Negative Spieler</h2>
+                        <button class="btn btn-secondary" onclick="showAllPlayers('negative')">Alle anzeigen</button>
+                    </div>
+                    <div class="players-list" id="negativePlayersList">
+                        <div class="loading">Lade Negative Spieler...</div>
+                    </div>
+                </div>
+
+                <!-- Combined Tab -->
+                <div id="combined-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-bar"></i> Combined Rankings</h2>
+                        <button class="btn btn-secondary" onclick="showAllPlayers('combined')">Alle anzeigen</button>
+                    </div>
+                    <div class="players-list" id="combinedPlayersList">
+                        <div class="loading">Lade Combined Rankings...</div>
+                    </div>
+                </div>
+
+                <!-- Alliance Tab -->
+                <div id="alliance-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Allianz-Ranking</h2>
+                        <button class="btn btn-secondary" onclick="showAllianceDetails()">Details</button>
+                    </div>
+                    <div class="alliances-list" id="allianceRanking">
+                        <div class="loading">Lade Allianzdaten...</div>
+                    </div>
+                </div>
+
+                <!-- Fifth Tab -->
+                <div id="fifth-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-table"></i> 5. Tab Daten</h2>
+                        <button class="btn btn-secondary" onclick="showFifthTabDetails()">Details</button>
+                    </div>
+                    <div class="data-list" id="fifthTabList">
+                        <div class="loading">Lade 5. Tab Daten...</div>
+                    </div>
                 </div>
             </section>
 

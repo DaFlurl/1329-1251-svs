@@ -364,6 +364,8 @@ class Dashboard {
             hasData: !!this.currentData,
             totalPlayers: this.currentData.metadata?.totalPlayers,
             totalAlliances: this.currentData.metadata?.totalAlliances,
+            positiveLength: this.currentData.positive?.length,
+            negativeLength: this.currentData.negative?.length,
             combinedLength: this.currentData.combined?.length,
             alliancesLength: this.currentData.alliances?.length
         });
@@ -381,11 +383,12 @@ class Dashboard {
             this.updateElement('highestScore', this.formatNumber(stats.highestScore || 0));
             this.updateElement('activeGames', stats.activeGames || 0);
             
-            // Update top players
-            this.updateTopPlayers();
-            
-            // Update alliance ranking
-            this.updateAllianceRanking();
+            // Update all tabs
+            this.updatePositiveTab();
+            this.updateNegativeTab();
+            this.updateCombinedTab();
+            this.updateAllianceTab();
+            this.updateFifthTab();
             
             // Update last update time
             this.updateElement('lastUpdate', new Date().toLocaleTimeString('de-DE'));
@@ -402,18 +405,59 @@ class Dashboard {
         }
     }
     
-    updateTopPlayers() {
-        const container = document.getElementById('topPlayersList');
-        if (!container) {
-            console.warn('⚠️ Top players container not found');
+    updatePositiveTab() {
+        const container = document.getElementById('positivePlayersList');
+        if (!container) return;
+        
+        const players = this.currentData.positive || [];
+        const topPlayers = players.slice(0, 10);
+        
+        if (topPlayers.length === 0) {
+            container.innerHTML = '<div class="no-data">Keine Positive Spieler verfügbar</div>';
             return;
         }
+        
+        container.innerHTML = topPlayers.map((player, index) => `
+            <div class="player-item fade-in">
+                <div class="player-rank">#${player.Position || index + 1}</div>
+                <div class="player-name">${this.escapeHtml(player.Name || 'Unbekannt')}</div>
+                <div class="player-score">${this.formatNumber(player.Score || 0)}</div>
+                <div class="player-alliance">${this.escapeHtml(player.Alliance || 'None')}</div>
+            </div>
+        `).join('');
+    }
+    
+    updateNegativeTab() {
+        const container = document.getElementById('negativePlayersList');
+        if (!container) return;
+        
+        const players = this.currentData.negative || [];
+        const topPlayers = players.slice(0, 10);
+        
+        if (topPlayers.length === 0) {
+            container.innerHTML = '<div class="no-data">Keine Negative Spieler verfügbar</div>';
+            return;
+        }
+        
+        container.innerHTML = topPlayers.map((player, index) => `
+            <div class="player-item fade-in negative">
+                <div class="player-rank">#${player.Position || index + 1}</div>
+                <div class="player-name">${this.escapeHtml(player.Name || 'Unbekannt')}</div>
+                <div class="player-score">${this.formatNumber(player.Score || 0)}</div>
+                <div class="player-alliance">${this.escapeHtml(player.Alliance || 'None')}</div>
+            </div>
+        `).join('');
+    }
+    
+    updateCombinedTab() {
+        const container = document.getElementById('combinedPlayersList');
+        if (!container) return;
         
         const players = this.currentData.combined || [];
         const topPlayers = players.slice(0, 10);
         
         if (topPlayers.length === 0) {
-            container.innerHTML = '<div class="no-data">Keine Spielerdaten verfügbar</div>';
+            container.innerHTML = '<div class="no-data">Keine Combined Rankings verfügbar</div>';
             return;
         }
         
@@ -427,14 +471,11 @@ class Dashboard {
         `).join('');
     }
     
-    updateAllianceRanking() {
+    updateAllianceTab() {
         const container = document.getElementById('allianceRanking');
-        if (!container) {
-            console.warn('⚠️ Alliance ranking container not found');
-            return;
-        }
+        if (!container) return;
         
-        const alliances = this.currentData.alliances || [];
+        const alliances = this.currentData.alliance || [];
         const topAlliances = alliances.slice(0, 5);
         
         if (topAlliances.length === 0) {
@@ -445,11 +486,59 @@ class Dashboard {
         container.innerHTML = topAlliances.map((alliance, index) => `
             <div class="alliance-item fade-in">
                 <div class="alliance-rank">#${index + 1}</div>
-                <div class="alliance-name">${this.escapeHtml(alliance.name || 'Unbekannt')}</div>
-                <div class="alliance-score">${this.formatNumber(alliance.totalScore || 0)}</div>
-                <div class="alliance-players">${(alliance.players || []).length} Spieler</div>
+                <div class="alliance-name">${this.escapeHtml(alliance.Alliance || 'Unbekannt')}</div>
+                <div class="alliance-score">${this.formatNumber(alliance["Total Score"] || 0)}</div>
+                <div class="alliance-players">${this.formatNumber(alliance.Positive || 0)} / ${this.formatNumber(alliance.Negative || 0)}</div>
             </div>
         `).join('');
+    }
+    
+    updateFifthTab() {
+        const container = document.getElementById('fifthTabList');
+        if (!container) return;
+        
+        // Try to find the 5th tab data - could be named differently
+        const fifthData = this.currentData.fifth || this.currentData.summary || this.currentData.stats || this.currentData.extra;
+        
+        if (!fifthData) {
+            container.innerHTML = '<div class="no-data">5. Tab Daten nicht verfügbar</div>';
+            return;
+        }
+        
+        // If it's an array, show as table
+        if (Array.isArray(fifthData)) {
+            container.innerHTML = `
+                <div class="data-table">
+                    <h3>5. Tab - ${fifthData.length} Einträge</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                ${Object.keys(fifthData[0] || {}).map(key => `<th>${key}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${fifthData.slice(0, 10).map(row => `
+                                <tr>
+                                    ${Object.values(row || {}).map(value => `<td>${value}</td>`).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        } else {
+            // If it's an object, show as key-value pairs
+            container.innerHTML = `
+                <div class="data-grid">
+                    <h3>5. Tab - Übersicht</h3>
+                    ${Object.entries(fifthData).map(([key, value]) => `
+                        <div class="data-item">
+                            <strong>${key}:</strong> ${this.formatNumber(value) || value}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
     }
     
     updateElement(id, content) {
@@ -544,14 +633,48 @@ window.refreshData = async function() {
     }
 };
 
-window.showAllPlayers = function() {
-    console.log('📋 Showing all players...');
-    alert('Alle Spieler anzeigen - Funktion wird in Kürze implementiert');
+window.switchTab = function(tabName) {
+    console.log(`🔄 Switching to tab: ${tabName}`);
+    
+    // Update tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.tab === tabName) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Update tab panes
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+    });
+    
+    // Show selected tab
+    const selectedPane = document.getElementById(`${tabName}-tab`);
+    if (selectedPane) {
+        selectedPane.classList.add('active');
+    }
+};
+
+window.showAllPlayers = function(tabType = 'combined') {
+    console.log(`📋 Showing all ${tabType} players...`);
+    if (window.dashboard && window.dashboard.currentData) {
+        const players = window.dashboard.currentData[tabType] || [];
+        alert(`Alle ${tabType} Spieler anzeigen (${players.length} Spieler) - Detailansicht wird in Kürze implementiert`);
+    }
 };
 
 window.showAllianceDetails = function() {
     console.log('🏛️ Showing alliance details...');
-    alert('Allianz-Details - Funktion wird in Kürze implementiert');
+    if (window.dashboard && window.dashboard.currentData) {
+        const alliances = window.dashboard.currentData.alliance || [];
+        alert(`Allianz-Details (${alliances.length} Allianzen) - Detailansicht wird in Kürze implementiert`);
+    }
+};
+
+window.showFifthTabDetails = function() {
+    console.log('📊 Showing 5th tab details...');
+    alert('5. Tab Details - Erweiterte Ansicht wird in Kürze implementiert');
 };
 
 // Initialize dashboard when DOM is ready
