@@ -141,16 +141,18 @@ class Dashboard {
         
         // Normalize data field names and filter out invalid entries
         const normalizePlayer = (player) => {
-            if (!player || !player.Name || player.Name === null || player.Name === '') return null;
+            if (!player || (!player.Name && !player.name) || 
+                (player.Name === null && player.name === null) || 
+                (player.Name === '' && player.name === '')) return null;
             
             return {
-                position: parseInt(player.Position) || 0,
-                name: player.Name,
-                score: parseFloat(player["Total Score"] || player.Score || 0),
-                alliance: player.Alliance || 'None',
-                monarchId: parseFloat(player["Monarch ID"]) || 0,
-                positiveScore: parseFloat(player.Positive || 0),
-                negativeScore: parseFloat(player.Negative || 0)
+                position: parseInt(player.Position || player.position) || 0,
+                name: player.Name || player.name,
+                score: parseFloat(player["Total Score"] || player.Score || player.score || 0),
+                alliance: player.Alliance || player.alliance || 'None',
+                monarchId: parseFloat(player["Monarch ID"] || player.monarchId) || 0,
+                positiveScore: parseFloat(player.Positive || player.positiveScore || 0),
+                negativeScore: parseFloat(player.Negative || player.negativeScore || 0)
             };
         };
         

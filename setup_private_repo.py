@@ -439,7 +439,7 @@ if __name__ == "__main__":
             print("Private Git repository initialized successfully!")
             
             # Instructions for remote setup
-            print("\\nNext steps:")
+            print("//nNext steps:")
             print(f"1. Create private repository on GitHub: {self.private_repo_name}")
             print("2. Add remote: git remote add origin <your-private-repo-url>")
             print("3. Push: git push -u origin main")

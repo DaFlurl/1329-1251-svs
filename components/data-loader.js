@@ -60,74 +60,226 @@ class DataLoader {
 
   async fetchData(filename) {
     try {
-      const response = await fetch(`${this.basePath}${filename}`);
+      let dataUrl;
+      
+      // Determine URL pattern based on environment
+      if (window.location.hostname === 'daflurl.github.io') {
+        // GitHub Pages - files are in root
+        dataUrl = filename;
+      } else {
+        // Local development - files are in data directory
+        dataUrl = `${this.basePath}${filename}`;
+      }
+      
+      console.log(`📡 Fetching data from: ${dataUrl}`);
+      
+      const response = await fetch(dataUrl);
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status} for URL: ${dataUrl}`);
       }
       
       const data = await response.json();
+      console.log('📋 Raw data received:', {
+        keys: Object.keys(data),
+        hasPositive: !!data.Positive,
+        hasCombined: !!data.Combined
+      });
+      
       return this.processData(data);
     } catch (error) {
-      console.error('Failed to fetch data:', error);
+      console.error('❌ Failed to fetch data:', error);
+      console.error('❌ Error details:', {
+        filename: filename,
+        hostname: window.location.hostname,
+        error: error.message
+      });
       // Try fallback data
       return this.getFallbackData();
     }
   }
 
   processData(rawData) {
+    console.log('🔄 Processing raw data...', {
+      keys: Object.keys(rawData),
+      hasPositive: !!rawData.Positive,
+      hasCombined: !!rawData.Combined,
+      hasPositiveFlat: !!rawData.positive,
+      hasCombinedFlat: !!rawData.combined
+    });
+
     // Process and normalize data structure
     const processed = {
       positive: [],
       negative: [],
       combined: [],
+      alliances: [],
       metadata: {
         totalPlayers: 0,
         totalAlliances: 0,
         lastUpdate: new Date().toISOString(),
-        dataFile: this.currentDataFile
+        dataFile: this.currentDataFile,
+        source: 'unknown'
       }
     };
 
-    // Process positive data
-    if (rawData.positive && Array.isArray(rawData.positive)) {
-      processed.positive = rawData.positive.map((player, index) => ({
-        position: player.position || index + 1,
-        name: player.name || player.Name || 'Unknown',
-        score: parseInt(player.score || player.Score || 0),
-        alliance: player.alliance || player.Alliance || 'None',
-        monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
-      }));
+    // Determine data source and extract accordingly
+    if (rawData.Positive && rawData.Positive.sheets) {
+      // GitHub Pages nested format
+      processed.metadata.source = 'github-pages';
+      
+      // Extract positive data
+      if (rawData.Positive.sheets.Positive && rawData.Positive.sheets.Positive.data) {
+        processed.positive = rawData.Positive.sheets.Positive.data
+          .filter(player => player.Name && player.Name !== null)
+          .map((player, index) => ({
+            position: parseInt(player.Position) || index + 1,
+            name: player.Name,
+            score: parseFloat(player.Score || 0),
+            alliance: player.Alliance || 'None',
+            monarchId: player['Monarch ID'] || 'N/A'
+          }));
+      }
+
+      // Extract negative data
+      if (rawData.Negative && rawData.Negative.sheets && rawData.Negative.sheets.Negative && rawData.Negative.sheets.Negative.data) {
+        processed.negative = rawData.Negative.sheets.Negative.data
+          .filter(player => player.Name && player.Name !== null)
+          .map((player, index) => ({
+            position: parseInt(player.Position) || index + 1,
+            name: player.Name,
+            score: parseFloat(player.Score || 0),
+            alliance: player.Alliance || 'None',
+            monarchId: player['Monarch ID'] || 'N/A'
+          }));
+      }
+
+      // Extract combined data
+      if (rawData.Combined && rawData.Combined.sheets && rawData.Combined.sheets.Combined && rawData.Combined.sheets.Combined.data) {
+        processed.combined = rawData.Combined.sheets.Combined.data
+          .filter(player => player.Name && player.Name !== null)
+          .map((player, index) => ({
+            position: parseInt(player.Position) || index + 1,
+            name: player.Name,
+            score: parseFloat(player['Total Score'] || 0),
+            positiveScore: parseFloat(player.Positive || 0),
+            negativeScore: parseFloat(player.Negative || 0),
+            alliance: player.Alliance || 'None',
+            monarchId: player['Monarch ID'] || 'N/A'
+          }));
+      }
+
+      // Extract alliance data
+      if (rawData.Alliance && rawData.Alliance.sheets && rawData.Alliance.sheets.Alliance && rawData.Alliance.sheets.Alliance.data) {
+        processed.alliances = rawData.Alliance.sheets.Alliance.data
+          .filter(alliance => alliance.Alliance && alliance.Alliance !== null)
+          .map((alliance, index) => ({
+            position: parseInt(alliance.Position) || index + 1,
+            name: alliance.Alliance,
+            totalScore: parseFloat(alliance['Total Score'] || 0),
+            positiveScore: parseFloat(alliance.Positive || 0),
+            negativeScore: parseFloat(alliance.Negative || 0)
+          }));
+      }
+
+    } else {
+      // Local flat format
+      processed.metadata.source = 'local';
+      
+      // Process positive data
+      if (rawData.positive && Array.isArray(rawData.positive)) {
+        processed.positive = rawData.positive.map((player, index) => ({
+          position: player.position || index + 1,
+          name: player.name || player.Name || 'Unknown',
+          score: parseInt(player.score || player.Score || 0),
+          alliance: player.alliance || player.Alliance || 'None',
+          monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
+        }));
+      }
+
+      // Process negative data
+      if (rawData.negative && Array.isArray(rawData.negative)) {
+        processed.negative = rawData.negative.map((player, index) => ({
+          position: player.position || index + 1,
+          name: player.name || player.Name || 'Unknown',
+          score: parseInt(player.score || player.Score || 0),
+          alliance: player.alliance || player.Alliance || 'None',
+          monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
+        }));
+      }
+
+      // Process combined data
+      if (rawData.combined && Array.isArray(rawData.combined)) {
+        processed.combined = rawData.combined.map((player, index) => ({
+          position: player.position || index + 1,
+          name: player.name || player.Name || 'Unknown',
+          score: parseInt(player.score || player.Score || 0),
+          alliance: player.alliance || player.Alliance || 'None',
+          monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
+        }));
+      }
     }
 
-    // Process negative data
-    if (rawData.negative && Array.isArray(rawData.negative)) {
-      processed.negative = rawData.negative.map((player, index) => ({
-        position: player.position || index + 1,
-        name: player.name || player.Name || 'Unknown',
-        score: parseInt(player.score || player.Score || 0),
-        alliance: player.alliance || player.Alliance || 'None',
-        monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
-      }));
-    }
-
-    // Process combined data
-    if (rawData.combined && Array.isArray(rawData.combined)) {
-      processed.combined = rawData.combined.map((player, index) => ({
-        position: player.position || index + 1,
-        name: player.name || player.Name || 'Unknown',
-        score: parseInt(player.score || player.Score || 0),
-        alliance: player.alliance || player.Alliance || 'None',
-        monarchId: player.monarchId || player['Monarch ID'] || 'N/A'
-      }));
+    // If no combined data, create it from positive and negative
+    if (processed.combined.length === 0 && (processed.positive.length > 0 || processed.negative.length > 0)) {
+      const playerMap = new Map();
+      
+      // Add positive players
+      processed.positive.forEach(player => {
+        const key = player.name || player.monarchId;
+        playerMap.set(key, {
+          ...player,
+          netScore: player.score,
+          positiveScore: player.score,
+          negativeScore: 0
+        });
+      });
+      
+      // Add negative players
+      processed.negative.forEach(player => {
+        const key = player.name || player.monarchId;
+        if (playerMap.has(key)) {
+          const existing = playerMap.get(key);
+          existing.negativeScore = Math.abs(player.score);
+          existing.netScore = existing.positiveScore - existing.negativeScore;
+          existing.score = existing.netScore;
+        } else {
+          playerMap.set(key, {
+            ...player,
+            netScore: -Math.abs(player.score),
+            positiveScore: 0,
+            negativeScore: Math.abs(player.score),
+            score: -Math.abs(player.score)
+          });
+        }
+      });
+      
+      processed.combined = Array.from(playerMap.values())
+        .filter(p => p.name && p.name !== 'null')
+        .sort((a, b) => b.score - a.score);
+      
+      // Add position rankings
+      processed.combined.forEach((player, index) => {
+        player.position = index + 1;
+      });
     }
 
     // Calculate metadata
     const allPlayers = [...processed.positive, ...processed.negative, ...processed.combined];
     const alliances = new Set(allPlayers.map(p => p.alliance).filter(a => a && a !== 'None'));
     
-    processed.metadata.totalPlayers = allPlayers.length;
+    processed.metadata.totalPlayers = processed.combined.length || allPlayers.length;
     processed.metadata.totalAlliances = alliances.size;
+
+    console.log('✅ Data processed successfully:', {
+      source: processed.metadata.source,
+      positiveCount: processed.positive.length,
+      negativeCount: processed.negative.length,
+      combinedCount: processed.combined.length,
+      allianceCount: processed.alliances.length,
+      totalPlayers: processed.metadata.totalPlayers,
+      totalAlliances: processed.metadata.totalAlliances
+    });
 
     return processed;
   }

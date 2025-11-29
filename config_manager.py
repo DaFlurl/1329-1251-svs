@@ -64,7 +64,7 @@ HISTORY_API_PORT=5001
 HISTORY_API_HOST=0.0.0.0
 
 ## File Paths
-BASE_DIR=C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard
+BASE_DIR=C://Users//flori//Desktop//AgentDaf1//github-dashboard
 EXCEL_FILE=Sunday, 16 November 2025 1329+1251 v 3144363.xlsx
 DATA_FILE=scoreboard-data.json
 HISTORY_DIR=file_history
@@ -159,7 +159,7 @@ API_ENDPOINTS=True
         """Save configuration to file"""
         with open(self.config_file, 'w', encoding='utf-8') as f:
             for key, value in self.config.items():
-                f.write(f"{key}={value}\n")
+                f.write(f"{key}={value}/n")
     
     def get_server_config(self) -> Dict[str, Any]:
         """Get server configuration"""

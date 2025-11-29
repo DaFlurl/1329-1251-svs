@@ -15,7 +15,7 @@ from typing import Dict, Any, List, Optional
 class FileHistoryManager:
     """Manages file history, backups, and version control"""
     
-    def __init__(self, base_dir: str = "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard"):
+    def __init__(self, base_dir: str = "C://Users//flori//Desktop//AgentDaf1//github-dashboard"):
         self.base_dir = Path(base_dir)
         self.history_dir = self.base_dir / "file_history"
         self.history_file = self.history_dir / "file_history.json"
@@ -291,7 +291,7 @@ if __name__ == "__main__":
     print("Testing File History Manager...")
     
     # Test backup
-    test_file = "C:\\Users\\flori\\Desktop\\AgentDaf1\\github-dashboard\\scoreboard.html"
+    test_file = "C://Users//flori//Desktop//AgentDaf1//github-dashboard//scoreboard.html"
     if os.path.exists(test_file):
         file_history_manager.backup_file(test_file, "Test backup")
         

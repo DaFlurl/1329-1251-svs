@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .error { color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; }
+        .success { color: green; background: #e6ffe6; padding: 10px; margin: 10px 0; }
+        .info { color: blue; background: #e6f3ff; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Dashboard Test</h1>
+    <div id="output"></div>
+    
+    <script>
+        const output = document.getElementById('output');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            output.appendChild(div);
+        }
+        
+        log('Starting dashboard test...');
+        
+        // Test 1: Check if dashboard.js loads
+        try {
+            log('Loading dashboard.js...');
+            // We'll load the script dynamically to catch errors
+            const script = document.createElement('script');
+            script.src = 'dashboard.js';
+            script.onload = function() {
+                log('dashboard.js loaded successfully', 'success');
+                
+                // Test 2: Try to create Dashboard instance
+                try {
+                    log('Creating Dashboard instance...');
+                    const dashboard = new Dashboard();
+                    log('Dashboard instance created successfully', 'success');
+                    
+                    // Test 3: Check if methods exist
+                    if (typeof dashboard.loadData === 'function') {
+                        log('loadData method exists', 'success');
+                    } else {
+                        log('loadData method missing', 'error');
+                    }
+                    
+                } catch (error) {
+                    log('Error creating Dashboard: ' + error.message, 'error');
+                }
+            };
+            script.onerror = function() {
+                log('Failed to load dashboard.js', 'error');
+            };
+            document.head.appendChild(script);
+            
+        } catch (error) {
+            log('Error loading script: ' + error.message, 'error');
+        }
+    </script>
+</body>
+</html>

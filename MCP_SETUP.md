@@ -25,17 +25,20 @@ This configuration enables the Sequential Thinking MCP server for enhanced reaso
 ## Usage
 
 ### Prerequisites
+
 - Docker installed and running
 - MCP client configured
 
 ### Setup Instructions
 
 1. **Ensure Docker is running**:
+
    ```bash
    docker --version
    ```
 
 2. **Test the MCP server**:
+
    ```bash
    docker run -i --rm mcp/sequentialthinking
    ```
@@ -47,6 +50,7 @@ This configuration enables the Sequential Thinking MCP server for enhanced reaso
 To integrate this MCP server with your AgentDaf1.1 dashboard:
 
 1. **Add MCP support to the dashboard**:
+
    ```javascript
    // In dashboard.js
    async function initializeMCP() {
@@ -61,6 +65,7 @@ To integrate this MCP server with your AgentDaf1.1 dashboard:
    ```
 
 2. **Create MCP integration module**:
+
    ```javascript
    // components/mcp-integration.js
    class MCPIntegration {
@@ -100,6 +105,7 @@ To integrate this MCP server with your AgentDaf1.1 dashboard:
 ### Common Issues
 
 1. **Docker not running**:
+
    ```bash
    # Start Docker daemon
    sudo systemctl start docker  # Linux
@@ -107,12 +113,14 @@ To integrate this MCP server with your AgentDaf1.1 dashboard:
    ```
 
 2. **Image not found**:
+
    ```bash
    # Pull the image
    docker pull mcp/sequentialthinking
    ```
 
 3. **Port conflicts**:
+
    ```bash
    # Check running containers
    docker ps
@@ -125,6 +133,7 @@ To integrate this MCP server with your AgentDaf1.1 dashboard:
 Test the MCP server integration:
 
 1. **Start the dashboard**:
+
    ```bash
    python serve.py
    ```

@@ -129,7 +129,7 @@ def main():
     
     # Process files
     if process_data_directory(source_dir, output_dir):
-        print("\nValidating output files...")
+        print("/nValidating output files...")
         
         # Validate generated JSON files
         output_path = Path(output_dir)
@@ -140,7 +140,7 @@ def main():
             if validate_json_file(json_file):
                 valid_count += 1
         
-        print(f"\nSummary: {valid_count}/{len(json_files)} files are valid")
+        print(f"/nSummary: {valid_count}/{len(json_files)} files are valid")
         
         if valid_count == len(json_files):
             print("All files converted successfully!")

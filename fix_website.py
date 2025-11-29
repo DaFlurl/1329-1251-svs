@@ -24,7 +24,7 @@ class WebsiteFixer:
     
     def fix_data_files(self):
         """Fix data file issues"""
-        print("\n🔧 Fixing data files...")
+        print("/n🔧 Fixing data files...")
         
         data_dir = self.base_dir / "data"
         if not data_dir.exists():
@@ -132,7 +132,7 @@ class WebsiteFixer:
     
     def fix_html_files(self):
         """Fix HTML file issues"""
-        print("\n🔧 Fixing HTML files...")
+        print("/n🔧 Fixing HTML files...")
         
         for html_file in self.base_dir.glob("*.html"):
             try:
@@ -146,7 +146,7 @@ class WebsiteFixer:
                 if 'http-equiv="X-UA-Compatible"' not in content:
                     head_end = content.find('</head>')
                     if head_end != -1:
-                        security_meta = '<meta http-equiv="X-UA-Compatible" content="ie=edge">\n    '
+                        security_meta = '<meta http-equiv="X-UA-Compatible" content="ie=edge">/n    '
                         content = content[:head_end] + security_meta + content[head_end:]
                         modified = True
                         self.log_fix(f"Missing security meta in {html_file.name}", "Added X-UA-Compatible meta tag")
@@ -155,14 +155,14 @@ class WebsiteFixer:
                 if 'Content-Security-Policy' not in content:
                     head_end = content.find('</head>')
                     if head_end != -1:
-                        csp_meta = '<meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'unsafe-inline\' https://cdnjs.cloudflare.com; style-src \'self\' \'unsafe-inline\' https://cdnjs.cloudflare.com https://fonts.googleapis.com;">\n    '
+                        csp_meta = '<meta http-equiv="Content-Security-Policy" content="default-src /'self/'; script-src /'self/' /'unsafe-inline/' https://cdnjs.cloudflare.com; style-src /'self/' /'unsafe-inline/' https://cdnjs.cloudflare.com https://fonts.googleapis.com;">/n    '
                         content = content[:head_end] + csp_meta + content[head_end:]
                         modified = True
                         self.log_fix(f"Missing CSP in {html_file.name}", "Added Content Security Policy meta tag")
                 
                 # Fix external resource integrity
                 content = re.sub(
-                    r'<link[^>]*href="https://cdnjs\.cloudflare\.com/[^"]*"[^>]*>',
+                    r'<link[^>]*href="https://cdnjs/.cloudflare/.com/[^"]*"[^>]*>',
                     lambda m: self.add_integrity_to_link(m.group(0)),
                     content
                 )
@@ -191,7 +191,7 @@ class WebsiteFixer:
     
     def fix_css_files(self):
         """Fix CSS file issues"""
-        print("\n🔧 Fixing CSS files...")
+        print("/n🔧 Fixing CSS files...")
         
         for css_file in self.base_dir.glob("*.css"):
             try:
@@ -217,7 +217,7 @@ class WebsiteFixer:
     --transition: all 0.3s ease;
 }
 """
-                    content = variables + '\n' + content
+                    content = variables + '/n' + content
                     modified = True
                     self.log_fix(f"Missing CSS variables in {css_file.name}", "Added CSS custom properties")
                 
@@ -238,7 +238,7 @@ class WebsiteFixer:
     
     def fix_javascript_files(self):
         """Fix JavaScript file issues"""
-        print("\n🔧 Fixing JavaScript files...")
+        print("/n🔧 Fixing JavaScript files...")
         
         for js_file in self.base_dir.glob("**/*.js"):
             try:
@@ -250,7 +250,7 @@ class WebsiteFixer:
                 
                 # Add 'use strict' if missing
                 if content.strip() and not content.strip().startswith('"use strict"') and not content.strip().startswith("'use strict'"):
-                    content = '"use strict";\n\n' + content
+                    content = '"use strict";/n/n' + content
                     modified = True
                     self.log_fix(f"Missing use strict in {js_file.name}", "Added strict mode directive")
                 
@@ -285,7 +285,7 @@ window.addEventListener('unhandledrejection', function(e) {
     
     def create_missing_files(self):
         """Create missing essential files"""
-        print("\n🔧 Creating missing files...")
+        print("/n🔧 Creating missing files...")
         
         # Create .htaccess for security
         htaccess_path = self.base_dir / ".htaccess"
@@ -338,7 +338,7 @@ Sitemap: https://daflurl.github.io/1329-1251-svs/sitemap.xml
     
     def optimize_performance(self):
         """Optimize website performance"""
-        print("\n🔧 Optimizing performance...")
+        print("/n🔧 Optimizing performance...")
         
         # Minify CSS (basic)
         for css_file in self.base_dir.glob("*.css"):
@@ -347,9 +347,9 @@ Sitemap: https://daflurl.github.io/1329-1251-svs/sitemap.xml
                     content = f.read()
                 
                 # Basic minification
-                minified = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)  # Remove comments
-                minified = re.sub(r'\s+', ' ', minified)  # Collapse whitespace
-                minified = re.sub(r';\s*}', '}', minified)  # Remove unnecessary semicolons
+                minified = re.sub(r'//*.*?/*/', '', content, flags=re.DOTALL)  # Remove comments
+                minified = re.sub(r'/s+', ' ', minified)  # Collapse whitespace
+                minified = re.sub(r';/s*}', '}', minified)  # Remove unnecessary semicolons
                 minified = minified.strip()
                 
                 # Create minified version
@@ -364,19 +364,19 @@ Sitemap: https://daflurl.github.io/1329-1251-svs/sitemap.xml
     
     def generate_report(self):
         """Generate fix report"""
-        print("\n" + "="*60)
+        print("/n" + "="*60)
         print("🎉 WEBSITE FIX REPORT")
         print("="*60)
         
         if self.issues_fixed:
-            print(f"\n✅ Total Issues Fixed: {len(self.issues_fixed)}")
-            print("\nFixed Issues:")
+            print(f"/n✅ Total Issues Fixed: {len(self.issues_fixed)}")
+            print("/nFixed Issues:")
             for issue in self.issues_fixed:
                 print(f"  {issue}")
         else:
-            print("\n✅ No issues found - website is already in good condition!")
+            print("/n✅ No issues found - website is already in good condition!")
         
-        print("\n📋 Summary:")
+        print("/n📋 Summary:")
         print("  - Data files: Fixed structure and metadata")
         print("  - HTML files: Added security headers and meta tags")
         print("  - CSS files: Added variables and vendor prefixes")
@@ -384,13 +384,13 @@ Sitemap: https://daflurl.github.io/1329-1251-svs/sitemap.xml
         print("  - Security: Created .htaccess and robots.txt")
         print("  - Performance: Created minified CSS files")
         
-        print("\n🚀 Next Steps:")
+        print("/n🚀 Next Steps:")
         print("  1. Test the website: python serve.py")
         print("  2. Open browser: http://localhost:8000")
         print("  3. Run tests: Open test.html in browser")
         print("  4. Check all functionality works correctly")
         
-        print("\n" + "="*60)
+        print("/n" + "="*60)
     
     def run_all_fixes(self):
         """Run all fix procedures"""
