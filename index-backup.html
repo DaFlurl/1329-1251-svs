@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Live Gaming Dashboard mit Echtzeit-Rankings und Allianz-Statistiken">
+    <meta name="keywords" content="gaming, dashboard, rankings, live, agentdaf1">
+    <meta name="author" content="AgentDaf1 Team">
+    <meta name="robots" content="index, follow">
+    <title>🏆 AgentDaf1.1 - Live Gaming Dashboard v2.1 - Nov 29</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- JavaScript Test -->
+    <script>
+        console.log('✅ Inline JavaScript test - Page loading started');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOM Content Loaded - JavaScript is working');
+        });
+    </script>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">🏆 AgentDaf1.1</h1>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalPlayersDisplay">0</span>
+                        <span class="stat-label">Aktive Spieler</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalAlliancesDisplay">0</span>
+                        <span class="stat-label">Allianzen</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="updateStatus">Lade...</span>
+                        <span class="stat-label">Status</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Quick Stats -->
+            <section class="quick-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalScore">-</div>
+                        <div class="stat-label">Gesamtpunkte</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgScore">-</div>
+                        <div class="stat-label">Durchschnitt</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="highestScore">-</div>
+                        <div class="stat-label">Höchste Punktzahl</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeGames">-</div>
+                        <div class="stat-label">Aktive Spiele</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Tabs -->
+            <section class="data-tabs">
+                <div class="tab-container">
+                    <button class="tab-btn active" onclick="switchTab('positive')" data-tab="positive">
+                        <i class="fas fa-arrow-up"></i> Positive
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('negative')" data-tab="negative">
+                        <i class="fas fa-arrow-down"></i> Negative
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('combined')" data-tab="combined">
+                        <i class="fas fa-chart-bar"></i> Combined
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('alliance')" data-tab="alliance">
+                        <i class="fas fa-users"></i> Allianzen
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('fifth')" data-tab="fifth">
+                        <i class="fas fa-crown"></i> Alle Monarchen
+                    </button>
+                </div>
+            </section>
+
+            <!-- Tab Content -->
+            <section class="tab-content">
+                <!-- Positive Tab -->
+                <div id="positive-tab" class="tab-pane active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-arrow-up"></i> Positive Spieler</h2>
+                        <button class="btn btn-secondary" onclick="showAllPlayers('positive')">Alle anzeigen</button>
+                    </div>
+                    <div class="players-list" id="positivePlayersList">
+                        <div class="loading">Lade Positive Spieler...</div>
+                    </div>
+                </div>
+
+                <!-- Negative Tab -->
+                <div id="negative-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-arrow-down"></i> Negative Spieler</h2>
+                        <button class="btn btn-secondary" onclick="showAllPlayers('negative')">Alle anzeigen</button>
+                    </div>
+                    <div class="players-list" id="negativePlayersList">
+                        <div class="loading">Lade Negative Spieler...</div>
+                    </div>
+                </div>
+
+                <!-- Combined Tab -->
+                <div id="combined-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-bar"></i> Combined Rankings</h2>
+                        <button class="btn btn-secondary" onclick="showAllPlayers('combined')">Alle anzeigen</button>
+                    </div>
+                    <div class="players-list" id="combinedPlayersList">
+                        <div class="loading">Lade Combined Rankings...</div>
+                    </div>
+                </div>
+
+                <!-- Alliance Tab -->
+                <div id="alliance-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Allianz-Ranking</h2>
+                        <button class="btn btn-secondary" onclick="showAllianceDetails()">Details</button>
+                    </div>
+                    <div class="alliances-list" id="allianceList">
+                        <div class="loading">Lade Allianzdaten...</div>
+                    </div>
+                </div>
+
+                <!-- Fifth Tab -->
+                <div id="fifth-tab" class="tab-pane">
+                    <div class="section-header">
+                        <h2><i class="fas fa-crown"></i> Alle Monarchen</h2>
+                        <button class="btn btn-secondary" onclick="showFifthTabDetails()">Details</button>
+                    </div>
+                    <div class="data-list" id="fifthTabList">
+                        <div class="loading">Lade Alle Monarchen Daten...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Selector -->
+            <section class="data-selector">
+                <div class="selector-group">
+                    <label for="dataFileSelect">Datenquelle:</label>
+                    <select id="dataFileSelect" onchange="loadDataFile(this.value)">
+                        <option value="Monday, 24 November 2025 1329+1251 v 683+665.json">Montag, 24. Nov 2025 (vs 683+665)</option>
+                        <option value="Sunday, 16 November 2025 1329+1251 v 3144363.json">Sonntag, 16. Nov 2025 (vs 3144363)</option>
+                        <option value="monday_data.json">Montag Daten (Alt)</option>
+                        <option value="scoreboard-data.json">Sonntag Daten (Alt)</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="refreshData()">
+                        <i class="fas fa-sync-alt"></i> Aktualisieren
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>🤖 AgentDaf1.1 Dashboard System | Zuletzt aktualisiert: <span id="lastUpdate">Lade...</span></p>
+                <div class="footer-links">
+                    <a href="https://github.com/DaFlurl/1329-1251-svs" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <button class="btn btn-small" onclick="installPWA()">
+                        <i class="fas fa-download"></i> Installieren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay (Hidden by default) -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none !important; visibility: hidden !important; opacity: 0 !important;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h2>Lade Dashboard...</h2>
+            <p>Verarbeite Spieldaten</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="dashboard.js"></script>
+    <script src="live-patch.js"></script>
+    <script>
+        // Fallback error handling only - let dashboard.js handle loading
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (!window.dashboard || !window.dashboard.currentData) {
+                    console.error('❌ Dashboard failed to load properly');
+                    const overlay = document.getElementById('loadingOverlay');
+                    if (overlay) {
+                        overlay.style.display = 'none';
+                    }
+                    document.getElementById('positivePlayersList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Daten</div>';
+                    document.getElementById('negativePlayersList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Daten</div>';
+                    document.getElementById('combinedPlayersList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Daten</div>';
+                    document.getElementById('allianceList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Allianzen</div>';
+                    document.getElementById('fifthTabList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Monarchen</div>';
+                }
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
