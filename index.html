@@ -8,7 +8,7 @@
     <meta name="keywords" content="gaming, dashboard, rankings, live, agentdaf1">
     <meta name="author" content="AgentDaf1 Team">
     <meta name="robots" content="index, follow">
-    <title>🏆 AgentDaf1.1 - Live Gaming Dashboard</title>
+    <title>🏆 AgentDaf1.1 - Live Gaming Dashboard v2.0</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -85,7 +85,7 @@
                         <i class="fas fa-users"></i> Allianzen
                     </button>
                     <button class="tab-btn" onclick="switchTab('fifth')" data-tab="fifth">
-                        <i class="fas fa-table"></i> 5. Tab
+                        <i class="fas fa-crown"></i> Alle Monarchen
                     </button>
                 </div>
             </section>
@@ -139,11 +139,11 @@
                 <!-- Fifth Tab -->
                 <div id="fifth-tab" class="tab-pane">
                     <div class="section-header">
-                        <h2><i class="fas fa-table"></i> 5. Tab Daten</h2>
+                        <h2><i class="fas fa-crown"></i> Alle Monarchen</h2>
                         <button class="btn btn-secondary" onclick="showFifthTabDetails()">Details</button>
                     </div>
                     <div class="data-list" id="fifthTabList">
-                        <div class="loading">Lade 5. Tab Daten...</div>
+                        <div class="loading">Lade Alle Monarchen Daten...</div>
                     </div>
                 </div>
             </section>
@@ -153,8 +153,10 @@
                 <div class="selector-group">
                     <label for="dataFileSelect">Datenquelle:</label>
                     <select id="dataFileSelect" onchange="loadDataFile(this.value)">
-                        <option value="monday_data.json">Montag, 24. Nov 2025</option>
-                        <option value="scoreboard-data.json">Sonntag, 16. Nov 2025</option>
+                        <option value="Monday, 24 November 2025 1329+1251 v 683+665.json">Montag, 24. Nov 2025 (vs 683+665)</option>
+                        <option value="Sunday, 16 November 2025 1329+1251 v 3144363.json">Sonntag, 16. Nov 2025 (vs 3144363)</option>
+                        <option value="monday_data.json">Montag Daten (Alt)</option>
+                        <option value="scoreboard-data.json">Sonntag Daten (Alt)</option>
                     </select>
                     <button class="btn btn-primary" onclick="refreshData()">
                         <i class="fas fa-sync-alt"></i> Aktualisieren

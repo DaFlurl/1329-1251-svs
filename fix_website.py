@@ -155,7 +155,7 @@ class WebsiteFixer:
                 if 'Content-Security-Policy' not in content:
                     head_end = content.find('</head>')
                     if head_end != -1:
-                        csp_meta = '<meta http-equiv="Content-Security-Policy" content="default-src /'self/'; script-src /'self/' /'unsafe-inline/' https://cdnjs.cloudflare.com; style-src /'self/' /'unsafe-inline/' https://cdnjs.cloudflare.com https://fonts.googleapis.com;">/n    '
+                        csp_meta = '<meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'unsafe-inline\' https://cdnjs.cloudflare.com; style-src \'self\' \'unsafe-inline\' https://cdnjs.cloudflare.com https://fonts.googleapis.com;">\n    '
                         content = content[:head_end] + csp_meta + content[head_end:]
                         modified = True
                         self.log_fix(f"Missing CSP in {html_file.name}", "Added Content Security Policy meta tag")

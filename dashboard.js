@@ -497,11 +497,11 @@ class Dashboard {
         const container = document.getElementById('fifthTabList');
         if (!container) return;
         
-        // Try to find the 5th tab data - could be named differently
-        const fifthData = this.currentData.fifth || this.currentData.summary || this.currentData.stats || this.currentData.extra;
+        // Try to find the 5th tab data - "all monarchs"
+        const fifthData = this.currentData['all monarchs'] || this.currentData.fifth || this.currentData.summary || this.currentData.stats || this.currentData.extra;
         
         if (!fifthData) {
-            container.innerHTML = '<div class="no-data">5. Tab Daten nicht verfügbar</div>';
+            container.innerHTML = '<div class="no-data">Alle Monarchen Daten nicht verfügbar</div>';
             return;
         }
         
@@ -509,7 +509,7 @@ class Dashboard {
         if (Array.isArray(fifthData)) {
             container.innerHTML = `
                 <div class="data-table">
-                    <h3>5. Tab - ${fifthData.length} Einträge</h3>
+                    <h3>Alle Monarchen - ${fifthData.length} Einträge</h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -530,7 +530,7 @@ class Dashboard {
             // If it's an object, show as key-value pairs
             container.innerHTML = `
                 <div class="data-grid">
-                    <h3>5. Tab - Übersicht</h3>
+                    <h3>Alle Monarchen - Übersicht</h3>
                     ${Object.entries(fifthData).map(([key, value]) => `
                         <div class="data-item">
                             <strong>${key}:</strong> ${this.formatNumber(value) || value}
@@ -674,7 +674,7 @@ window.showAllianceDetails = function() {
 
 window.showFifthTabDetails = function() {
     console.log('📊 Showing 5th tab details...');
-    alert('5. Tab Details - Erweiterte Ansicht wird in Kürze implementiert');
+    alert('Alle Monarchen Details - Erweiterte Ansicht wird in Kürze implementiert');
 };
 
 // Initialize dashboard when DOM is ready
