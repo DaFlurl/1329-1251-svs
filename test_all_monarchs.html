@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Alle Monarchen Tab</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Test: Alle Monarchen Tab</h1>
+    <div id="test-results"></div>
+    
+    <script>
+        async function testAllMonarchsData() {
+            const results = document.getElementById('test-results');
+            
+            try {
+                // Test loading the main data file
+                console.log('Loading data file...');
+                const response = await fetch('data/Monday, 24 November 2025 1329+1251 v 683+665.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Data loaded:', data);
+                
+                // Check if all required sections exist
+                const requiredSections = ['positive', 'negative', 'combined', 'alliance', 'all monarchs'];
+                let allSectionsExist = true;
+                
+                requiredSections.forEach(section => {
+                    if (data[section]) {
+                        results.innerHTML += `<div class="test-result success">✅ ${section}: ${data[section].length} Einträge</div>`;
+                    } else {
+                        results.innerHTML += `<div class="test-result error">❌ ${section}: Nicht gefunden</div>`;
+                        allSectionsExist = false;
+                    }
+                });
+                
+                // Display "all monarchs" data as table
+                if (data['all monarchs']) {
+                    const monarchs = data['all monarchs'].slice(0, 10); // Show first 10
+                    let tableHTML = '<h3>Alle Monarchen (erste 10):</h3><table><thead><tr>';
+                    
+                    // Get headers from first item
+                    const headers = Object.keys(monarchs[0] || {});
+                    headers.forEach(header => {
+                        tableHTML += `<th>${header}</th>`;
+                    });
+                    tableHTML += '</tr></thead><tbody>';
+                    
+                    // Add data rows
+                    monarchs.forEach(monarch => {
+                        tableHTML += '<tr>';
+                        headers.forEach(header => {
+                            tableHTML += `<td>${monarch[header] || '-'}</td>`;
+                        });
+                        tableHTML += '</tr>';
+                    });
+                    
+                    tableHTML += '</tbody></table>';
+                    results.innerHTML += tableHTML;
+                }
+                
+                if (allSectionsExist) {
+                    results.innerHTML += '<div class="test-result success">🎉 Alle Datenabschnitte vorhanden!</div>';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                results.innerHTML += `<div class="test-result error">❌ Fehler: ${error.message}</div>`;
+            }
+        }
+        
+        // Run test when page loads
+        testAllMonarchsData();
+    </script>
+</body>
+</html>
