@@ -16,17 +16,16 @@ class Dashboard {
         };
         
         this.init();
+        
+        // Expose to window for debugging
+        window.dashboard = this;
     }
     
     init() {
         console.log('🚀 Initializing Dashboard...');
         this.setupEventListeners();
         
-        // Hide loading overlay immediately after initialization
-        setTimeout(() => {
-            this.hideLoading();
-        }, 1000);
-        
+        // Don't hide loading overlay immediately - wait for data
         this.loadInitialData();
         this.setupAutoRefresh();
     }
@@ -166,10 +165,12 @@ class Dashboard {
                 allianceCount: processedData.alliances?.length
             });
             
-            this.updateUI();
-            this.hideLoading();
-            
-            console.log('✅ Data loaded and processed successfully');
+            // Force UI update with a small delay to ensure DOM is ready
+            setTimeout(() => {
+                this.updateUI();
+                this.hideLoading();
+                console.log('✅ Data loaded and processed successfully');
+            }, 100);
             
         } catch (error) {
             console.error('❌ Error loading data:', error);

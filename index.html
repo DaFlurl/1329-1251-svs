@@ -195,36 +195,22 @@
     <!-- Scripts -->
     <script src="dashboard.js"></script>
     <script>
-        // Aggressive loading overlay removal
-        function hideLoadingOverlay() {
-            console.log('🚨 Aggressive loading overlay removal');
-            const overlay = document.getElementById('loadingOverlay');
-            if (overlay) {
-                overlay.style.display = 'none';
-                overlay.style.visibility = 'hidden';
-                overlay.style.opacity = '0';
-                console.log('✅ Loading overlay hidden aggressively');
-            }
-        }
-        
-        // Multiple attempts to hide loading overlay
-        setTimeout(hideLoadingOverlay, 1000);
-        setTimeout(hideLoadingOverlay, 2000);
-        setTimeout(hideLoadingOverlay, 3000);
-        
-        // Also hide on page load
-        window.addEventListener('load', hideLoadingOverlay);
-        
-        // Add fallback error handling
+        // Fallback error handling only - let dashboard.js handle loading
         window.addEventListener('load', function() {
             setTimeout(function() {
                 if (!window.dashboard || !window.dashboard.currentData) {
                     console.error('❌ Dashboard failed to load properly');
-                    hideLoadingOverlay();
-                    document.getElementById('topPlayersList').innerHTML = '<div class="loading">❌ Fehler beim Laden der Daten</div>';
-                    document.getElementById('allianceRanking').innerHTML = '<div class="loading">❌ Fehler beim Laden der Allianzen</div>';
+                    const overlay = document.getElementById('loadingOverlay');
+                    if (overlay) {
+                        overlay.style.display = 'none';
+                    }
+                    document.getElementById('positivePlayersList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Daten</div>';
+                    document.getElementById('negativePlayersList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Daten</div>';
+                    document.getElementById('combinedPlayersList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Daten</div>';
+                    document.getElementById('allianceList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Allianzen</div>';
+                    document.getElementById('fifthTabList').innerHTML = '<div class="no-data">❌ Fehler beim Laden der Monarchen</div>';
                 }
-            }, 5000);
+            }, 10000);
         });
     </script>
 </body>
