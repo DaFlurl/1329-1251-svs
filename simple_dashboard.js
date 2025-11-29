@@ -1,86 +1,194 @@
-// Minimal working dashboard for debugging
-class SimpleDashboard {
-    constructor() {
-        console.log('🚀 SimpleDashboard constructor called');
-        this.currentData = null;
-        this.init();
-    }
+// Simple Dashboard - Working Version
+console.log('🚀 Simple Dashboard loading...');
+
+// Simple global state
+let currentData = null;
+
+// Simple functions
+async function loadSimpleData() {
+    console.log('🔄 Loading data...');
     
-    async init() {
-        console.log('🔄 Initializing SimpleDashboard...');
-        try {
-            await this.loadData();
-            this.updateUI();
-        } catch (error) {
-            console.error('❌ SimpleDashboard error:', error);
-        }
-    }
-    
-    async loadData() {
-        console.log('📊 Loading data...');
-        const filename = 'Monday, 24 November 2025 1329+1251 v 683+665.json';
-        const url = `./data/${encodeURIComponent(filename)}`;
-        
-        console.log('📡 Fetching:', url);
-        const response = await fetch(url);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    try {
+        // Try file list first
+        const fileResponse = await fetch('./data/file_list.json');
+        if (fileResponse.ok) {
+            const files = await fileResponse.json();
+            console.log('📁 Files:', files);
+            
+            if (files.length > 0) {
+                await loadSpecificFile(files[0]);
+                return;
+            }
         }
         
-        const rawData = await response.json();
-        console.log('✅ Data loaded:', {
-            keys: Object.keys(rawData),
-            positiveCount: rawData.positive?.length || 0,
-            combinedCount: rawData.combined?.length || 0
-        });
+        // Fallback to scoreboard data
+        await loadSpecificFile('scoreboard-data.json');
         
-        this.currentData = rawData;
-    }
-    
-    updateUI() {
-        console.log('🔄 Updating UI...');
-        
-        // Update player count
-        const playerCount = this.currentData?.combined?.length || 0;
-        const playerElement = document.getElementById('totalPlayersDisplay');
-        if (playerElement) {
-            playerElement.textContent = playerCount;
-            console.log(`✅ Updated player count: ${playerCount}`);
-        } else {
-            console.error('❌ Player count element not found');
-        }
-        
-        // Update alliance count
-        const allianceCount = this.currentData?.alliance?.length || 0;
-        const allianceElement = document.getElementById('totalAlliancesDisplay');
-        if (allianceElement) {
-            allianceElement.textContent = allianceCount;
-            console.log(`✅ Updated alliance count: ${allianceCount}`);
-        } else {
-            console.error('❌ Alliance count element not found');
-        }
-        
-        // Hide loading
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        if (loadingOverlay) {
-            loadingOverlay.style.display = 'none';
-            console.log('✅ Hidden loading overlay');
-        }
-        
-        // Update status
-        const statusElement = document.getElementById('updateStatus');
-        if (statusElement) {
-            statusElement.textContent = 'Live';
-            console.log('✅ Updated status');
-        }
-        
-        console.log('✅ UI update complete');
+    } catch (error) {
+        console.error('❌ Error loading data:', error);
+        showError('Failed to load data');
     }
 }
 
+async function loadSpecificFile(filename) {
+    console.log(`📊 Loading file: ${filename}`);
+    
+    try {
+        const response = await fetch(`./data/${encodeURIComponent(filename)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('✅ Data loaded:', data);
+        
+        currentData = data;
+        updateSimpleUI();
+        hideLoading();
+        
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showError(`Error loading ${filename}: ${error.message}`);
+    }
+}
+
+function updateSimpleUI() {
+    if (!currentData) return;
+    
+    console.log('🔄 Updating UI...');
+    
+    // Update player count
+    const playerCount = currentData.positive ? currentData.positive.length : 0;
+    updateElement('totalPlayersDisplay', playerCount);
+    
+    // Update alliance count
+    const allianceCount = currentData.alliance ? currentData.alliance.length : 0;
+    updateElement('totalAlliancesDisplay', allianceCount);
+    
+    // Update status
+    updateElement('updateStatus', 'Live');
+    
+    // Update total score
+    const totalScore = currentData.positive ? 
+        currentData.positive.reduce((sum, p) => sum + (p.score || 0), 0) : 0;
+    updateElement('totalScore', formatNumber(totalScore));
+    
+    // Update average score
+    const avgScore = playerCount > 0 ? Math.round(totalScore / playerCount) : 0;
+    updateElement('avgScore', formatNumber(avgScore));
+    
+    // Update highest score
+    const highestScore = currentData.positive ? 
+        Math.max(...currentData.positive.map(p => p.score || 0)) : 0;
+    updateElement('highestScore', formatNumber(highestScore));
+    
+    // Update active games
+    updateElement('activeGames', playerCount);
+    
+    // Update top players
+    updateTopPlayers();
+    
+    // Update alliances
+    updateAlliances();
+    
+    // Update last update time
+    updateElement('lastUpdate', new Date().toLocaleTimeString('de-DE'));
+    
+    console.log('✅ UI updated');
+}
+
+function updateTopPlayers() {
+    const container = document.getElementById('topPlayersList');
+    if (!container || !currentData || !currentData.positive) {
+        return;
+    }
+    
+    const topPlayers = currentData.positive.slice(0, 10);
+    
+    if (topPlayers.length === 0) {
+        container.innerHTML = '<div class="no-data">Keine Spielerdaten verfügbar</div>';
+        return;
+    }
+    
+    container.innerHTML = topPlayers.map((player, index) => `
+        <div class="player-item" style="display: flex; justify-content: space-between; padding: 10px; margin: 5px 0; background: white; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <div style="font-weight: bold;">#${index + 1}</div>
+            <div style="flex: 1; margin: 0 10px;">${player.name || 'Unknown'}</div>
+            <div style="font-weight: bold; color: #667eea;">${formatNumber(player.score || 0)}</div>
+            <div style="margin-left: 10px; color: #666;">${player.alliance || 'None'}</div>
+        </div>
+    `).join('');
+}
+
+function updateAlliances() {
+    const container = document.getElementById('allianceRanking');
+    if (!container || !currentData || !currentData.alliance) {
+        return;
+    }
+    
+    const topAlliances = currentData.alliance.slice(0, 5);
+    
+    if (topAlliances.length === 0) {
+        container.innerHTML = '<div class="no-data">Keine Allianzdaten verfügbar</div>';
+        return;
+    }
+    
+    container.innerHTML = topAlliances.map((alliance, index) => `
+        <div class="alliance-item" style="display: flex; justify-content: space-between; padding: 10px; margin: 5px 0; background: white; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <div style="font-weight: bold;">#${index + 1}</div>
+            <div style="flex: 1; margin: 0 10px;">${alliance.Alliance || 'Unknown'}</div>
+            <div style="font-weight: bold; color: #667eea;">${formatNumber(alliance["Total Score"] || 0)}</div>
+        </div>
+    `).join('');
+}
+
+function updateElement(id, content) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.textContent = content;
+    }
+}
+
+function formatNumber(num) {
+    return num.toLocaleString('de-DE');
+}
+
+function hideLoading() {
+    console.log('🔄 Hiding loading...');
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+}
+
+function showError(message) {
+    hideLoading();
+    console.error('❌ Error:', message);
+    updateElement('topPlayersList', `❌ ${message}`);
+    updateElement('allianceRanking', `❌ ${message}`);
+}
+
+// Global functions for buttons
+window.loadDataFile = loadSpecificFile;
+window.refreshData = loadSimpleData;
+window.showAllPlayers = () => alert('Alle Spieler anzeigen - Coming soon');
+window.showAllianceDetails = () => alert('Allianz-Details - Coming soon');
+
 // Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('📱 DOM ready, starting SimpleDashboard...');
-    window.simpleDashboard = new SimpleDashboard();
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📱 DOM ready - Starting simple dashboard...');
+    
+    // Emergency fallback - hide loading after 5 seconds
+    setTimeout(() => {
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay && overlay.style.display !== 'none') {
+            console.log('⚠️ Emergency hide loading');
+            overlay.style.display = 'none';
+        }
+    }, 5000);
+    
+    // Start loading data
+    loadSimpleData();
 });
+
+console.log('✅ Simple dashboard script loaded');
