@@ -46,22 +46,27 @@ class Dashboard {
     }
     
     async loadInitialData() {
+        console.log('🔄 Loading initial data...');
+        
         // Try to load the most recent data file
         try {
             const response = await fetch('./data/file_list.json');
             if (response.ok) {
                 const files = await response.json();
+                console.log('📁 Found file list:', files);
                 if (files.length > 0) {
                     // Load the most recent file
+                    console.log('📊 Loading first file:', files[0]);
                     await this.loadData(files[0]);
                     return;
                 }
             }
         } catch (error) {
-            console.log('No file list found, using default file');
+            console.log('⚠️ No file list found, using default file:', error);
         }
         
         // Fallback to default file
+        console.log('📊 Using default file');
         await this.loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
     }
     
@@ -73,7 +78,10 @@ class Dashboard {
         this.showLoading();
         
         try {
-            const response = await fetch(`${this.config.dataPath}${encodeURIComponent(filename)}`);
+            const url = `${this.config.dataPath}${encodeURIComponent(filename)}`;
+            console.log('📡 Fetching from:', url);
+            
+            const response = await fetch(url);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -84,13 +92,25 @@ class Dashboard {
                 keys: Object.keys(rawData),
                 hasPositive: !!rawData.positive,
                 hasNegative: !!rawData.negative,
-                hasCombined: !!rawData.combined
+                hasCombined: !!rawData.combined,
+                hasAlliance: !!rawData.alliance,
+                positiveCount: rawData.positive?.length || 0,
+                negativeCount: rawData.negative?.length || 0,
+                combinedCount: rawData.combined?.length || 0,
+                allianceCount: rawData.alliance?.length || 0
             });
             
             const processedData = this.processData(rawData);
             this.currentData = processedData;
             this.currentFile = filename;
             this.lastUpdate = new Date().toISOString();
+            
+            console.log('📊 Processed data:', {
+                totalPlayers: processedData.metadata?.totalPlayers,
+                totalAlliances: processedData.metadata?.totalAlliances,
+                combinedCount: processedData.combined?.length,
+                allianceCount: processedData.alliances?.length
+            });
             
             this.updateUI();
             this.hideLoading();
@@ -99,6 +119,7 @@ class Dashboard {
             
         } catch (error) {
             console.error('❌ Error loading data:', error);
+            this.hideLoading();
             this.showError(`Fehler beim Laden der Daten: ${error.message}`);
         } finally {
             this.state.isLoading = false;
