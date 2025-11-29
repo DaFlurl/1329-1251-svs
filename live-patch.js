@@ -29,28 +29,36 @@
             loadingText.textContent = 'Live Patch wird angewendet...';
         }
         
-        // Force hide loading overlay after data loads
-        setTimeout(() => {
+        // Force hide loading overlay immediately and repeatedly
+        function forceHideLoading() {
             console.log('🔧 LIVE PATCH: Force hiding loading overlay');
             const overlay = document.getElementById('loadingOverlay');
             if (overlay) {
-                overlay.style.display = 'none';
-                overlay.style.opacity = '0';
-                overlay.style.visibility = 'hidden';
+                overlay.style.display = 'none !important';
+                overlay.style.opacity = '0 !important';
+                overlay.style.visibility = 'hidden !important';
+                overlay.style.zIndex = '-9999 !important';
+                overlay.remove(); // Complete removal
             }
-            
-            // Show success message
-            const mainContent = document.querySelector('main');
-            if (mainContent) {
-                const patchNotice = document.createElement('div');
-                patchNotice.innerHTML = `
-                    <div style="background: #28a745; color: white; padding: 10px; margin: 10px; border-radius: 5px; text-align: center;">
-                        ✅ Live Patch erfolgreich angewendet - Dashboard sollte jetzt funktionieren
-                    </div>
-                `;
-                mainContent.insertBefore(patchNotice, mainContent.firstChild);
-            }
-        }, 3000);
+        }
+        
+        // Multiple attempts to hide loading
+        setTimeout(forceHideLoading, 500);
+        setTimeout(forceHideLoading, 1000);
+        setTimeout(forceHideLoading, 2000);
+        setTimeout(forceHideLoading, 3000);
+        
+        // Show success message immediately
+        const mainContent = document.querySelector('main');
+        if (mainContent) {
+            const patchNotice = document.createElement('div');
+            patchNotice.innerHTML = `
+                <div style="background: #28a745; color: white; padding: 10px; margin: 10px; border-radius: 5px; text-align: center; font-weight: bold;">
+                    🚨 LIVE PATCH AKTIV - Dashboard wird repariert...
+                </div>
+            `;
+            mainContent.insertBefore(patchNotice, mainContent.firstChild);
+        }
         
         // Patch existing dashboard if it exists
         if (window.dashboard) {
@@ -84,8 +92,8 @@
             }, 2000);
         }
         
-        // Add manual data loading trigger
-        setTimeout(() => {
+        // Add manual data loading trigger - more aggressive
+        function forceDataLoad() {
             console.log('🔧 LIVE PATCH: Attempting manual data load');
             
             // Try to trigger data loading manually
@@ -93,8 +101,18 @@
             if (fileSelect && fileSelect.options.length > 1) {
                 fileSelect.value = fileSelect.options[1].value;
                 fileSelect.dispatchEvent(new Event('change'));
+                
+                // Also try clicking refresh button
+                const refreshBtn = document.getElementById('refreshBtn');
+                if (refreshBtn) {
+                    refreshBtn.click();
+                }
             }
-        }, 1000);
+        }
+        
+        setTimeout(forceDataLoad, 500);
+        setTimeout(forceDataLoad, 1500);
+        setTimeout(forceDataLoad, 2500);
     }
     
     // Apply patch immediately
