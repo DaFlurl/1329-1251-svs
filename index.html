@@ -125,7 +125,7 @@
     </footer>
 
     <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
+    <div id="loadingOverlay" class="loading-overlay" style="display: none !important;">
         <div class="loading-content">
             <div class="spinner"></div>
             <h2>Lade Dashboard...</h2>
@@ -134,24 +134,34 @@
     </div>
 
     <!-- Scripts -->
-    <script src="simple_dashboard.js"></script>
+    <script src="dashboard.js"></script>
     <script>
-        // Force hide loading overlay after 3 seconds as emergency fallback
-        setTimeout(function() {
-            console.log('🚨 Emergency fallback: Hiding loading overlay');
+        // Aggressive loading overlay removal
+        function hideLoadingOverlay() {
+            console.log('🚨 Aggressive loading overlay removal');
             const overlay = document.getElementById('loadingOverlay');
             if (overlay) {
                 overlay.style.display = 'none';
+                overlay.style.visibility = 'hidden';
+                overlay.style.opacity = '0';
+                console.log('✅ Loading overlay hidden aggressively');
             }
-        }, 3000);
+        }
+        
+        // Multiple attempts to hide loading overlay
+        setTimeout(hideLoadingOverlay, 1000);
+        setTimeout(hideLoadingOverlay, 2000);
+        setTimeout(hideLoadingOverlay, 3000);
+        
+        // Also hide on page load
+        window.addEventListener('load', hideLoadingOverlay);
         
         // Add fallback error handling
         window.addEventListener('load', function() {
-            // Check if dashboard loaded properly
             setTimeout(function() {
                 if (!window.dashboard || !window.dashboard.currentData) {
                     console.error('❌ Dashboard failed to load properly');
-                    document.getElementById('loadingOverlay').style.display = 'none';
+                    hideLoadingOverlay();
                     document.getElementById('topPlayersList').innerHTML = '<div class="loading">❌ Fehler beim Laden der Daten</div>';
                     document.getElementById('allianceRanking').innerHTML = '<div class="loading">❌ Fehler beim Laden der Allianzen</div>';
                 }
