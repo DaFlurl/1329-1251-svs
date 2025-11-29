@@ -113,10 +113,10 @@ class Dashboard {
             console.error('❌ Error loading file list:', error);
         }
         
-        // Fallback to default file
-        console.log('📊 Using default file');
+        // Fallback to newest complete file
+        console.log('📊 Using default newest file');
         try {
-            await this.loadData('scoreboard-data.json');
+            await this.loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
         } catch (fallbackError) {
             console.error('❌ Fallback file also failed:', fallbackError);
             this.hideLoading();
