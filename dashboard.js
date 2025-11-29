@@ -717,19 +717,26 @@ window.showFifthTabDetails = function() {
     alert('Alle Monarchen Details - Erweiterte Ansicht wird in Kürze implementiert');
 };
 
-// Initialize dashboard when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('📱 DOM ready, starting dashboard...');
+// Initialize dashboard when DOM is ready - with fallback
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 DOM Content Loaded - Creating Dashboard instance...');
     window.dashboard = new Dashboard();
-    
-    // Force hide loading overlay after 5 seconds as fallback
-    setTimeout(() => {
-        const overlay = document.getElementById('loadingOverlay');
-        if (overlay && overlay.style.display !== 'none') {
-            console.log('⚠️ Force hiding loading overlay after timeout');
-            overlay.style.display = 'none';
-        }
-    }, 5000);
+});
+
+// Fallback initialization - in case DOMContentLoaded doesn't work properly
+setTimeout(function() {
+    if (!window.dashboard) {
+        console.log('🚨 FALLBACK: Creating Dashboard instance manually...');
+        window.dashboard = new Dashboard();
+    }
+}, 1000);
+
+// Also try on window load
+window.addEventListener('load', function() {
+    if (!window.dashboard) {
+        console.log('🚨 WINDOW LOAD FALLBACK: Creating Dashboard instance...');
+        window.dashboard = new Dashboard();
+    }
 });
 
 // Handle errors
