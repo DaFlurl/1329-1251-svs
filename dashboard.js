@@ -21,6 +21,12 @@ class Dashboard {
     init() {
         console.log('🚀 Initializing Dashboard...');
         this.setupEventListeners();
+        
+        // Hide loading overlay immediately after initialization
+        setTimeout(() => {
+            this.hideLoading();
+        }, 1000);
+        
         this.loadInitialData();
         this.setupAutoRefresh();
     }
@@ -45,6 +51,37 @@ class Dashboard {
         }
     }
     
+    updateFileSelector(files) {
+        const fileSelect = document.getElementById('dataFileSelect');
+        if (!fileSelect) return;
+        
+        // Clear existing options
+        fileSelect.innerHTML = '';
+        
+        // Add file options with friendly names
+        files.forEach(file => {
+            const option = document.createElement('option');
+            option.value = file;
+            
+            // Create friendly display name
+            let displayName = file;
+            if (file.includes('Monday')) {
+                displayName = 'Montag, 24. Nov 2025';
+            } else if (file.includes('Sunday')) {
+                displayName = 'Sonntag, 16. Nov 2025';
+            } else if (file === 'scoreboard-data.json') {
+                displayName = 'Aktuelle Spielstände';
+            } else if (file === 'monday_data.json') {
+                displayName = 'Montag Daten (Backup)';
+            }
+            
+            option.textContent = displayName;
+            fileSelect.appendChild(option);
+        });
+        
+        console.log('✅ File selector updated with', files.length, 'files');
+    }
+    
     async loadInitialData() {
         console.log('🔄 Loading initial data...');
         
@@ -57,6 +94,10 @@ class Dashboard {
             if (response.ok) {
                 const files = await response.json();
                 console.log('📁 Found file list:', files);
+                
+                // Update file selector with all available files
+                this.updateFileSelector(files);
+                
                 if (files.length > 0) {
                     // Load the most recent file
                     console.log('📊 Loading first file:', files[0]);
@@ -75,17 +116,11 @@ class Dashboard {
         // Fallback to default file
         console.log('📊 Using default file');
         try {
-            await this.loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+            await this.loadData('scoreboard-data.json');
         } catch (fallbackError) {
             console.error('❌ Fallback file also failed:', fallbackError);
-            // Try the other file as last resort
-            try {
-                await this.loadData('scoreboard-data.json');
-            } catch (lastResortError) {
-                console.error('❌ All data loading attempts failed:', lastResortError);
-                this.hideLoading();
-                this.showError('Keine Daten konnten geladen werden');
-            }
+            this.hideLoading();
+            this.showError('Keine Daten konnten geladen werden');
         }
     }
     
@@ -446,11 +481,10 @@ class Dashboard {
         console.log('🔄 Hiding loading overlay...');
         const overlay = document.getElementById('loadingOverlay');
         if (overlay) {
+            // Force hide immediately
+            overlay.style.display = 'none';
             overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                console.log('✅ Loading overlay hidden');
-            }, 300);
+            console.log('✅ Loading overlay hidden');
         } else {
             console.warn('⚠️ Loading overlay not found');
         }
