@@ -1,0 +1,121 @@
+{
+  "name": "AgentDaf1.1 Dashboard",
+  "short_name": "AgentDaf1.1",
+  "description": "Live Gaming Dashboard mit erweiterten Analytics und Team-Statistiken",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1E1E2F",
+  "theme_color": "#00FF88",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "de",
+  "categories": ["games", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23667eea'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='120' fill='white'>🏆</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%23667eea'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='320' fill='white'>🏆</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Spieler-Rangliste",
+      "short_name": "Spieler",
+      "description": "Zeige die aktuelle Spieler-Rangliste an",
+      "url": "/?tab=players",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👥</text></svg>",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Allianz-Statistiken",
+      "short_name": "Allianzen",
+      "description": "Zeige Allianz-Statistiken und Rankings",
+      "url": "/?tab=alliances",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏴</text></svg>",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "short_name": "Analyse",
+      "description": "Detaillierte Analysen und Diagramme",
+      "url": "/?tab=analytics",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect width='1280' height='720' fill='%231E1E2F'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='48' fill='%2300FF88'>AgentDaf1.1 Dashboard</text></svg>",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Desktop Ansicht des Dashboards"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375x667'><rect width='375' height='667' fill='%231E1E2F'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='24' fill='%2300FF88'>Mobile Ansicht</text></svg>",
+      "sizes": "375x667",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "Mobile Ansicht des Dashboards"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+agentdaf",
+      "url": "/?handle=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/import",
+      "accept": {
+        "application/json": [".json"],
+        "text/csv": [".csv"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "data",
+          "accept": ["application/json", "text/csv"]
+        }
+      ]
+    }
+  }
+}

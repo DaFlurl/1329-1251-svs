@@ -1,0 +1,28 @@
+{
+  "app": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "debug": false
+  },
+  "database": {
+    "path": "data/agentdaf1.db",
+    "backup_enabled": true,
+    "backup_path": "backups/"
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "logs/agentdaf1.log"
+  },
+  "security": {
+    "secret_key": "dev-secret-key",
+    "jwt_secret_key": "dev-jwt-secret",
+    "token_expiry_hours": 24
+  },
+  "docker": {
+    "restart_policy": "unless-stopped",
+    "health_check_interval": 30,
+    "max_memory": "512m",
+    "max_cpu": "0.5"
+  }
+}

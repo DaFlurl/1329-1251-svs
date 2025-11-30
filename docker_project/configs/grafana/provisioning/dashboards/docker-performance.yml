@@ -1,0 +1,29 @@
+# Grafana provisioning for Docker monitoring
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+
+dashboards:
+  - provider: plugins
+    options:
+      path: /var/lib/grafana/dashboards
+
+  - import:
+      name: 'Docker Performance Dashboard'
+      uid: 'docker-performance'
+      type: file
+      options:
+        path: /etc/grafana/provisioning/dashboards/docker-performance.json
+
+variables:
+  - name: prometheus_ds
+    type: datasource
+    datasource: Prometheus
+    value: Prometheus
+    editable: true

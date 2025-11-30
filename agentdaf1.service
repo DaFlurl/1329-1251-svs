@@ -1,0 +1,20 @@
+[Unit]
+Description=AgentDaf1.1 Gaming Dashboard
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/C/Users/flori/Desktop/AgentDaf1.1
+Environment="PATH=/C/Users/flori/Desktop/AgentDaf1.1/venv/bin"
+EnvironmentFile=/C/Users/flori/Desktop/AgentDaf1.1/.env.production
+ExecStart=/C/Users/flori/Desktop/AgentDaf1.1/venv/bin/gunicorn --config gunicorn.conf.py wsgi:app
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

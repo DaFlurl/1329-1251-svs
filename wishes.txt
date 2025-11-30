@@ -1,0 +1,44 @@
+# Wishes for AgentDaf1.1 Project
+
+## Current Session Wishes (2025-11-28)
+
+### Immediate Tasks:
+1. **Fix WebSocket Issues** - User requested to "fixen" WebSocket connection issues
+2. **Use Alternative Port** - User wants to use a different port instead of 8081 (changed to 8082)
+3. **Service Status Verification** - Need to verify if WebSocket service is running properly
+4. **MCP Connection Resolution** - Resolve MCP Docker tools connection failures
+
+### Previous Session Issues:
+- All MCP Docker commands failing with "EOF" errors
+- Unable to check WebSocket service status through normal means
+- Need alternative approaches for service management
+
+### Configuration Changes:
+- Modified WebSocket service default port from 8081 to 8082
+- Need to update related configuration files
+
+### Future Enhancements:
+- Ensure WebSocket service works reliably
+- Test new port configuration
+- Verify all components connect properly
+
+### User Feedback:
+- User wants to fix WebSocket issues
+- User requested alternative port usage
+- User wants stable, working system
+
+---
+Last updated: 2025-11-28
+Session: WebSocket debugging and port change
+Status: In progress - Port changed to 8082, need to test service startup
+
+### New Session Wishes (2025-11-28):
+1. **Safe Project Changes** - User wants to make safe changes to the project
+2. **WebSocket Service Testing** - Need to test the WebSocket service on port 8082
+3. **Component Verification** - Verify all components work with the new configuration
+4. **Documentation Updates** - Update any relevant documentation if changes are made
+
+---
+Last updated: 2025-11-28
+Session: Safe project changes and WebSocket testing
+Status: Ready to begin work

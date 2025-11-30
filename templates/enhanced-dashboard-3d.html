@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentDaf1.1 - 3D Enhanced Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 3D Framework Styles -->
+    <link rel="stylesheet" href="/styles/3d-framework.css">
+    <link rel="stylesheet" href="/styles/3d-data-viz.css">
+    <link rel="stylesheet" href="/styles/enhanced-styles.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Enhanced 3D Hero Styles */
+        .hero-3d {
+            position: relative;
+            min-height: 100vh;
+            perspective: var(--perspective-3d-strong);
+            transform-style: preserve-3d;
+            overflow: hidden;
+            background: linear-gradient(135deg, 
+                rgba(10, 10, 15, 0.9) 0%, 
+                rgba(26, 26, 46, 0.9) 50%, 
+                rgba(22, 33, 62, 0.9) 100%);
+        }
+        
+        .hero-background-3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            z-index: 1;
+        }
+        
+        .hero-content-3d {
+            position: relative;
+            z-index: 10;
+            transform-style: preserve-3d;
+            transform: var(--depth-3);
+            animation: hero-float-3d 6s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: var(--space-xl);
+        }
+        
+        .hero-title-3d {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, 
+                var(--primary-neon) 0%, 
+                var(--secondary-neon) 25%, 
+                var(--accent-neon) 50%, 
+                var(--primary-neon) 75%, 
+                var(--secondary-neon) 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
+            animation: gradient-shift-3d 3s ease-in-out infinite, hero-title-glow-3d 2s ease-in-out infinite alternate;
+            margin-bottom: var(--space-lg);
+            transform-style: preserve-3d;
+            transform: var(--depth-2);
+        }
+        
+        .hero-subtitle-3d {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2xl);
+            opacity: 0.9;
+            transform: var(--depth-1);
+            animation: hero-subtitle-float-3d 4s ease-in-out infinite;
+        }
+        
+        .hero-buttons-3d {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+            justify-content: center;
+            transform: var(--depth-2);
+            transform-style: preserve-3d;
+        }
+        
+        .hero-button-3d {
+            padding: var(--space-md) var(--space-2xl);
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+            transform-style: preserve-3d;
+            transform: var(--depth-1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .hero-button-primary-3d {
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            color: white;
+            box-shadow: var(--shadow-3d-medium);
+        }
+        
+        .hero-button-secondary-3d {
+            background: var(--glass-3d-bg);
+            backdrop-filter: var(--glass-3d-blur);
+            border: 2px solid var(--glass-3d-border);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-3d-small);
+        }
+        
+        .hero-button-3d:hover {
+            transform: var(--depth-4) rotateX(-5deg) rotateY(5deg) scale(1.05);
+            box-shadow: var(--shadow-3d-glow);
+        }
+        
+        .hero-button-3d:active {
+            transform: var(--depth-negative-1) rotateX(2deg) rotateY(-2deg) scale(0.98);
+        }
+        
+        .hero-button-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left var(--anim-3d-slow) var(--ease-3d-smooth);
+            transform: var(--depth-1);
+        }
+        
+        .hero-button-3d:hover::before {
+            left: 100%;
+        }
+        
+        /* 3D Geometric Shapes */
+        .geo-shape-3d {
+            position: absolute;
+            transform-style: preserve-3d;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .geo-cube-3d {
+            width: 60px;
+            height: 60px;
+            transform-style: preserve-3d;
+            animation: rotate-cube-3d 20s linear infinite;
+        }
+        
+        .geo-cube-3d::before,
+        .geo-cube-3d::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            border: 1px solid var(--glass-3d-border);
+            opacity: 0.3;
+        }
+        
+        .geo-cube-3d::before {
+            transform: var(--depth-2) rotateY(90deg);
+        }
+        
+        .geo-cube-3d::after {
+            transform: var(--depth-2) rotateX(90deg);
+        }
+        
+        .geo-sphere-3d {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, var(--accent-neon), var(--primary-neon));
+            border-radius: 50%;
+            box-shadow: var(--shadow-3d-glow);
+            animation: float-sphere-3d 15s ease-in-out infinite;
+        }
+        
+        .geo-pyramid-3d {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid var(--secondary-neon);
+            opacity: 0.4;
+            animation: rotate-pyramid-3d 25s linear infinite;
+            transform-style: preserve-3d;
+        }
+        
+        /* 3D Stats Section */
+        .stats-3d {
+            position: relative;
+            z-index: 5;
+            transform: var(--depth-2);
+            margin-top: var(--space-3xl);
+        }
+        
+        .stats-grid-3d {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        .stat-card-3d {
+            background: var(--glass-3d-bg);
+            backdrop-filter: var(--glass-3d-blur);
+            border: 1px solid var(--glass-3d-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+            transform: var(--depth-1);
+            box-shadow: var(--shadow-3d-medium);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon), var(--accent-neon));
+            transform: scaleX(0);
+            transition: transform var(--anim-3d-normal) var(--ease-3d-smooth);
+        }
+        
+        .stat-card-3d:hover {
+            transform: var(--depth-3) rotateX(-5deg) rotateY(5deg) scale(1.05);
+            box-shadow: var(--shadow-3d-glow);
+        }
+        
+        .stat-card-3d:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .stat-number-3d {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-sm);
+            transform: var(--depth-1);
+            animation: stat-pulse-3d 2s ease-in-out infinite;
+        }
+        
+        .stat-label-3d {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        
+        /* 3D Features Section */
+        .features-3d {
+            position: relative;
+            z-index: 10;
+            padding: var(--space-4xl) var(--space-xl);
+            transform-style: preserve-3d;
+        }
+        
+        .features-grid-3d {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-2xl);
+            max-width: 1200px;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+        }
+        
+        .feature-card-3d {
+            background: var(--glass-3d-bg);
+            backdrop-filter: var(--glass-3d-blur);
+            border: 1px solid var(--glass-3d-border);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-2xl);
+            transform-style: preserve-3d;
+            transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+            transform: var(--depth-1);
+            box-shadow: var(--shadow-3d-medium);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card-3d::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--primary-neon), transparent);
+            animation: rotate-border-3d 4s linear infinite;
+            opacity: 0;
+            transition: opacity var(--anim-3d-normal) var(--ease-3d-smooth);
+        }
+        
+        .feature-card-3d:hover::before {
+            opacity: 0.3;
+        }
+        
+        .feature-card-3d:hover {
+            transform: var(--depth-4) rotateX(-5deg) rotateY(5deg) scale(1.05);
+            box-shadow: var(--shadow-3d-glow);
+        }
+        
+        .feature-icon-3d {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: var(--space-lg);
+            transform: var(--depth-2);
+            transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+            box-shadow: var(--shadow-3d-medium);
+        }
+        
+        .feature-card-3d:hover .feature-icon-3d {
+            transform: var(--depth-4) rotateZ(360deg) scale(1.1);
+            box-shadow: var(--shadow-3d-glow);
+        }
+        
+        .feature-title-3d {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            transform: var(--depth-1);
+        }
+        
+        .feature-description-3d {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            transform: var(--depth-1);
+        }
+        
+        /* 3D Animations */
+        @keyframes hero-float-3d {
+            0%, 100% {
+                transform: var(--depth-3) translateY(0px) rotateX(0deg);
+            }
+            50% {
+                transform: var(--depth-5) translateY(-20px) rotateX(2deg);
+            }
+        }
+        
+        @keyframes gradient-shift-3d {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        @keyframes hero-title-glow-3d {
+            0% {
+                text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 60px rgba(0, 212, 255, 0.8), 0 0 90px rgba(255, 0, 255, 0.6);
+            }
+        }
+        
+        @keyframes hero-subtitle-float-3d {
+            0%, 100% {
+                transform: var(--depth-1) translateY(0px);
+            }
+            50% {
+                transform: var(--depth-2) translateY(-10px);
+            }
+        }
+        
+        @keyframes rotate-cube-3d {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+        
+        @keyframes float-sphere-3d {
+            0%, 100% {
+                transform: translateY(0px) translateZ(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) translateZ(20px) scale(1.1);
+            }
+        }
+        
+        @keyframes rotate-pyramid-3d {
+            0% {
+                transform: rotateY(0deg) rotateX(0deg);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(360deg);
+            }
+        }
+        
+        @keyframes stat-pulse-3d {
+            0%, 100% {
+                transform: var(--depth-1) scale(1);
+            }
+            50% {
+                transform: var(--depth-2) scale(1.05);
+            }
+        }
+        
+        @keyframes rotate-border-3d {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-buttons-3d {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-grid-3d {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-lg);
+            }
+            
+            .features-grid-3d {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title-3d {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+            
+            .stat-card-3d:hover {
+                transform: var(--depth-2) rotateX(-2deg) rotateY(2deg) scale(1.02);
+            }
+            
+            .feature-card-3d:hover {
+                transform: var(--depth-2) rotateX(-2deg) rotateY(2deg) scale(1.02);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid-3d {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-button-3d {
+                padding: var(--space-md) var(--space-xl);
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Hero Section -->
+    <section class="hero-3d">
+        <!-- 3D Background Elements -->
+        <div class="hero-background-3d">
+            <!-- Geometric Shapes -->
+            <div class="geo-shape-3d geo-cube-3d" style="top: 10%; left: 10%;"></div>
+            <div class="geo-shape-3d geo-sphere-3d" style="top: 20%; right: 15%;"></div>
+            <div class="geo-shape-3d geo-pyramid-3d" style="bottom: 30%; left: 20%;"></div>
+            <div class="geo-shape-3d geo-cube-3d" style="top: 60%; right: 10%;"></div>
+            <div class="geo-shape-3d geo-sphere-3d" style="bottom: 20%; right: 25%;"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content-3d">
+            <h1 class="hero-title-3d">🚀 AgentDaf1.1</h1>
+            <p class="hero-subtitle-3d">Advanced 3D Excel Dashboard & Analytics Platform</p>
+            <div class="hero-buttons-3d">
+                <button class="hero-button-3d hero-button-primary-3d" onclick="scrollToSection('upload-3d')">
+                    <i class="fas fa-upload"></i>
+                    Start Processing
+                </button>
+                <button class="hero-button-3d hero-button-secondary-3d" onclick="scrollToSection('features-3d')">
+                    <i class="fas fa-rocket"></i>
+                    Explore Features
+                </button>
+            </div>
+        </div>
+        
+        <!-- 3D Stats Section -->
+        <div class="stats-3d">
+            <div class="stats-grid-3d">
+                <div class="stat-card-3d">
+                    <div class="stat-number-3d" id="uptime-3d">0</div>
+                    <div class="stat-label-3d">Uptime (seconds)</div>
+                </div>
+                <div class="stat-card-3d">
+                    <div class="stat-number-3d">100%</div>
+                    <div class="stat-label-3d">Health Score</div>
+                </div>
+                <div class="stat-card-3d">
+                    <div class="stat-number-3d">8</div>
+                    <div class="stat-label-3d">Active Features</div>
+                </div>
+                <div class="stat-card-3d">
+                    <div class="stat-number-3d">0ms</div>
+                    <div class="stat-label-3d">Response Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Features Section -->
+    <section class="features-3d" id="features-3d">
+        <div class="features-grid-3d">
+            <div class="feature-card-3d">
+                <div class="feature-icon-3d">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title-3d">3D Analytics</h3>
+                <p class="feature-description-3d">Experience data in three dimensions with advanced 3D visualizations and interactive charts that bring your Excel data to life.</p>
+            </div>
+            
+            <div class="feature-card-3d">
+                <div class="feature-icon-3d">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3 class="feature-title-3d">Real-time 3D Dashboards</h3>
+                <p class="feature-description-3d">Interactive, live-updating 3D dashboards with beautiful visualizations and responsive design for any device.</p>
+            </div>
+            
+            <div class="feature-card-3d">
+                <div class="feature-icon-3d">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="feature-title-3d">AI-Powered 3D Insights</h3>
+                <p class="feature-description-3d">Smart automation with machine learning models for predictive analysis and recommendations in stunning 3D presentations.</p>
+            </div>
+            
+            <div class="feature-card-3d">
+                <div class="feature-icon-3d">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title-3d">Enterprise Security</h3>
+                <p class="feature-description-3d">Bank-level encryption, role-based access control, and comprehensive audit trails in a secure 3D environment.</p>
+            </div>
+            
+            <div class="feature-card-3d">
+                <div class="feature-icon-3d">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title-3d">Lightning Fast 3D</h3>
+                <p class="feature-description-3d">Optimized performance with parallel processing and intelligent caching for smooth 3D interactions.</p>
+            </div>
+            
+            <div class="feature-card-3d">
+                <div class="feature-icon-3d">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3 class="feature-title-3d">3D API Integration</h3>
+                <p class="feature-description-3d">RESTful APIs with webhooks for seamless integration with your existing tools and 3D workflows.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Upload Section -->
+    <section class="upload-section-3d" id="upload-3d" style="padding: var(--space-4xl) var(--space-xl);">
+        <div class="container">
+            <div class="card-3d">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-file-excel text-success"></i> 3D Excel Processing
+                    </h2>
+                </div>
+                <div class="card-content">
+                    <div class="upload-3d" id="uploadArea3D">
+                        <div class="upload-content">
+                            <div class="upload-icon">📊</div>
+                            <div class="upload-text">Drop your Excel files into 3D space</div>
+                            <div class="upload-hint">or click to browse (supports .xlsx, .xls, .csv)</div>
+                            <input type="file" id="fileInput3D" accept=".xlsx,.xls,.csv" style="display: none;">
+                            <button class="btn-3d" onclick="document.getElementById('fileInput3D').click()">
+                                <i class="fas fa-folder-open"></i> Choose Files
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 3D Progress Bar -->
+                    <div class="progress-3d" id="progressBar3D" style="display: none; margin-top: var(--space-lg);">
+                        <div class="progress-bar-3d" id="progressBarFill3D" style="width: 0%"></div>
+                    </div>
+                    
+                    <!-- Results Area -->
+                    <div id="results3D" class="mt-lg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Framework Scripts -->
+    <script src="/styles/3d-framework.js"></script>
+    <script src="/styles/3d-data-viz.js"></script>
+    
+    <script>
+        // Initialize 3D Framework
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start uptime counter
+            let uptime = 0;
+            setInterval(() => {
+                uptime++;
+                const uptimeElement = document.getElementById('uptime-3d');
+                if (uptimeElement) {
+                    uptimeElement.textContent = uptime;
+                }
+            }, 1000);
+            
+            // Initialize 3D upload functionality
+            initialize3DUpload();
+            
+            // Add 3D hover effects to cards
+            add3DHoverEffects();
+            
+            // Create floating particles
+            createFloatingParticles();
+        });
+        
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+        
+        function initialize3DUpload() {
+            const uploadArea = document.getElementById('uploadArea3D');
+            const fileInput = document.getElementById('fileInput3D');
+            const progressBar = document.getElementById('progressBar3D');
+            const progressBarFill = document.getElementById('progressBarFill3D');
+            const results = document.getElementById('results3D');
+            
+            if (!uploadArea || !fileInput) return;
+            
+            // Drag and drop events
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handle3DFiles(e.dataTransfer.files);
+            });
+            
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                handle3DFiles(e.target.files);
+            });
+            
+            function handle3DFiles(files) {
+                if (files.length === 0) return;
+                
+                const file = files[0];
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                // Show 3D progress
+                if (progressBar) {
+                    progressBar.style.display = 'block';
+                    let progress = 0;
+                    
+                    const progressInterval = setInterval(() => {
+                        progress += Math.random() * 15;
+                        if (progress >= 90) {
+                            clearInterval(progressInterval);
+                            progress = 90;
+                        }
+                        if (progressBarFill) {
+                            progressBarFill.style.width = progress + '%';
+                        }
+                    }, 200);
+                    
+                    // Upload file
+                    fetch('/api/upload', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        clearInterval(progressInterval);
+                        if (progressBarFill) {
+                            progressBarFill.style.width = '100%';
+                        }
+                        
+                        setTimeout(() => {
+                            if (progressBar) {
+                                progressBar.style.display = 'none';
+                            }
+                            if (progressBarFill) {
+                                progressBarFill.style.width = '0%';
+                            }
+                            display3DResults(data);
+                        }, 500);
+                    })
+                    .catch(error => {
+                        clearInterval(progressInterval);
+                        if (progressBar) {
+                            progressBar.style.display = 'none';
+                        }
+                        if (window.agentDaf3D) {
+                            window.agentDaf3D.show3DNotification('Upload Error', error.message, 'error');
+                        }
+                    });
+                }
+            }
+            
+            function display3DResults(data) {
+                if (!results) return;
+                
+                const resultHtml = `
+                    <div class="card-3d" style="margin-top: var(--space-lg);">
+                        <div class="card-content">
+                            <div style="display: flex; align-items: center; gap: var(--space-md);">
+                                <i class="fas fa-check-circle" style="color: var(--success-neon); font-size: 1.5rem;"></i>
+                                <div>
+                                    <strong>3D Upload Successful!</strong><br>
+                                    File: ${data.file_info?.filename || 'Unknown'}<br>
+                                    Size: ${formatBytes(data.file_info?.size || 0)}<br>
+                                    Status: ${data.processing_status || 'Processed in 3D'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                results.innerHTML = resultHtml;
+                
+                if (window.agentDaf3D) {
+                    window.agentDaf3D.show3DNotification('Success', 'File uploaded and processed in 3D!', 'success');
+                }
+            }
+            
+            function formatBytes(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        }
+        
+        function add3DHoverEffects() {
+            const cards = document.querySelectorAll('.feature-card-3d, .stat-card-3d');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const angleX = (y - centerY) * 0.01;
+                    const angleY = (x - centerX) * 0.01;
+                    
+                    card.style.transform = `translateZ(30px) rotateX(${-angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateZ(10px) rotateX(0deg) rotateY(0deg) scale(1)';
+                });
+            });
+        }
+        
+        function createFloatingParticles() {
+            if (!window.agentDaf3D) return;
+            
+            // Additional particle effects for hero section
+            const heroSection = document.querySelector('.hero-3d');
+            if (heroSection) {
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle-3d';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 10 + 's';
+                    particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                    
+                    const size = 1 + Math.random() * 3;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    
+                    heroSection.appendChild(particle);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

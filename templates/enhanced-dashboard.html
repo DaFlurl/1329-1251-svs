@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentDaf1.1 - Advanced Excel Dashboard System</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Enhanced Stylesheet -->
+    <link rel="stylesheet" href="/styles/enhanced-styles.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Additional animations and effects */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(16, 185, 129, 0.9));
+            color: white;
+            padding: var(--spacing-3xl) 0;
+            margin-bottom: var(--spacing-3xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s infinite linear;
+            opacity: 0.3;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin: var(--spacing-3xl) 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform var(--transition-normal);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .feature-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: var(--gray-600);
+            font-weight: 600;
+            margin-top: var(--spacing-sm);
+        }
+        
+        .floating-action {
+            position: fixed;
+            bottom: var(--spacing-xl);
+            right: var(--spacing-xl);
+            z-index: 1000;
+        }
+        
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: var(--shadow-2xl);
+        }
+        
+        .notification {
+            position: fixed;
+            top: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-xl);
+            transform: translateX(400px);
+            transition: transform var(--transition-normal);
+            z-index: 1001;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .notification-title {
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+        
+        .notification-body {
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        /* Castle Watermark */
+        .castle-watermark {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100vh;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs><linearGradient id="castleGradient" x1="0%25" y1="0%25" x2="100%25" y2="100%25"><stop offset="0%25" style="stop-color:%234a5568;stop-opacity:0.1"/><stop offset="100%25" style="stop-color:%23718096;stop-opacity:0.05"/></linearGradient></defs><g transform="translate(100, 150)" opacity="0.15"><path d="M0,200 L0,100 L20,100 L20,80 L40,80 L40,100 L60,100 L60,70 L80,70 L80,100 L100,100 L100,60 L120,60 L120,100 L140,100 L140,80 L160,80 L160,100 L180,100 L180,90 L200,90 L200,100 L220,100 L220,70 L240,70 L240,100 L260,100 L260,80 L280,80 L280,100 L300,100 L300,200 Z" fill="url(%23castleGradient)" stroke="%234a5568" stroke-width="2"/><rect x="50" y="120" width="30" height="80" fill="%234a5568" opacity="0.3"/><rect x="120" y="120" width="30" height="80" fill="%234a5568" opacity="0.3"/><rect x="190" y="120" width="30" height="80" fill="%234a5568" opacity="0.3"/><path d="M0,200 L300,200 L300,250 L0,250 Z" fill="%234a5568" opacity="0.2"/><text x="150" y="280" font-family="serif" font-size="24" fill="%234a5568" text-anchor="middle" opacity="0.3">Eine Burg</text></g></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Castle Watermark -->
+    <div class="castle-watermark"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content animate-fade-in">
+                <h1 class="hero-title">🚀 AgentDaf1.1</h1>
+                <p class="hero-subtitle">Advanced Excel Dashboard & Analytics Platform</p>
+                <div class="flex gap-md justify-center">
+                    <button class="btn btn-primary btn-lg" onclick="scrollToSection('upload')">
+                        <i class="fas fa-upload"></i> Start Processing
+                    </button>
+                    <button class="btn btn-secondary btn-lg" onclick="scrollToSection('features')">
+                        <i class="fas fa-rocket"></i> Explore Features
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- System Status -->
+        <div class="card animate-fade-in">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-heartbeat text-success"></i> System Status
+                </h2>
+                <span class="badge badge-success">Online</span>
+            </div>
+            <div class="card-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="uptimeCounter">0</div>
+                        <div class="stat-label">Uptime (seconds)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Health Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Active Features</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0ms</div>
+                        <div class="stat-label">Response Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div id="upload" class="card animate-fade-in">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-file-excel text-success"></i> Excel Processing
+                </h2>
+            </div>
+            <div class="card-content">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">📊</div>
+                        <div class="upload-text">Drop your Excel files here</div>
+                        <div class="upload-hint">or click to browse (supports .xlsx, .xls, .csv)</div>
+                        <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display: none;">
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-folder-open"></i> Choose Files
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress" id="progressBar" style="display: none;">
+                    <div class="progress-bar" id="progressBarFill" style="width: 0%"></div>
+                </div>
+                
+                <!-- Results Area -->
+                <div id="results" class="mt-lg"></div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div id="features" class="animate-fade-in">
+            <h2 class="text-center mb-xl" style="font-size: 2.5rem;">🌟 Powerful Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Advanced Analytics</h3>
+                    <p class="feature-description">Deep data analysis with AI-powered insights and pattern recognition for comprehensive understanding.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Real-time Dashboards</h3>
+                    <p class="feature-description">Interactive, live-updating dashboards with beautiful visualizations and responsive design.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">AI Integration</h3>
+                    <p class="feature-description">Smart automation with machine learning models for predictive analysis and recommendations.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Enterprise Security</h3>
+                    <p class="feature-description">Bank-level encryption, role-based access control, and comprehensive audit trails.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">Optimized performance with parallel processing and intelligent caching mechanisms.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="feature-title">API Integration</h3>
+                    <p class="feature-description">RESTful APIs with webhooks for seamless integration with your existing tools.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action">
+        <button class="fab" onclick="showNotification('Help', 'Need assistance? Check our documentation or contact support!')">
+            <i class="fas fa-question"></i>
+        </button>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <span class="notification-title" id="notificationTitle">Notification</span>
+            <button class="notification-close" onclick="hideNotification()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-body" id="notificationBody">
+            Notification content here
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        let uptime = 0;
+        let uploadedFiles = [];
+        
+        // Uptime counter
+        setInterval(() => {
+            uptime++;
+            document.getElementById('uptimeCounter').textContent = uptime;
+        }, 1000);
+        
+        // File upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const progressBar = document.getElementById('progressBar');
+        const progressBarFill = document.getElementById('progressBarFill');
+        const results = document.getElementById('results');
+        
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+        
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+        
+        function handleFiles(files) {
+            if (files.length === 0) return;
+            
+            const file = files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            // Show progress
+            progressBar.style.display = 'block';
+            let progress = 0;
+            
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 90) {
+                    clearInterval(progressInterval);
+                    progress = 90;
+                }
+                progressBarFill.style.width = progress + '%';
+            }, 200);
+            
+            // Upload file
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                clearInterval(progressInterval);
+                progressBarFill.style.width = '100%';
+                
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    progressBarFill.style.width = '0%';
+                    displayResults(data);
+                }, 500);
+            })
+            .catch(error => {
+                clearInterval(progressInterval);
+                progressBar.style.display = 'none';
+                showNotification('Upload Error', error.message);
+            });
+        }
+        
+        function displayResults(data) {
+            const resultHtml = `
+                <div class="alert alert-success animate-fade-in">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <strong>Upload Successful!</strong><br>
+                        File: ${data.file_info?.filename || 'Unknown'}<br>
+                        Size: ${formatBytes(data.file_info?.size || 0)}<br>
+                        Status: ${data.processing_status || 'Processed'}
+                    </div>
+                </div>
+            `;
+            
+            results.innerHTML = resultHtml;
+            uploadedFiles.push(data);
+            
+            showNotification('Success', 'File uploaded and processed successfully!');
+        }
+        
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        function showNotification(title, body) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationBody').textContent = body;
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                hideNotification();
+            }, 5000);
+        }
+        
+        function hideNotification() {
+            document.getElementById('notification').classList.remove('show');
+        }
+        
+        // Add animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.card, .feature-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

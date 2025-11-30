@@ -1,0 +1,389 @@
+/* 3D Notification System */
+.notification-3d-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    pointer-events: none;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.notification-3d {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    min-width: 300px;
+    max-width: 400px;
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: all;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.notification-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transform: translateZ(10px);
+    border-radius: 16px 16px 0 0;
+}
+
+.notification-3d.info::before {
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+}
+
+.notification-3d.success::before {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.notification-3d.warning::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.notification-3d.error::before {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.notification-3d:hover {
+    transform: translateZ(30px) rotateY(-5deg) scale(1.02);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.notification-3d-enter {
+    opacity: 0;
+    transform: translateZ(-100px) translateX(100px) rotateY(90deg);
+}
+
+.notification-3d-enter-active {
+    opacity: 1;
+    transform: translateZ(0) translateX(0) rotateY(0deg);
+}
+
+.notification-3d-exit {
+    opacity: 1;
+    transform: translateZ(0) translateX(0) rotateY(0deg);
+}
+
+.notification-3d-exit-active {
+    opacity: 0;
+    transform: translateZ(-100px) translateX(100px) rotateY(-90deg);
+}
+
+.notification-3d-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    transform: translateZ(15px);
+}
+
+.notification-3d-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    transform: translateZ(5px);
+    transition: all 0.3s ease;
+}
+
+.notification-3d:hover .notification-3d-icon {
+    transform: translateZ(10px) rotateZ(360deg) scale(1.1);
+}
+
+.notification-3d.info .notification-3d-icon {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: white;
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+}
+
+.notification-3d.success .notification-3d-icon {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+.notification-3d.warning .notification-3d-icon {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.notification-3d.error .notification-3d-icon {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.notification-3d-title {
+    font-weight: 600;
+    color: #e2e8f0;
+    font-size: 0.875rem;
+    transform: translateZ(3px);
+}
+
+.notification-3d-message {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    transform: translateZ(5px);
+}
+
+.notification-3d-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    transform: translateZ(8px);
+}
+
+.notification-3d-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e2e8f0;
+    padding: 0.375rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transform: translateZ(3px);
+    transition: all 0.3s ease;
+}
+
+.notification-3d-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateZ(8px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.notification-3d-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transform: translateZ(5px);
+    transition: all 0.3s ease;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.notification-3d-close:hover {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateZ(10px) rotateZ(90deg);
+}
+
+/* Progress Notification */
+.notification-3d.progress {
+    padding-bottom: 1.5rem;
+}
+
+.notification-3d-progress-bar {
+    margin-top: 1rem;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    transform: translateZ(5px);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.notification-3d-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    border-radius: 3px;
+    transform: translateZ(3px);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.notification-3d-progress-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: notificationProgressShimmer 2s ease-in-out infinite;
+}
+
+/* Stacked Notifications */
+.notification-3d-container.stacked .notification-3d {
+    transform-origin: top right;
+}
+
+.notification-3d-container.stacked .notification-3d:nth-child(1) {
+    transform: translateZ(0) scale(1);
+}
+
+.notification-3d-container.stacked .notification-3d:nth-child(2) {
+    transform: translateZ(-20px) scale(0.95) translateY(10px);
+    opacity: 0.9;
+}
+
+.notification-3d-container.stacked .notification-3d:nth-child(3) {
+    transform: translateZ(-40px) scale(0.9) translateY(20px);
+    opacity: 0.8;
+}
+
+.notification-3d-container.stacked .notification-3d:nth-child(4) {
+    transform: translateZ(-60px) scale(0.85) translateY(30px);
+    opacity: 0.7;
+}
+
+.notification-3d-container.stacked .notification-3d:hover {
+    transform: translateZ(30px) scale(1) rotateY(-5deg);
+    opacity: 1;
+    z-index: 10;
+}
+
+/* Notification Types */
+.notification-3d.toast {
+    padding: 0.75rem 1rem;
+    min-width: 250px;
+}
+
+.notification-3d.toast .notification-3d-header {
+    margin-bottom: 0;
+}
+
+.notification-3d.toast .notification-3d-message {
+    display: none;
+}
+
+.notification-3d.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(0);
+    max-width: 500px;
+    min-width: 400px;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+
+.notification-3d.modal::before {
+    height: 6px;
+}
+
+.notification-3d.modal:hover {
+    transform: translate(-50%, -50%) translateZ(50px) scale(1.05);
+}
+
+/* Floating Particles */
+.notification-3d-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.notification-3d-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateZ(0);
+}
+
+.notification-3d-particle.active {
+    animation: notificationParticleFloat 2s ease-out forwards;
+}
+
+/* Animations */
+@keyframes notificationProgressShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes notificationParticleFloat {
+    0% {
+        opacity: 0;
+        transform: translateZ(0) translateY(0) scale(0);
+    }
+    20% {
+        opacity: 1;
+        transform: translateZ(20px) translateY(-10px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateZ(40px) translateY(-50px) scale(0.5);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .notification-3d-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+    }
+    
+    .notification-3d {
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .notification-3d.modal {
+        min-width: auto;
+        max-width: none;
+        left: 10px;
+        right: 10px;
+        transform: translateY(-50%) translateZ(0);
+    }
+    
+    .notification-3d.modal:hover {
+        transform: translateY(-50%) translateZ(30px) scale(1.02);
+    }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .notification-3d,
+    .notification-3d-icon,
+    .notification-3d-button,
+    .notification-3d-close {
+        transition: none;
+        animation: none;
+    }
+    
+    .notification-3d-particle {
+        display: none;
+    }
+    
+    .notification-3d-progress-fill::before {
+        animation: none;
+    }
+}
+
+/* GPU Acceleration */
+.notification-3d,
+.notification-3d-icon,
+.notification-3d-button,
+.notification-3d-close,
+.notification-3d-progress-fill {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}

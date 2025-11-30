@@ -1,0 +1,53 @@
+# Prometheus alerting rules for Docker monitoring
+groups:
+  - name: docker.rules
+    rules:
+      - alert: HighCPUUsage
+        expr: rate(docker_cpu_usage_total[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: docker-monitor
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is above 80% for more than 5 minutes"
+
+      - alert: HighMemoryUsage
+        expr: docker_memory_usage / 1024 / 1024 > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          service: docker-monitor
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is above 80% for more than 5 minutes"
+
+      - alert: HighDiskUsage
+        expr: docker_disk_usage > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          service: docker-monitor
+        annotations:
+          summary: "High disk usage detected"
+          description: "Disk usage is above 90% for more than 5 minutes"
+
+      - alert: ContainerDown
+        expr: up{job="docker-monitoring"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: docker-monitor
+        annotations:
+          summary: "Docker monitoring target is down"
+          description: "The Docker monitoring endpoint is not responding"
+
+      - alert: TooManyContainers
+        expr: sum(rate(docker_container_count[5m])) > 10
+        for: 5m
+        labels:
+          severity: info
+          service: docker-monitor
+        annotations:
+          summary: "High container count"
+          description: "More than 10 containers running simultaneously"

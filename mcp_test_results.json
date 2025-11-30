@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-11-27T11:14:24.030831",
+  "tests": [
+    {
+      "name": "MCP Server Health Check",
+      "command": "curl -f http://localhost:8080/health",
+      "result": {
+        "success": true,
+        "stdout": "{\"server\":{\"capabilities\":[\"excel.read\",\"excel.write\",\"excel.analyze\",\"dashboard.update\",\"data.export\",\"file.backup\"],\"description\":\"Professional data processing and analysis server\",\"endpoints\":{\"excel_read\":\"/api/excel/read (POST)\",\"health\":\"/health (GET)\",\"info\":\"/ (GET)\",\"mcp\":\"/mcp (POST)\"},\"excel_tools_available\":true,\"name\":\"AgentDaf1 MCP Server\",\"supported_formats\":{\"excel\":[\".xlsx\",\".xls\",\".csv\"],\"export\":[\"json\",\"csv\"]},\"version\":\"2.0.0\"},\"status\":\"healthy\",\"timestamp\":\"2025-11-27T10:14:24.065227\"}\n",
+        "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100   514  100   514    0     0   151k      0 --:--:-- --:--:-- --:--:--  167k\n",
+        "returncode": 0
+      }
+    },
+    {
+      "name": "File Upload Test",
+      "command": "curl -X POST -F \"file=@test.xlsx\" http://localhost:8080/upload",
+      "result": {
+        "success": true,
+        "stdout": "{\"available_endpoints\":{\"excel_read\":\"/api/excel/read (POST)\",\"health\":\"/health (GET)\",\"info\":\"/ (GET)\",\"mcp\":\"/mcp (POST)\"},\"error\":\"Endpoint not found\",\"message\":\"The requested URL does not exist\"}\n",
+        "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100   585  100   200  100   385  61614   115k --:--:-- --:--:-- --:--:--  190k\n",
+        "returncode": 0
+      }
+    },
+    {
+      "name": "GitHub Integration Test",
+      "command": "curl -X POST -H \"Content-Type: application/json\" -d '{\"repo\":\"test\",\"files\":[\"test.md\"]}' http://localhost:8080/api/github/update",
+      "result": {
+        "success": true,
+        "stdout": "{\"available_endpoints\":{\"excel_read\":\"/api/excel/read (POST)\",\"health\":\"/health (GET)\",\"info\":\"/ (GET)\",\"mcp\":\"/mcp (POST)\"},\"error\":\"Endpoint not found\",\"message\":\"The requested URL does not exist\"}\n",
+        "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100   229  100   200  100    29  65703   9526 --:--:-- --:--:-- --:--:-- 76333\n",
+        "returncode": 0
+      }
+    },
+    {
+      "name": "Dashboard Access Test",
+      "command": "curl -X GET http://localhost:8080/dashboard/test_dashboard.html",
+      "result": {
+        "success": true,
+        "stdout": "{\"available_endpoints\":{\"excel_read\":\"/api/excel/read (POST)\",\"health\":\"/health (GET)\",\"info\":\"/ (GET)\",\"mcp\":\"/mcp (POST)\"},\"error\":\"Endpoint not found\",\"message\":\"The requested URL does not exist\"}\n",
+        "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100   200  100   200    0     0  74211      0 --:--:-- --:--:-- --:--:--   97k\n",
+        "returncode": 0
+      }
+    },
+    {
+      "name": "Excel Processing Test",
+      "command": "python -c \"import sys; sys.path.insert(0, 'src'); from excel_workflow import ExcelWorkflowEngine; engine = ExcelWorkflowEngine(); print('Excel engine test:', engine.test_functionality())\"",
+      "result": {
+        "success": true,
+        "stdout": "Excel engine test: {'success': True, 'message': 'All tests passed', 'details': {'test_read': {'can_read_dataframe': True, 'can_process_data': True, 'test_data_shape': (3, 3), 'data_types': {'A': dtype('int64'), 'B': dtype('int64'), 'C': dtype('int64')}}, 'test_write': {'can_write_excel': True, 'file_created': True, 'file_size': 5022, 'test_data_shape': (3, 3)}, 'test_analyze': {'row_count': 3, 'column_count': 3, 'numeric_columns': ['Sales'], 'summary_stats': {'Date': {'count': 3, 'mean': Timestamp('2024-01-02 00:00:00'), 'min': Timestamp('2024-01-01 00:00:00'), '25%': Timestamp('2024-01-01 12:00:00'), '50%': Timestamp('2024-01-02 00:00:00'), '75%': Timestamp('2024-01-02 12:00:00'), 'max': Timestamp('2024-01-03 00:00:00'), 'std': nan}, 'Sales': {'count': 3.0, 'mean': 1500.0, 'min': 1000.0, '25%': 1250.0, '50%': 1500.0, '75%': 1750.0, 'max': 2000.0, 'std': 500.0}}, 'can_analyze': True}}}\n",
+        "stderr": "",
+        "returncode": 0
+      }
+    }
+  ]
+}

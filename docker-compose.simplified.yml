@@ -1,0 +1,55 @@
+# AgentDaf1.1 - Simplified Docker Configuration
+# Streamlined deployment with integrated Redis
+
+version: '3.8'
+
+services:
+  agentdaf1-app:
+    build: .
+    container_name: agentdaf1-app
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_ENV=production
+      - HOST=0.0.0.0
+      - PORT=8080
+      - PYTHONPATH=/app
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=sqlite:///app/data/agentdaf1.db
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - redis
+    networks:
+      - agentdaf1-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: agentdaf1-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - agentdaf1-network
+
+networks:
+  agentdaf1-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local

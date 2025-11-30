@@ -1,0 +1,414 @@
+/* 3D Background with Geometric Shapes */
+.background-3d {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+
+.background-3d-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+/* Floating Geometric Shapes */
+.geo-3d-shape {
+    position: absolute;
+    transform-style: preserve-3d;
+    opacity: 0.1;
+    animation: geoFloat 20s ease-in-out infinite;
+}
+
+.geo-3d-cube {
+    width: 60px;
+    height: 60px;
+    transform-style: preserve-3d;
+    animation: cubeRotate 15s linear infinite;
+}
+
+.geo-3d-cube::before,
+.geo-3d-cube::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(167, 139, 250, 0.3));
+    border: 1px solid rgba(96, 165, 250, 0.5);
+}
+
+.geo-3d-cube::before {
+    transform: translateZ(30px);
+}
+
+.geo-3d-cube::after {
+    transform: translateZ(-30px) rotateY(180deg);
+}
+
+.geo-3d-pyramid {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 60px solid rgba(244, 114, 182, 0.3);
+    transform-style: preserve-3d;
+    animation: pyramidRotate 18s linear infinite;
+}
+
+.geo-3d-sphere {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 30% 30%, rgba(34, 197, 94, 0.4), rgba(22, 163, 74, 0.2));
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    animation: spherePulse 12s ease-in-out infinite;
+    box-shadow: 
+        0 0 20px rgba(34, 197, 94, 0.3),
+        inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.geo-3d-hexagon {
+    width: 60px;
+    height: 33px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(217, 119, 6, 0.2));
+    position: relative;
+    transform-style: preserve-3d;
+    animation: hexagonRotate 20s linear infinite;
+}
+
+.geo-3d-hexagon::before,
+.geo-3d-hexagon::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+}
+
+.geo-3d-hexagon::before {
+    bottom: 100%;
+    border-bottom: 17px solid rgba(245, 158, 11, 0.3);
+}
+
+.geo-3d-hexagon::after {
+    top: 100%;
+    border-top: 17px solid rgba(245, 158, 11, 0.3);
+}
+
+.geo-3d-diamond {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.2));
+    transform: rotate(45deg) translateZ(20px);
+    transform-style: preserve-3d;
+    animation: diamondSpin 16s linear infinite;
+}
+
+.geo-3d-triangle {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid rgba(168, 85, 247, 0.3);
+    transform-style: preserve-3d;
+    animation: triangleRotate 14s linear infinite;
+}
+
+/* 3D Grid Pattern */
+.geo-3d-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(96, 165, 250, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96, 165, 250, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: rotateX(60deg) translateZ(-100px);
+    transform-style: preserve-3d;
+    animation: gridFloat 30s ease-in-out infinite;
+}
+
+/* Particle System */
+.geo-3d-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.geo-3d-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translateZ(0);
+    animation: particleFloat 10s ease-in-out infinite;
+}
+
+/* Connection Lines */
+.geo-3d-connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.geo-3d-connection {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.3), transparent);
+    transform-origin: left center;
+    animation: connectionPulse 8s ease-in-out infinite;
+}
+
+/* Morphing Shapes */
+.geo-3d-morph {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    transform-style: preserve-3d;
+    animation: morphShape 25s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(96, 165, 250, 0.2);
+}
+
+/* Layer Depth */
+.background-3d-layer-1 {
+    transform: translateZ(-300px);
+    opacity: 0.3;
+}
+
+.background-3d-layer-2 {
+    transform: translateZ(-200px);
+    opacity: 0.5;
+}
+
+.background-3d-layer-3 {
+    transform: translateZ(-100px);
+    opacity: 0.7;
+}
+
+.background-3d-layer-4 {
+    transform: translateZ(0px);
+    opacity: 0.9;
+}
+
+/* Interactive Background */
+.background-3d.interactive .geo-3d-shape {
+    transition: all 0.6s ease;
+}
+
+.background-3d.interactive .geo-3d-shape:hover {
+    opacity: 0.3;
+    transform: scale(1.2) translateZ(50px);
+    filter: brightness(1.5);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .geo-3d-cube,
+    .geo-3d-hexagon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .geo-3d-sphere {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .geo-3d-diamond {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .geo-3d-pyramid {
+        border-left-width: 20px;
+        border-right-width: 20px;
+        border-bottom-width: 40px;
+    }
+    
+    .geo-3d-triangle {
+        border-left-width: 15px;
+        border-right-width: 15px;
+        border-bottom-width: 30px;
+    }
+    
+    .geo-3d-grid {
+        background-size: 30px 30px;
+    }
+}
+
+/* Animations */
+@keyframes geoFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0) translateZ(0) rotateX(0deg) rotateY(0deg);
+    }
+    25% {
+        transform: translateY(-30px) translateX(20px) translateZ(50px) rotateX(90deg) rotateY(45deg);
+    }
+    50% {
+        transform: translateY(20px) translateX(-30px) translateZ(-30px) rotateX(180deg) rotateY(90deg);
+    }
+    75% {
+        transform: translateY(-20px) translateX(30px) translateZ(30px) rotateX(270deg) rotateY(135deg);
+    }
+}
+
+@keyframes cubeRotate {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    }
+}
+
+@keyframes pyramidRotate {
+    0% {
+        transform: rotateY(0deg) translateZ(0);
+    }
+    100% {
+        transform: rotateY(360deg) translateZ(50px);
+    }
+}
+
+@keyframes spherePulse {
+    0%, 100% {
+        transform: scale(1) translateZ(0);
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    }
+    50% {
+        transform: scale(1.2) translateZ(30px);
+        box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
+    }
+}
+
+@keyframes hexagonRotate {
+    0% {
+        transform: rotateZ(0deg) translateZ(0);
+    }
+    100% {
+        transform: rotateZ(360deg) translateZ(40px);
+    }
+}
+
+@keyframes diamondSpin {
+    0% {
+        transform: rotate(45deg) translateZ(20px) rotateY(0deg);
+    }
+    100% {
+        transform: rotate(405deg) translateZ(60px) rotateY(360deg);
+    }
+}
+
+@keyframes triangleRotate {
+    0% {
+        transform: rotateZ(0deg) translateZ(0);
+    }
+    100% {
+        transform: rotateZ(360deg) translateZ(30px);
+    }
+}
+
+@keyframes gridFloat {
+    0%, 100% {
+        transform: rotateX(60deg) translateZ(-100px) translateY(0);
+    }
+    50% {
+        transform: rotateX(60deg) translateZ(-150px) translateY(-20px);
+    }
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 0;
+        transform: translateZ(-100px) translateY(100px);
+    }
+    20% {
+        opacity: 1;
+        transform: translateZ(0) translateY(0);
+    }
+    80% {
+        opacity: 1;
+        transform: translateZ(0) translateY(-100px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateZ(100px) translateY(-200px);
+    }
+}
+
+@keyframes connectionPulse {
+    0%, 100% {
+        opacity: 0.1;
+        transform: translateZ(0) scaleX(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: translateZ(20px) scaleX(1.1);
+    }
+}
+
+@keyframes morphShape {
+    0%, 100% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: rotate(0deg) translateZ(0);
+    }
+    25% {
+        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+        transform: rotate(90deg) translateZ(30px);
+    }
+    50% {
+        border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+        transform: rotate(180deg) translateZ(60px);
+    }
+    75% {
+        border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%;
+        transform: rotate(270deg) translateZ(30px);
+    }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .geo-3d-shape,
+    .geo-3d-grid,
+    .geo-3d-particle,
+    .geo-3d-connection,
+    .geo-3d-morph {
+        animation: none;
+    }
+    
+    .background-3d.interactive .geo-3d-shape {
+        transition: none;
+    }
+}
+
+/* GPU Acceleration */
+.geo-3d-shape,
+.geo-3d-grid,
+.geo-3d-particle,
+.geo-3d-connection,
+.geo-3d-morph {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}

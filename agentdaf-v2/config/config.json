@@ -1,0 +1,87 @@
+{
+  "project": {
+    "name": "AgentDaf1.1",
+    "version": "2.0.0",
+    "description": "Live Gaming Dashboard System",
+    "author": "DaFlurl",
+    "environment": "production"
+  },
+  "dashboard": {
+    "title": "🏆 AgentDaf1.1 - Live Gaming Dashboard",
+    "auto_refresh_interval": 60000,
+    "max_players_display": 1000,
+    "default_theme": "gradient",
+    "enable_dark_mode": false,
+    "responsive_design": true,
+    "animations_enabled": true
+  },
+  "data": {
+    "default_file": "monday_data.json",
+    "backup_enabled": true,
+    "backup_retention_days": 30,
+    "max_history_size_mb": 500,
+    "auto_backup_interval": 3600,
+    "supported_formats": [".xlsx", ".xls", ".csv", ".json"],
+    "max_file_size_mb": 50,
+    "encoding": "utf-8"
+  },
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8000,
+    "debug": false,
+    "secret_key": "your-secret-key-here",
+    "session_timeout": 3600,
+    "cache_enabled": true,
+    "cache_ttl": 300,
+    "max_concurrent_users": 50,
+    "enable_compression": true
+  },
+  "api": {
+    "rate_limit": 100,
+    "cors_enabled": true,
+    "timeout": 30,
+    "enable_auth": false,
+    "endpoints_enabled": true
+  },
+  "github": {
+    "pages_enabled": true,
+    "repo": "DaFlurl/1329-1251-svs",
+    "branch": "main",
+    "deploy_url": "https://daflurl.github.io/1329-1251-svs",
+    "token_env": "GITHUB_TOKEN"
+  },
+  "features": {
+    "live_scoreboard": true,
+    "real_time_updates": true,
+    "file_history": true,
+    "version_control": true,
+    "excel_import": true,
+    "data_export": true,
+    "alliance_stats": true,
+    "multi_tab_view": true,
+    "search_filter": true,
+    "auto_refresh": true,
+    "backup_restore": true
+  },
+  "paths": {
+    "base_dir": "C:/Users/flori/Desktop/AgentDaf1.1",
+    "data_dir": "data",
+    "logs_dir": "logs",
+    "uploads_dir": "data/uploads",
+    "history_dir": "file_history",
+    "backups_dir": "file_history/backups"
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "dashboard.log",
+    "max_size_mb": 10,
+    "backup_count": 5,
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  },
+  "docker": {
+    "enabled": true,
+    "image": "agentdaf1/scoreboard:latest",
+    "port": 8000,
+    "compose_file": "docker-compose.yml"
+  }
+}

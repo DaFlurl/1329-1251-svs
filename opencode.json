@@ -1,0 +1,7 @@
+{
+  "tools": {
+    "enabled": true,
+    "disabled": false
+  },
+  "$schema": "https://opencode.ai/config.json"
+}

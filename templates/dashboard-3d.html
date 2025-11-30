@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentDaf1.1 - 3D Enhanced Excel Dashboard</title>
+    
+    <!-- 3D Framework Styles -->
+    <link rel="stylesheet" href="/styles/3d-framework.css">
+    <link rel="stylesheet" href="/styles/3d-navigation.css">
+    <link rel="stylesheet" href="/styles/3d-upload.css">
+    <link rel="stylesheet" href="/styles/3d-notifications.css">
+    <link rel="stylesheet" href="/styles/3d-background.css">
+    <link rel="stylesheet" href="/styles/3d-hover.css">
+    <link rel="stylesheet" href="/styles/3d-data-viz.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        .main-content {
+            position: relative;
+            z-index: 1;
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        .dashboard-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .chart-container {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            margin-bottom: 2rem;
+            height: 400px;
+            position: relative;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(96, 165, 250, 0.2);
+            border-top: 4px solid #60a5fa;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Background -->
+    <div class="background-3d" id="background3d"></div>
+    
+    <!-- 3D Navigation -->
+    <nav class="nav-3d-container">
+        <div class="nav-3d">
+            <div class="nav-3d-content">
+                <div class="nav-3d-logo">AgentDaf1.1</div>
+                <ul class="nav-3d-menu">
+                    <li class="nav-3d-item">
+                        <a href="#dashboard" class="nav-3d-link active">
+                            <span class="nav-3d-icon">📊</span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-3d-item">
+                        <a href="#upload" class="nav-3d-link">
+                            <span class="nav-3d-icon">📤</span>
+                            Upload
+                        </a>
+                    </li>
+                    <li class="nav-3d-item">
+                        <a href="#analytics" class="nav-3d-link">
+                            <span class="nav-3d-icon">📈</span>
+                            Analytics
+                        </a>
+                    </li>
+                    <li class="nav-3d-item">
+                        <a href="#settings" class="nav-3d-link">
+                            <span class="nav-3d-icon">⚙️</span>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+                <button class="nav-3d-mobile-toggle">☰</button>
+            </div>
+        </div>
+        <div class="nav-3d-mobile-overlay"></div>
+        <div class="nav-3d-mobile-menu">
+            <a href="#dashboard" class="nav-3d-link">Dashboard</a>
+            <a href="#upload" class="nav-3d-link">Upload</a>
+            <a href="#analytics" class="nav-3d-link">Analytics</a>
+            <a href="#settings" class="nav-3d-link">Settings</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="dashboard-section">
+            <h1 class="section-title">3D Excel Dashboard</h1>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="card-3d">
+                    <h3>Total Files</h3>
+                    <div class="stat-number" id="totalFiles">0</div>
+                </div>
+                <div class="card-3d">
+                    <h3>Processed Rows</h3>
+                    <div class="stat-number" id="totalRows">0</div>
+                </div>
+                <div class="card-3d">
+                    <h3>Active Tasks</h3>
+                    <div class="stat-number" id="activeTasks">0</div>
+                </div>
+                <div class="card-3d">
+                    <h3>Success Rate</h3>
+                    <div class="stat-number" id="successRate">0%</div>
+                </div>
+            </div>
+            
+            <!-- 3D Charts -->
+            <div class="cards-grid">
+                <div class="chart-container">
+                    <h3>3D Bar Chart</h3>
+                    <canvas id="barChart3d"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>3D Pie Chart</h3>
+                    <canvas id="pieChart3d"></canvas>
+                </div>
+            </div>
+            
+            <div class="loading-spinner" id="loadingSpinner"></div>
+        </section>
+        
+        <!-- Upload Section -->
+        <section id="upload" class="dashboard-section">
+            <h2 class="section-title">Upload Excel Files</h2>
+            <div class="upload-3d-container">
+                <!-- 3D Upload component will be initialized here -->
+            </div>
+        </section>
+        
+        <!-- Analytics Section -->
+        <section id="analytics" class="dashboard-section">
+            <h2 class="section-title">Advanced Analytics</h2>
+            <div class="cards-grid">
+                <div class="chart-container">
+                    <h3>3D Line Chart</h3>
+                    <canvas id="lineChart3d"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>3D Surface Plot</h3>
+                    <div id="surfacePlot3d"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Settings Section -->
+        <section id="settings" class="dashboard-section">
+            <h2 class="section-title">3D Settings</h2>
+            <div class="cards-grid">
+                <div class="card-3d">
+                    <h3>Visual Effects</h3>
+                    <label>
+                        <input type="checkbox" id="enableParticles" checked> Enable Particles
+                    </label>
+                    <label>
+                        <input type="checkbox" id="enableSound"> Enable Sound Effects
+                    </label>
+                    <label>
+                        <input type="checkbox" id="enableAnimations" checked> Enable Animations
+                    </label>
+                </div>
+                <div class="card-3d">
+                    <h3>Performance</h3>
+                    <label>
+                        <input type="checkbox" id="performanceMode"> Performance Mode
+                    </label>
+                    <label>
+                        <input type="range" id="quality" min="1" max="5" value="3"> Quality
+                    </label>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 3D Framework Scripts -->
+    <script src="/styles/3d-framework.js"></script>
+    <script src="/styles/3d-navigation.js"></script>
+    <script src="/styles/3d-upload.js"></script>
+    <script src="/styles/3d-notifications.js"></script>
+    <script src="/styles/3d-background.js"></script>
+    <script src="/styles/3d-hover.js"></script>
+    <script src="/styles/3d-data-viz.js"></script>
+    <script src="/styles/3d-charts-advanced.js"></script>
+    
+    <!-- Application Script -->
+    <script>
+        // Initialize 3D Dashboard
+        class Dashboard3D {
+            constructor() {
+                this.apiBase = '/api';
+                this.charts = {};
+                this.data = {};
+                
+                this.init();
+            }
+            
+            async init() {
+                // Initialize 3D components
+                this.initializeUpload();
+                this.initializeCharts();
+                this.initializeSettings();
+                
+                // Load initial data
+                await this.loadDashboardData();
+                
+                // Setup real-time updates
+                this.setupRealtimeUpdates();
+                
+                // Show welcome notification
+                if (window.notify3D) {
+                    window.notify3D.success('Welcome to AgentDaf1.1 3D Dashboard!', {
+                        title: 'System Ready',
+                        duration: 5000
+                    });
+                }
+            }
+            
+            initializeUpload() {
+                const uploadContainer = document.querySelector('.upload-3d-container');
+                if (uploadContainer && window.Upload3D) {
+                    this.upload3d = new window.Upload3D(uploadContainer);
+                    
+                    // Listen for upload events
+                    uploadContainer.addEventListener('uploadComplete', async (event) => {
+                        const files = event.detail.files;
+                        await this.handleFileUpload(files);
+                    });
+                }
+            }
+            
+            initializeCharts() {
+                // Initialize 3D data visualization
+                if (window.DataViz3D) {
+                    this.dataViz3d = new window.DataViz3D();
+                    
+                    // Create sample charts
+                    this.createSampleCharts();
+                }
+            }
+            
+            createSampleCharts() {
+                // Sample data for demonstration
+                const sampleData = {
+                    labels: ['January', 'February', 'March', 'April', 'May'],
+                    datasets: [{
+                        label: 'Sales Data',
+                        data: [65, 59, 80, 81, 56],
+                        backgroundColor: 'rgba(96, 165, 250, 0.5)',
+                        borderColor: 'rgba(96, 165, 250, 1)',
+                        borderWidth: 2
+                    }]
+                };
+                
+                // Create 3D bar chart
+                if (this.dataViz3d) {
+                    this.charts.bar = this.dataViz3d.createBarChart('barChart3d', sampleData);
+                    this.charts.pie = this.dataViz3d.createPieChart('pieChart3d', {
+                        labels: ['Product A', 'Product B', 'Product C', 'Product D'],
+                        datasets: [{
+                            data: [30, 25, 20, 25],
+                            backgroundColor: [
+                                'rgba(96, 165, 250, 0.8)',
+                                'rgba(167, 139, 250, 0.8)',
+                                'rgba(244, 114, 182, 0.8)',
+                                'rgba(34, 197, 94, 0.8)'
+                            ]
+                        }]
+                    });
+                    this.charts.line = this.dataViz3d.createLineChart('lineChart3d', sampleData);
+                }
+            }
+            
+            initializeSettings() {
+                // Setup settings handlers
+                const enableParticles = document.getElementById('enableParticles');
+                const enableSound = document.getElementById('enableSound');
+                const enableAnimations = document.getElementById('enableAnimations');
+                const performanceMode = document.getElementById('performanceMode');
+                const quality = document.getElementById('quality');
+                
+                if (enableParticles) {
+                    enableParticles.addEventListener('change', (e) => {
+                        if (window.hoverEffects3D) {
+                            window.hoverEffects3D.enableParticles(e.target.checked);
+                        }
+                    });
+                }
+                
+                if (performanceMode) {
+                    performanceMode.addEventListener('change', (e) => {
+                        if (window.background3D) {
+                            window.background3D.setPerformanceMode(e.target.checked);
+                        }
+                        if (window.hoverEffects3D) {
+                            window.hoverEffects3D.options.performanceMode = e.target.checked;
+                        }
+                    });
+                }
+            }
+            
+            async loadDashboardData() {
+                try {
+                    // Show loading
+                    const spinner = document.getElementById('loadingSpinner');
+                    if (spinner) spinner.style.display = 'block';
+                    
+                    // Fetch dashboard stats
+                    const response = await fetch(`${this.apiBase}/stats`);
+                    if (response.ok) {
+                        const stats = await response.json();
+                        this.updateStats(stats);
+                    } else {
+                        // Use sample data if API not available
+                        this.updateSampleStats();
+                    }
+                    
+                    // Fetch processed data
+                    const dataResponse = await fetch(`${this.apiBase}/processed-data`);
+                    if (dataResponse.ok) {
+                        const data = await dataResponse.json();
+                        this.data = data;
+                        this.updateCharts(data);
+                    }
+                    
+                } catch (error) {
+                    console.error('Error loading dashboard data:', error);
+                    this.updateSampleStats();
+                    
+                    if (window.notify3D) {
+                        window.notify3D.warning('Using sample data - API connection failed', {
+                            title: 'Connection Warning'
+                        });
+                    }
+                } finally {
+                    // Hide loading
+                    const spinner = document.getElementById('loadingSpinner');
+                    if (spinner) spinner.style.display = 'none';
+                }
+            }
+            
+            updateStats(stats) {
+                this.animateNumber('totalFiles', stats.total_files || 0);
+                this.animateNumber('totalRows', stats.total_rows || 0);
+                this.animateNumber('activeTasks', stats.active_tasks || 0);
+                this.animateNumber('successRate', stats.success_rate || 0, '%');
+            }
+            
+            updateSampleStats() {
+                this.animateNumber('totalFiles', 12);
+                this.animateNumber('totalRows', 4856);
+                this.animateNumber('activeTasks', 3);
+                this.animateNumber('successRate', 97, '%');
+            }
+            
+            animateNumber(elementId, target, suffix = '') {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                const start = 0;
+                const duration = 2000;
+                const startTime = performance.now();
+                
+                const animate = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    const current = Math.floor(start + (target - start) * this.easeOutQuad(progress));
+                    element.textContent = current + suffix;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            }
+            
+            easeOutQuad(t) {
+                return t * (2 - t);
+            }
+            
+            async handleFileUpload(files) {
+                try {
+                    const formData = new FormData();
+                    Array.from(files).forEach(file => {
+                        formData.append('files', file);
+                    });
+                    
+                    const response = await fetch(`${this.apiBase}/upload`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        
+                        if (window.notify3D) {
+                            window.notify3D.success(`Successfully uploaded ${files.length} files!`, {
+                                title: 'Upload Complete',
+                                duration: 5000
+                            });
+                        }
+                        
+                        // Refresh dashboard data
+                        await this.loadDashboardData();
+                        
+                    } else {
+                        throw new Error('Upload failed');
+                    }
+                    
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    
+                    if (window.notify3D) {
+                        window.notify3D.error('Failed to upload files. Please try again.', {
+                            title: 'Upload Error'
+                        });
+                    }
+                }
+            }
+            
+            updateCharts(data) {
+                // Update charts with new data
+                if (this.charts.bar && data.datasets) {
+                    this.charts.bar.data = data;
+                    this.charts.bar.update();
+                }
+            }
+            
+            setupRealtimeUpdates() {
+                // Simulate real-time updates
+                setInterval(() => {
+                    // Update random stat
+                    const stats = ['totalFiles', 'totalRows', 'activeTasks'];
+                    const randomStat = stats[Math.floor(Math.random() * stats.length)];
+                    const element = document.getElementById(randomStat);
+                    
+                    if (element) {
+                        const currentValue = parseInt(element.textContent);
+                        const change = Math.floor(Math.random() * 10) - 5;
+                        const newValue = Math.max(0, currentValue + change);
+                        
+                        this.animateNumber(randomStat, newValue);
+                    }
+                }, 10000); // Update every 10 seconds
+            }
+        }
+        
+        // Initialize dashboard when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.dashboard3D = new Dashboard3D();
+        });
+    </script>
+</body>
+</html>

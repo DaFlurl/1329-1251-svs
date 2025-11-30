@@ -1,0 +1,13 @@
+This is a test file for the AgentDaf1.1 neural memory system.
+
+The memory system consists of three main components:
+
+1. Working Memory - Temporary storage for active tasks and information
+2. Episodic Memory - Stores experiences and events with context
+3. Semantic Memory - Contains facts, concepts, and general knowledge
+
+This file demonstrates how the memory system can store and retrieve different types of information.
+
+Created: 2025-11-27
+Purpose: Memory system testing
+Status: Active

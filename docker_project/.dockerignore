@@ -1,0 +1,38 @@
+# Ignore build artifacts and Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+temp/
+tmp/
+
+# Ignore Docker build files (except our main Dockerfile)
+docker-compose.override.yml
+.env
+.env.local
+
+# Include necessary files
+!src/
+!scripts/
+!requirements.txt
+!docker_startup.py
+!Dockerfile

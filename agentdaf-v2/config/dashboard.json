@@ -1,0 +1,75 @@
+{
+  "layout": {
+    "header": {
+      "show_title": true,
+      "show_stats": true,
+      "show_timestamp": true,
+      "show_controls": true
+    },
+    "scoreboard": {
+      "columns": [
+        {"field": "rank", "label": "Rank", "width": "60px", "sortable": true},
+        {"field": "name", "label": "Player Name", "width": "200px", "sortable": true},
+        {"field": "alliance", "label": "Alliance", "width": "120px", "sortable": true},
+        {"field": "score", "label": "Score", "width": "100px", "sortable": true},
+        {"field": "change", "label": "Change", "width": "80px", "sortable": true}
+      ],
+      "default_sort": "rank",
+      "items_per_page": 50,
+      "show_pagination": true,
+      "highlight_changes": true
+    },
+    "alliance_stats": {
+      "enabled": true,
+      "position": "sidebar",
+      "show_members": true,
+      "show_average_score": true,
+      "show_total_score": true
+    },
+    "filters": {
+      "enabled": true,
+      "search_placeholder": "Search players...",
+      "alliance_filter": true,
+      "score_range": true,
+      "rank_range": true
+    }
+  },
+  "theme": {
+    "primary_color": "#4a90e2",
+    "secondary_color": "#2c3e50",
+    "accent_color": "#e74c3c",
+    "background_gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    "card_background": "rgba(255, 255, 255, 0.1)",
+    "text_color": "#ffffff",
+    "border_radius": "12px",
+    "font_family": "Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
+  },
+  "features": {
+    "auto_refresh": {
+      "enabled": true,
+      "interval": 60000,
+      "show_indicator": true
+    },
+    "export": {
+      "enabled": true,
+      "formats": ["json", "csv", "excel"],
+      "include_history": false
+    },
+    "notifications": {
+      "enabled": true,
+      "sound": false,
+      "position": "top-right"
+    },
+    "animations": {
+      "enabled": true,
+      "duration": 300,
+      "easing": "ease-in-out"
+    }
+  },
+  "responsive": {
+    "mobile_breakpoint": 768,
+    "tablet_breakpoint": 1024,
+    "hide_columns_on_mobile": ["change"],
+    "compact_view_on_mobile": true
+  }
+}

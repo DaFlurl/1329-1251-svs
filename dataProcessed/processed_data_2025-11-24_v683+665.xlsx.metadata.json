@@ -1,0 +1,43 @@
+{
+  "processed_date": "2025-11-27T09:06:35.630855",
+  "original_file": "data_2025-11-24_v683+665.xlsx",
+  "file_size": 30929,
+  "data_shape": [
+    101,
+    5
+  ],
+  "columns": [
+    "Position",
+    "Name",
+    "Score",
+    "Alliance",
+    "Monarch ID"
+  ],
+  "data_types": {
+    "Position": "int64",
+    "Name": "object",
+    "Score": "float64",
+    "Alliance": "object",
+    "Monarch ID": "float64"
+  },
+  "statistics": {
+    "Position": {
+      "min": 0.0,
+      "max": 100.0,
+      "mean": 49.01980198019802,
+      "count": 101
+    },
+    "Score": {
+      "min": 0.0,
+      "max": 35119270006.0,
+      "mean": 695431089.2277228,
+      "count": 101
+    },
+    "Monarch ID": {
+      "min": 0.0,
+      "max": 337439248.0,
+      "mean": 215161497.52475247,
+      "count": 101
+    }
+  }
+}

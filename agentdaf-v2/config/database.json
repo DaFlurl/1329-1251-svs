@@ -1,0 +1,40 @@
+{
+  "database": {
+    "type": "file_based",
+    "connection_string": "sqlite:///data/dashboard.db",
+    "backup_enabled": true,
+    "backup_interval": 3600,
+    "max_connections": 10
+  },
+  "collections": {
+    "players": {
+      "index_fields": ["name", "alliance", "rank"],
+      "cache_ttl": 300
+    },
+    "alliances": {
+      "index_fields": ["name", "total_score"],
+      "cache_ttl": 600
+    },
+    "history": {
+      "retention_days": 90,
+      "compression": true,
+      "index_fields": ["timestamp", "player_name"]
+    },
+    "snapshots": {
+      "retention_count": 100,
+      "auto_cleanup": true,
+      "compression": true
+    }
+  },
+  "performance": {
+    "query_timeout": 30,
+    "connection_pool_size": 5,
+    "enable_query_cache": true,
+    "cache_size_mb": 100
+  },
+  "security": {
+    "encryption_enabled": false,
+    "backup_encryption": true,
+    "access_log": true
+  }
+}

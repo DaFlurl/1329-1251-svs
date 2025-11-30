@@ -1,0 +1,31 @@
+{
+  "name": "agentdaf1-enterprise-frontend",
+  "version": "3.0.0",
+  "description": "AgentDaf1.1 Enterprise Gaming Dashboard Frontend",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080",
+    "build": "echo 'Static build complete'",
+    "serve": "python -m http.server 8080",
+    "dev": "python -m http.server 8080"
+  },
+  "keywords": [
+    "gaming",
+    "dashboard",
+    "enterprise",
+    "analytics",
+    "real-time"
+  ],
+  "author": "AgentDaf1.1 Enterprise Team",
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^3.12.2",
+    "chart.js": "^4.4.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

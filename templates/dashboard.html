@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ dashboard.title or 'Generated Dashboard' }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .metric-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">{{ dashboard.id or 'Generated Dashboard' }}</h1>
+                    <p class="text-gray-600">Generated: {{ dashboard.created_at or 'Now' }}</p>
+                </div>
+                <a href="/" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                    Back to Home
+                </a>
+            </div>
+        </header>
+
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="metric-card">
+                <div class="metric-label">Total Records</div>
+                <div class="metric-value">{{ dashboard.data.shape[0] if dashboard.data and dashboard.data.shape else 0 }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Columns</div>
+                <div class="metric-value">{{ dashboard.data.shape[1] if dashboard.data and dashboard.data.shape else 0 }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Sheets</div>
+                <div class="metric-value">{{ dashboard.data.sheet_names|length if dashboard.data and dashboard.data.sheet_names else 0 }}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Dashboard ID</div>
+                <div class="metric-value">{{ dashboard.id or 'N/A' }}</div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        {% if dashboard.data and dashboard.data.data %}
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">Data Preview</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            {% if dashboard.data.columns %}
+                                {% for column in dashboard.data.columns[:10] %}
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {{ column }}
+                                </th>
+                                {% endfor %}
+                            {% else %}
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Data
+                                </th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for row in dashboard.data.data[:10] %}
+                        <tr>
+                            {% if dashboard.data.columns %}
+                                {% for column in dashboard.data.columns[:10] %}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ row[column] if row[column] is not none else '-' }}
+                                </td>
+                                {% endfor %}
+                            {% else %}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ row }}
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if dashboard.data.data|length > 10 %}
+            <p class="mt-4 text-sm text-gray-500">
+                Showing first 10 rows of {{ dashboard.data.data|length }} total rows
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Charts Section -->
+        <div class="bg-white rounded-lg shadow p-6 mt-8">
+            <h2 class="text-xl font-semibold mb-4">Data Visualization</h2>
+            <canvas id="dataChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard data
+        const dashboardData = {{ dashboard.data|tojson }};
+        
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+        });
+
+        function initializeCharts() {
+            const ctx = document.getElementById('dataChart').getContext('2d');
+            
+            if (dashboardData && dashboardData.shape) {
+                // Data overview chart
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Rows', 'Columns', 'Sheets'],
+                        datasets: [{
+                            label: 'Data Overview',
+                            data: [
+                                dashboardData.shape[0] || 0,
+                                dashboardData.shape[1] || 0,
+                                dashboardData.sheet_names ? dashboardData.sheet_names.length : 0
+                            ],
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.8)',
+                                'rgba(16, 185, 129, 0.8)',
+                                'rgba(139, 92, 246, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(59, 130, 246, 1)',
+                                'rgba(16, 185, 129, 1)',
+                                'rgba(139, 92, 246, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Data Overview'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Fallback chart
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['No Data'],
+                        datasets: [{
+                            label: 'No Data Available',
+                            data: [0],
+                            backgroundColor: 'rgba(156, 163, 175, 0.5)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'No Data Available'
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

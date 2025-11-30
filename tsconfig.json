@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES6"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "frontend/src/*"
+      ],
+      "@/components/*": [
+        "frontend/src/components/*"
+      ],
+      "@/pages/*": [
+        "frontend/src/pages/*"
+      ],
+      "@/hooks/*": [
+        "frontend/src/hooks/*"
+      ],
+      "@/stores/*": [
+        "frontend/src/stores/*"
+      ],
+      "@/services/*": [
+        "frontend/src/services/*"
+      ],
+      "@/types/*": [
+        "frontend/src/types/*"
+      ],
+      "@/utils/*": [
+        "frontend/src/utils/*"
+      ],
+      "@/shared/*": [
+        "shared/*"
+      ]
+    }
+  },
+  "include": [
+    "frontend/src/**/*",
+    "shared/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "deployment": {
+    "methods": {
+      "github_pages": {
+        "enabled": true,
+        "repo": "DaFlurl/1329-1251-svs",
+        "branch": "main",
+        "deploy_url": "https://daflurl.github.io/1329-1251-svs",
+        "auto_deploy": true,
+        "build_command": "npm run build",
+        "source_dir": "gitsitestylewebseite",
+        "exclude_files": [".env", "*.py", "requirements.txt", "__pycache__/", "*.log"]
+      },
+      "docker": {
+        "enabled": true,
+        "image_name": "agentdaf1/scoreboard",
+        "tag": "latest",
+        "port": 8000,
+        "expose_port": 8000,
+        "dockerfile": "Dockerfile",
+        "compose_file": "docker-compose.yml",
+        "registry": "docker.io",
+        "auto_build": true
+      },
+      "vercel": {
+        "enabled": false,
+        "project_name": "agentdaf-dashboard",
+        "framework": "static",
+        "build_command": "npm run build",
+        "output_directory": "dist",
+        "environment_variables": {}
+      },
+      "netlify": {
+        "enabled": false,
+        "site_name": "agentdaf-dashboard",
+        "build_command": "npm run build",
+        "publish_directory": "dist",
+        "environment_variables": {}
+      }
+    },
+    "environments": {
+      "development": {
+        "debug": true,
+        "minify": false,
+        "source_maps": true,
+        "hot_reload": true
+      },
+      "staging": {
+        "debug": false,
+        "minify": true,
+        "source_maps": false,
+        "hot_reload": false
+      },
+      "production": {
+        "debug": false,
+        "minify": true,
+        "source_maps": false,
+        "hot_reload": false,
+        "cache_headers": true,
+        "compression": true
+      }
+    },
+    "ci_cd": {
+      "github_actions": {
+        "enabled": true,
+        "workflow_file": ".github/workflows/deploy.yml",
+        "triggers": ["push", "pull_request"],
+        "secrets": ["GITHUB_TOKEN", "DOCKER_REGISTRY_TOKEN"]
+      },
+      "webhooks": {
+        "enabled": false,
+        "endpoints": [],
+        "secret": ""
+      }
+    },
+    "monitoring": {
+      "uptime_checks": true,
+      "performance_monitoring": true,
+      "error_tracking": true,
+      "analytics": false
+    }
+  }
+}

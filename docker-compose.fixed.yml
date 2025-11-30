@@ -1,0 +1,53 @@
+services:
+  agentdaf1-app:
+    build: .
+    container_name: agentdaf1-app
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_ENV=production
+      - HOST=0.0.0.0
+      - PORT=8080
+      - PYTHONPATH=/app
+      - DATABASE_URL=sqlite:///data/agentdaf1.db
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional Redis for caching (comment out if not needed)
+  redis:
+    image: redis:7-alpine
+    container_name: agentdaf1-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Optional Nginx reverse proxy (comment out if not needed)
+  nginx:
+    image: nginx:alpine
+    container_name: agentdaf1-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-simple.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - agentdaf1-app
+    restart: unless-stopped
+
+volumes:
+  redis_data:

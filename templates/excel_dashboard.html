@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentDaf1.1 - Massi+v+ Excel Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .massi-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,123,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .tab:hover::before {
+            left: 100%;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: white;
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            margin-bottom: -2px;
+            box-shadow: 0 -2px 10px rgba(0,123,255,0.2);
+        }
+
+        .tab-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        .tab-counter {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .chart-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chart-action-btn {
+            background: #f8f9fa;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #6c757d;
+        }
+
+        .chart-action-btn:hover {
+            background: #e9ecef;
+            color: #007bff;
+        }
+
+        .export-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        .export-menu.show {
+            display: block;
+        }
+
+        .export-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .export-option:last-child {
+            border-bottom: none;
+        }
+
+        .export-option:hover {
+            background: #f8f9fa;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .file-selector {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-selector-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .file-selector-header h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .compare-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .compare-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .compare-btn.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .file-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .file-option {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .file-option:hover {
+            border-color: #007bff;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+        }
+
+        .file-option.active {
+            border-color: #007bff;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, rgba(0, 123, 255, 0.05) 100%);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+        }
+
+        .file-option.compare-selected {
+            border-color: #28a745;
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+        }
+
+        .file-info-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .file-details {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .file-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+
+        .file-date, .file-version {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .file-action-btn {
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: #f8f9fa;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-action-btn:hover {
+            background: #007bff;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .compare-controls {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .compare-execute-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .compare-execute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .comparison-view {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .comparison-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .comparison-close {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .comparison-close:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .comparison-file {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .comparison-file h4 {
+            margin: 0 0 15px 0;
+            color: #007bff;
+            font-size: 1.1em;
+        }
+
+        .comparison-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .comparison-stat {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .comparison-stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .comparison-stat-label {
+            font-size: 0.8em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .comparison-diff {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .comparison-diff h5 {
+            margin: 0 0 10px 0;
+            color: #856404;
+        }
+
+        .diff-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #ffeaa7;
+        }
+
+        .diff-item:last-child {
+            border-bottom: none;
+        }
+
+        .diff-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .diff-value {
+            color: #856404;
+        }
+
+        .diff-positive {
+            color: #28a745;
+        }
+
+        .diff-negative {
+            color: #dc3545;
+        }
+
+        .floating-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .floating-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 1.2em;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            background: #e9ecef;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .filter-tag:hover {
+            background: #dee2e6;
+        }
+
+        .filter-tag.active {
+            background: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .table-action-btn {
+            background: none;
+            border: 1px solid #dee2e6;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #6c757d;
+        }
+
+        .table-action-btn:hover {
+            background: #f8f9fa;
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                border-bottom: 1px solid #dee2e6;
+            }
+            
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-controls {
+                bottom: 20px;
+                right: 20px;
+                top: auto;
+                flex-direction: row;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" x-data="dashboardApp()">
+        <div class="header">
+            <h1>🚀 AgentDaf1.1 Excel Dashboard <span class="massi-badge">Massi+v+</span></h1>
+            <p>Interaktive Visualisierung aller 5 Tabs der Excel-Datei mit erweiterten Features</p>
+        </div>
+
+        <div class="file-selector" x-data="fileSelector()">
+            <div class="file-selector-header">
+                <h3>📁 Excel-Datei auswählen</h3>
+                <button class="compare-btn" @click="toggleCompareMode()" :class="{active: compareMode}">
+                    <i class="fas fa-balance-scale"></i> Vergleichen
+                </button>
+            </div>
+            
+            <div class="file-options">
+                <template x-for="file in files" :key="file.id">
+                    <div class="file-option" 
+                         :class="{active: selectedFile === file.id, 'compare-selected': compareMode && compareFiles.includes(file.id)}"
+                         @click="selectFile(file.id)">
+                        <div class="file-info-card">
+                            <div class="file-icon">
+                                <i class="fas fa-file-excel"></i>
+                            </div>
+                            <div class="file-details">
+                                <div class="file-name" x-text="file.name"></div>
+                                <div class="file-meta">
+                                    <span class="file-date" x-text="file.date"></span>
+                                    <span class="file-version" x-text="file.version"></span>
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <button class="file-action-btn" @click.stop="previewFile(file.id)" title="Vorschau">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="file-action-btn" @click.stop="downloadFile(file.id)" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            
+            <div class="compare-controls" x-show="compareMode && compareFiles.length === 2">
+                <button class="compare-execute-btn" @click="executeCompare()">
+                    <i class="fas fa-chart-bar"></i> Dateien vergleichen
+                </button>
+            </div>
+        </div>
+
+        <div class="comparison-view" x-show="comparisonMode" x-data="comparisonView()">
+            <div class="comparison-header">
+                <h3 class="comparison-title">📊 Dateivergleich</h3>
+                <button class="comparison-close" @click="closeComparison()">
+                    <i class="fas fa-times"></i> Schließen
+                </button>
+            </div>
+            
+            <div class="comparison-grid">
+                <template x-for="file in comparisonFiles" :key="file.id">
+                    <div class="comparison-file">
+                        <h4 x-text="file.name"></h4>
+                        <div class="comparison-stats">
+                            <div class="comparison-stat">
+                                <div class="comparison-stat-value" x-text="file.totalRows"></div>
+                                <div class="comparison-stat-label">Gesamteinträge</div>
+                            </div>
+                            <div class="comparison-stat">
+                                <div class="comparison-stat-value" x-text="file.totalSheets"></div>
+                                <div class="comparison-stat-label">Tabs</div>
+                            </div>
+                            <div class="comparison-stat">
+                                <div class="comparison-stat-value" x-text="file.date"></div>
+                                <div class="comparison-stat-label">Datum</div>
+                            </div>
+                            <div class="comparison-stat">
+                                <div class="comparison-stat-value" x-text="file.version"></div>
+                                <div class="comparison-stat-label">Version</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            
+            <div class="comparison-diff" x-show="differences.length > 0">
+                <h5>🔍 Unterschiede</h5>
+                <template x-for="diff in differences" :key="diff.tab">
+                    <div class="diff-item">
+                        <span class="diff-label" x-text="diff.tab"></span>
+                        <span class="diff-value">
+                            <span class="diff-negative" x-text="'-' + diff.old"></span>
+                            <span> → </span>
+                            <span class="diff-positive" x-text="'+' + diff.new"></span>
+                        </span>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="search-container" x-show="!comparisonMode">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" x-model="searchQuery" placeholder="Daten durchsuchen..." @input="filterData()">
+        </div>
+
+        <div class="filter-tags">
+            <span class="filter-tag" :class="{active: activeFilter === 'all'}" @click="setFilter('all')">Alle</span>
+            <span class="filter-tag" :class="{active: activeFilter === 'numeric'}" @click="setFilter('numeric')">Numerisch</span>
+            <span class="filter-tag" :class="{active: activeFilter === 'text'}" @click="setFilter('text')">Text</span>
+            <span class="filter-tag" :class="{active: activeFilter === 'empty'}" @click="setFilter('empty')">Leere Werte</span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab" :class="{active: activeTab === 'positive'}" @click="showTab('positive')">
+                <i class="fas fa-smile tab-icon"></i>Positive
+                <span class="tab-counter" x-text="getTabCount('positive')"></span>
+            </button>
+            <button class="tab" :class="{active: activeTab === 'negative'}" @click="showTab('negative')">
+                <i class="fas fa-frown tab-icon"></i>Negative
+                <span class="tab-counter" x-text="getTabCount('negative')"></span>
+            </button>
+            <button class="tab" :class="{active: activeTab === 'combined'}" @click="showTab('combined')">
+                <i class="fas fa-layer-group tab-icon"></i>Combined
+                <span class="tab-counter" x-text="getTabCount('combined')"></span>
+            </button>
+            <button class="tab" :class="{active: activeTab === 'alliance'}" @click="showTab('alliance')">
+                <i class="fas fa-handshake tab-icon"></i>Alliance
+                <span class="tab-counter" x-text="getTabCount('alliance')"></span>
+            </button>
+            <button class="tab" :class="{active: activeTab === 'allmonarchs'}" @click="showTab('allmonarchs')">
+                <i class="fas fa-crown tab-icon"></i>All Monarchs
+                <span class="tab-counter" x-text="getTabCount('allmonarchs')"></span>
+            </button>
+        </div>
+
+        <div id="positive" class="tab-content" :class="{active: activeTab === 'positive'}">
+            <div class="loading" x-show="!allData.Positive">
+                <div class="spinner"></div>
+                <p>Lade Positive Daten...</p>
+            </div>
+            <div x-show="allData.Positive" x-html="getTabContent('positive')"></div>
+        </div>
+
+        <div id="negative" class="tab-content" :class="{active: activeTab === 'negative'}">
+            <div class="loading" x-show="!allData.Negative">
+                <div class="spinner"></div>
+                <p>Lade Negative Daten...</p>
+            </div>
+            <div x-show="allData.Negative" x-html="getTabContent('negative')"></div>
+        </div>
+
+        <div id="combined" class="tab-content" :class="{active: activeTab === 'combined'}">
+            <div class="loading" x-show="!allData.Combined">
+                <div class="spinner"></div>
+                <p>Lade Combined Daten...</p>
+            </div>
+            <div x-show="allData.Combined" x-html="getTabContent('combined')"></div>
+        </div>
+
+        <div id="alliance" class="tab-content" :class="{active: activeTab === 'alliance'}">
+            <div class="loading" x-show="!allData.Alliance">
+                <div class="spinner"></div>
+                <p>Lade Alliance Daten...</p>
+            </div>
+            <div x-show="allData.Alliance" x-html="getTabContent('alliance')"></div>
+        </div>
+
+        <div id="allmonarchs" class="tab-content" :class="{active: activeTab === 'allmonarchs'}">
+            <div class="loading" x-show="!allData['All Monarchs']">
+                <div class="spinner"></div>
+                <p>Lade All Monarchs Daten...</p>
+            </div>
+            <div x-show="allData['All Monarchs']" x-html="getTabContent('allmonarchs')"></div>
+        </div>
+    </div>
+
+    <div class="floating-controls">
+        <button class="floating-btn" @click="refreshData()" title="Daten aktualisieren">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+        <button class="floating-btn" @click="exportData()" title="Daten exportieren">
+            <i class="fas fa-download"></i>
+        </button>
+        <button class="floating-btn" @click="toggleTheme()" title="Theme wechseln">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="floating-btn" @click="showSettings()" title="Einstellungen">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
+    <script>
+        function fileSelector() {
+            return {
+                files: [],
+                selectedFile: 'default',
+                compareMode: false,
+                compareFiles: [],
+                
+                async init() {
+                    await this.loadFiles();
+                },
+                
+                async loadFiles() {
+                    try {
+                        const response = await fetch('/api/excel-files');
+                        const data = await response.json();
+                        this.files = data.files;
+                    } catch (error) {
+                        console.error('Error loading files:', error);
+                    }
+                },
+                
+                selectFile(fileId) {
+                    if (this.compareMode) {
+                        const index = this.compareFiles.indexOf(fileId);
+                        if (index > -1) {
+                            this.compareFiles.splice(index, 1);
+                        } else if (this.compareFiles.length < 2) {
+                            this.compareFiles.push(fileId);
+                        }
+                    } else {
+                        this.selectedFile = fileId;
+                        this.$dispatch('file-selected', { fileId });
+                    }
+                },
+                
+                toggleCompareMode() {
+                    this.compareMode = !this.compareMode;
+                    this.compareFiles = [];
+                },
+                
+                previewFile(fileId) {
+                    // Preview functionality
+                    console.log('Preview file:', fileId);
+                },
+                
+                downloadFile(fileId) {
+                    const file = this.files.find(f => f.id === fileId);
+                    if (file) {
+                        window.open(`/api/download-excel?file=${fileId}`, '_blank');
+                    }
+                },
+                
+                executeCompare() {
+                    if (this.compareFiles.length === 2) {
+                        this.$dispatch('compare-files', { files: this.compareFiles });
+                    }
+                }
+            }
+        }
+
+        function comparisonView() {
+            return {
+                comparisonMode: false,
+                comparisonFiles: [],
+                differences: [],
+                
+                init() {
+                    this.$watch('comparisonMode', (value) => {
+                        if (!value) {
+                            this.comparisonFiles = [];
+                            this.differences = [];
+                        }
+                    });
+                },
+                
+                showComparison(files) {
+                    this.comparisonMode = true;
+                    this.comparisonFiles = files;
+                    this.calculateDifferences();
+                },
+                
+                closeComparison() {
+                    this.comparisonMode = false;
+                },
+                
+                calculateDifferences() {
+                    if (this.comparisonFiles.length !== 2) return;
+                    
+                    const file1 = this.comparisonFiles[0];
+                    const file2 = this.comparisonFiles[1];
+                    
+                    this.differences = [];
+                    
+                    // Compare each tab
+                    const tabs = ['Positive', 'Negative', 'Combined', 'Alliance', 'All Monarchs'];
+                    tabs.forEach(tab => {
+                        const count1 = file1[tab.toLowerCase()] || 0;
+                        const count2 = file2[tab.toLowerCase()] || 0;
+                        
+                        if (count1 !== count2) {
+                            this.differences.push({
+                                tab: tab,
+                                old: count1,
+                                new: count2
+                            });
+                        }
+                    });
+                }
+            }
+        }
+
+        function dashboardApp() {
+            return {
+                allData: {},
+                activeTab: 'positive',
+                searchQuery: '',
+                activeFilter: 'all',
+                isDarkMode: false,
+                charts: {},
+                selectedFile: 'default',
+                comparisonMode: false,
+                
+                async init() {
+                    await this.loadExcelData();
+                    this.startAutoRefresh();
+                    
+                    // Listen for file selection events
+                    this.$el.addEventListener('file-selected', (e) => {
+                        this.selectedFile = e.detail.fileId;
+                        this.loadExcelData();
+                    });
+                    
+                    // Listen for comparison events
+                    this.$el.addEventListener('compare-files', (e) => {
+                        this.compareFiles(e.detail.files);
+                    });
+                },
+                
+                async loadExcelData() {
+                    try {
+                        const response = await fetch(`/api/excel-data?file=${this.selectedFile}`);
+                        this.allData = await response.json();
+                        
+                        // Store metadata
+                        this.metadata = this.allData._metadata;
+                        delete this.allData._metadata;
+                        
+                        // Initialize first tab
+                        this.$nextTick(() => {
+                            this.loadTabData('positive');
+                        });
+                        
+                    } catch (error) {
+                        console.error('Fehler beim Laden der Daten:', error);
+                        this.showError('Fehler beim Laden der Daten');
+                    }
+                },
+                
+                async compareFiles(fileIds) {
+                    try {
+                        const [file1, file2] = await Promise.all([
+                            fetch(`/api/excel-data?file=${fileIds[0]}`).then(r => r.json()),
+                            fetch(`/api/excel-data?file=${fileIds[1]}`).then(r => r.json())
+                        ]);
+                        
+                        // Show comparison view
+                        const comparisonView = Alpine.store('comparison');
+                        if (comparisonView) {
+                            const files = [
+                                {
+                                    ...file1._metadata,
+                                    ...this.extractTabCounts(file1)
+                                },
+                                {
+                                    ...file2._metadata,
+                                    ...this.extractTabCounts(file2)
+                                }
+                            ];
+                            comparisonView.showComparison(files);
+                        }
+                        
+                    } catch (error) {
+                        console.error('Error comparing files:', error);
+                    }
+                },
+                
+                extractTabCounts(data) {
+                    const counts = {};
+                    const tabs = ['Positive', 'Negative', 'Combined', 'Alliance', 'All Monarchs'];
+                    tabs.forEach(tab => {
+                        counts[tab.toLowerCase()] = data[tab] ? data[tab].length : 0;
+                    });
+                    return counts;
+                },
+                
+                loadTabData(tabId) {
+                    const data = this.allData[this.getTabKey(tabId)];
+                    if (!data || data.length === 0) {
+                        return '<div class="loading"><p>Keine Daten verfügbar</p></div>';
+                    }
+
+                    const filteredData = this.applyFilters(data);
+                    const columns = Object.keys(data[0]);
+                    const numericColumns = columns.filter(col => 
+                        data.some(row => !isNaN(parseFloat(row[col])))
+                    );
+
+                    let html = '';
+
+                    // Enhanced Stats Cards
+                    html += '<div class="stats-grid">';
+                    html += `<div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-number">${filteredData.length}</div>
+                        <div class="stat-label">Gesamteinträge</div>
+                    </div>`;
+                    html += `<div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-number">${columns.length}</div>
+                        <div class="stat-label">Spalten</div>
+                    </div>`;
+                    html += `<div class="stat-card">
+                        <div class="stat-icon">🔢</div>
+                        <div class="stat-number">${numericColumns.length}</div>
+                        <div class="stat-label">Numerische Spalten</div>
+                    </div>`;
+                    html += `<div class="stat-card">
+                        <div class="stat-icon">🔍</div>
+                        <div class="stat-number">${this.searchQuery ? 'Gefiltert' : 'Alle'}</div>
+                        <div class="stat-label">Suchstatus</div>
+                    </div>`;
+                    html += '</div>';
+
+                    // Enhanced Charts
+                    if (numericColumns.length > 0) {
+                        html += '<div class="chart-grid">';
+                        
+                        const firstNumericCol = numericColumns[0];
+                        html += `<div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">📊 ${firstNumericCol} Verteilung</h3>
+                                <div class="chart-actions">
+                                    <button class="chart-action-btn" onclick="downloadChart('${tabId}-bar-chart')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="chart-action-btn" onclick="toggleChartType('${tabId}-bar-chart')">
+                                        <i class="fas fa-chart-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <canvas id="${tabId}-bar-chart"></canvas>
+                        </div>`;
+
+                        const categoricalCol = columns.find(col => 
+                            !numericColumns.includes(col) && filteredData.some(row => row[col])
+                        );
+                        if (categoricalCol) {
+                            html += `<div class="chart-container">
+                                <div class="chart-header">
+                                    <h3 class="chart-title">🥧 ${categoricalCol} Verteilung</h3>
+                                    <div class="chart-actions">
+                                        <button class="chart-action-btn" onclick="downloadChart('${tabId}-pie-chart')">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <canvas id="${tabId}-pie-chart"></canvas>
+                            </div>`;
+                        }
+                        
+                        html += '</div>';
+                    }
+
+                    // Enhanced Data Table
+                    html += '<div class="data-table">';
+                    html += '<div class="table-header">';
+                    html += `<div class="table-title">📋 Datentabelle (${filteredData.length} Einträge)</div>`;
+                    html += '<div class="table-actions">';
+                    html += '<button class="table-action-btn" onclick="exportTable(\'' + tabId + '\')"><i class="fas fa-file-excel"></i></button>';
+                    html += '<button class="table-action-btn" onclick="printTable(\'' + tabId + '\')"><i class="fas fa-print"></i></button>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<div class="table-container">';
+                    html += '<table>';
+                    html += '<thead><tr>';
+                    columns.forEach(col => {
+                        html += `<th onclick="sortTable('${tabId}', '${col}')" style="cursor: pointer;">${col} <i class="fas fa-sort"></i></th>`;
+                    });
+                    html += '</tr></thead>';
+                    html += '<tbody>';
+                    
+                    filteredData.slice(0, 100).forEach((row, index) => {
+                        html += '<tr>';
+                        columns.forEach(col => {
+                            const value = row[col] !== null ? row[col] : '';
+                            const highlighted = this.searchQuery && value.toString().toLowerCase().includes(this.searchQuery.toLowerCase());
+                            html += `<td>${highlighted ? '<mark>' + value + '</mark>' : value}</td>`;
+                        });
+                        html += '</tr>';
+                    });
+                    
+                    if (filteredData.length > 100) {
+                        html += `<tr><td colspan="${columns.length}" style="text-align: center; font-style: italic;">
+                            ... und ${filteredData.length - 100} weitere Zeilen
+                        </td></tr>`;
+                    }
+                    
+                    html += '</tbody></table>';
+                    html += '</div></div>';
+
+                    return html;
+                },
+                
+                getTabContent(tabId) {
+                    return this.loadTabData(tabId);
+                },
+                
+                getTabKey(tabId) {
+                    const keyMap = {
+                        'positive': 'Positive',
+                        'negative': 'Negative',
+                        'combined': 'Combined',
+                        'alliance': 'Alliance',
+                        'allmonarchs': 'All Monarchs'
+                    };
+                    return keyMap[tabId];
+                },
+                
+                getTabCount(tabId) {
+                    const data = this.allData[this.getTabKey(tabId)];
+                    return data ? data.length : 0;
+                },
+                
+                showTab(tabId) {
+                    this.activeTab = tabId;
+                    this.$nextTick(() => {
+                        this.loadTabData(tabId);
+                        this.createCharts(tabId);
+                    });
+                },
+                
+                applyFilters(data) {
+                    let filtered = data;
+                    
+                    // Search filter
+                    if (this.searchQuery) {
+                        filtered = filtered.filter(row => 
+                            Object.values(row).some(value => 
+                                value && value.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+                            )
+                        );
+                    }
+                    
+                    // Type filter
+                    if (this.activeFilter !== 'all') {
+                        filtered = filtered.filter(row => {
+                            switch(this.activeFilter) {
+                                case 'numeric':
+                                    return Object.values(row).some(value => !isNaN(parseFloat(value)));
+                                case 'text':
+                                    return Object.values(row).some(value => isNaN(parseFloat(value)) && value);
+                                case 'empty':
+                                    return Object.values(row).some(value => !value || value === '');
+                                default:
+                                    return true;
+                            }
+                        });
+                    }
+                    
+                    return filtered;
+                },
+                
+                setFilter(filter) {
+                    this.activeFilter = filter;
+                    this.$nextTick(() => {
+                        this.loadTabData(this.activeTab);
+                    });
+                },
+                
+                filterData() {
+                    this.$nextTick(() => {
+                        this.loadTabData(this.activeTab);
+                    });
+                },
+                
+                createCharts(tabId) {
+                    const data = this.allData[this.getTabKey(tabId)];
+                    if (!data) return;
+                    
+                    const columns = Object.keys(data[0]);
+                    const numericColumns = columns.filter(col => 
+                        data.some(row => !isNaN(parseFloat(row[col])))
+                    );
+                    
+                    setTimeout(() => {
+                        if (numericColumns.length > 0) {
+                            this.createBarChart(tabId, data, numericColumns[0]);
+                        }
+                        const categoricalCol = columns.find(col => 
+                            !numericColumns.includes(col) && data.some(row => row[col])
+                        );
+                        if (categoricalCol) {
+                            this.createPieChart(tabId, data, categoricalCol);
+                        }
+                    }, 100);
+                },
+                
+                createBarChart(tabId, data, column) {
+                    const ctx = document.getElementById(`${tabId}-bar-chart`);
+                    if (!ctx) return;
+
+                    const values = data.map(row => parseFloat(row[column]) || 0);
+                    const labels = data.map((row, index) => `Eintrag ${index + 1}`);
+
+                    if (this.charts[`${tabId}-bar-chart`]) {
+                        this.charts[`${tabId}-bar-chart`].destroy();
+                    }
+
+                    this.charts[`${tabId}-bar-chart`] = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels.slice(0, 20),
+                            datasets: [{
+                                label: column,
+                                data: values.slice(0, 20),
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    display: true
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+                
+                createPieChart(tabId, data, column) {
+                    const ctx = document.getElementById(`${tabId}-pie-chart`);
+                    if (!ctx) return;
+
+                    const counts = {};
+                    data.forEach(row => {
+                        const value = row[column];
+                        if (value) {
+                            counts[value] = (counts[value] || 0) + 1;
+                        }
+                    });
+
+                    const labels = Object.keys(counts).slice(0, 10);
+                    const values = labels.map(label => counts[label]);
+
+                    if (this.charts[`${tabId}-pie-chart`]) {
+                        this.charts[`${tabId}-pie-chart`].destroy();
+                    }
+
+                    this.charts[`${tabId}-pie-chart`] = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: [
+                                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                                    '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF',
+                                    '#4BC0C0', '#FF6384'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                },
+                
+                refreshData() {
+                    this.loadExcelData();
+                },
+                
+                exportData() {
+                    const data = this.allData[this.getTabKey(this.activeTab)];
+                    if (!data) return;
+                    
+                    const csv = this.convertToCSV(data);
+                    const blob = new Blob([csv], { type: 'text/csv' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${this.activeTab}_data.csv`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                },
+                
+                convertToCSV(data) {
+                    if (!data || data.length === 0) return '';
+                    
+                    const columns = Object.keys(data[0]);
+                    const csvRows = [columns.join(',')];
+                    
+                    data.forEach(row => {
+                        const values = columns.map(col => {
+                            const value = row[col] || '';
+                            return `"${value.toString().replace(/"/g, '""')}"`;
+                        });
+                        csvRows.push(values.join(','));
+                    });
+                    
+                    return csvRows.join('\n');
+                },
+                
+                toggleTheme() {
+                    this.isDarkMode = !this.isDarkMode;
+                    document.body.classList.toggle('dark-theme');
+                },
+                
+                showSettings() {
+                    alert('Einstellungen werden in der nächsten Version verfügbar sein!');
+                },
+                
+                startAutoRefresh() {
+                    setInterval(() => {
+                        this.refreshData();
+                    }, 30000); // Refresh every 30 seconds
+                },
+                
+                showError(message) {
+                    console.error(message);
+                    // Could show a toast notification here
+                }
+            }
+        }
+
+        function loadTabData(tabId, data) {
+            const container = document.getElementById(tabId);
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="loading"><p>Keine Daten verfügbar</p></div>';
+                return;
+            }
+
+            const columns = Object.keys(data[0]);
+            const numericColumns = columns.filter(col => 
+                data.some(row => !isNaN(parseFloat(row[col])))
+            );
+
+            let html = '';
+
+            // Stats Cards
+            html += '<div class="stats-grid">';
+            html += `<div class="stat-card">
+                <div class="stat-number">${data.length}</div>
+                <div class="stat-label">Gesamteinträge</div>
+            </div>`;
+            html += `<div class="stat-card">
+                <div class="stat-number">${columns.length}</div>
+                <div class="stat-label">Spalten</div>
+            </div>`;
+            html += `<div class="stat-card">
+                <div class="stat-number">${numericColumns.length}</div>
+                <div class="stat-label">Numerische Spalten</div>
+            </div>`;
+            html += '</div>';
+
+            // Charts
+            if (numericColumns.length > 0) {
+                html += '<div class="chart-grid">';
+                
+                // Bar Chart für erste numerische Spalte
+                const firstNumericCol = numericColumns[0];
+                html += `<div class="chart-container">
+                    <h3>📊 ${firstNumericCol} Verteilung</h3>
+                    <canvas id="${tabId}-bar-chart"></canvas>
+                </div>`;
+
+                // Pie Chart für kategorische Daten
+                const categoricalCol = columns.find(col => 
+                    !numericColumns.includes(col) && data.some(row => row[col])
+                );
+                if (categoricalCol) {
+                    html += `<div class="chart-container">
+                        <h3>🥧 ${categoricalCol} Verteilung</h3>
+                        <canvas id="${tabId}-pie-chart"></canvas>
+                    </div>`;
+                }
+                
+                html += '</div>';
+            }
+
+            // Data Table
+            html += '<div class="data-table">';
+            html += '<div class="table-container">';
+            html += '<table>';
+            html += '<thead><tr>';
+            columns.forEach(col => {
+                html += `<th>${col}</th>`;
+            });
+            html += '</tr></thead>';
+            html += '<tbody>';
+            
+            data.slice(0, 100).forEach(row => {
+                html += '<tr>';
+                columns.forEach(col => {
+                    html += `<td>${row[col] !== null ? row[col] : ''}</td>`;
+                });
+                html += '</tr>';
+            });
+            
+            if (data.length > 100) {
+                html += `<tr><td colspan="${columns.length}" style="text-align: center; font-style: italic;">
+                    ... und ${data.length - 100} weitere Zeilen
+                </td></tr>`;
+            }
+            
+            html += '</tbody></table>';
+            html += '</div></div>';
+
+            container.innerHTML = html;
+
+            // Charts erstellen
+            setTimeout(() => {
+                if (numericColumns.length > 0) {
+                    createBarChart(tabId, data, numericColumns[0]);
+                }
+                if (columns.find(col => !numericColumns.includes(col))) {
+                    const categoricalCol = columns.find(col => 
+                        !numericColumns.includes(col) && data.some(row => row[col])
+                    );
+                    if (categoricalCol) {
+                        createPieChart(tabId, data, categoricalCol);
+                    }
+                }
+            }, 100);
+        }
+
+        function createBarChart(tabId, data, column) {
+            const ctx = document.getElementById(`${tabId}-bar-chart`);
+            if (!ctx) return;
+
+            const values = data.map(row => parseFloat(row[column]) || 0);
+            const labels = data.map((row, index) => `Eintrag ${index + 1}`);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels.slice(0, 20),
+                    datasets: [{
+                        label: column,
+                        data: values.slice(0, 20),
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function createPieChart(tabId, data, column) {
+            const ctx = document.getElementById(`${tabId}-pie-chart`);
+            if (!ctx) return;
+
+            const counts = {};
+            data.forEach(row => {
+                const value = row[column];
+                if (value) {
+                    counts[value] = (counts[value] || 0) + 1;
+                }
+            });
+
+            const labels = Object.keys(counts).slice(0, 10);
+            const values = labels.map(label => counts[label]);
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                            '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF',
+                            '#4BC0C0', '#FF6384'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Global functions for chart interactions
+        function downloadChart(chartId) {
+            const canvas = document.getElementById(chartId);
+            if (canvas) {
+                const url = canvas.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${chartId}.png`;
+                a.click();
+            }
+        }
+
+        function toggleChartType(chartId) {
+            // Toggle between bar and line chart
+            console.log('Toggle chart type:', chartId);
+        }
+
+        function exportTable(tabId) {
+            const app = Alpine.store('dashboard');
+            if (app) {
+                app.exportData();
+            }
+        }
+
+        function printTable(tabId) {
+            window.print();
+        }
+
+        function sortTable(tabId, column) {
+            console.log('Sort table:', tabId, column);
+        }
+
+        // Initialize Alpine.js
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('dashboardApp', dashboardApp);
+            Alpine.data('fileSelector', fileSelector);
+            Alpine.data('comparisonView', comparisonView);
+            Alpine.store('dashboard', dashboardApp());
+            Alpine.store('comparison', comparisonView());
+        });
+    </script>
+</body>
+</html>

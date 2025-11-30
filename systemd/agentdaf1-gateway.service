@@ -1,0 +1,15 @@
+[Unit]
+Description=AgentDaf1.1 API Gateway
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/agentdaf1
+ExecStart=/usr/bin/docker-compose -f docker-compose.enterprise.yml -p agentdaf1-enterprise up -d gateway
+ExecStop=/usr/bin/docker-compose -f docker-compose.enterprise.yml -p agentdaf1-enterprise stop gateway
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

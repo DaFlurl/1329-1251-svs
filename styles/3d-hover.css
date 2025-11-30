@@ -1,0 +1,459 @@
+/* 3D Hover Effects Throughout Interface */
+
+/* Base 3D Hover Effect */
+.hover-3d {
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.hover-3d:hover {
+    transform: translateZ(20px) scale(1.02);
+}
+
+.hover-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1));
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    transform: translateZ(-10px);
+    pointer-events: none;
+}
+
+.hover-3d:hover::before {
+    opacity: 1;
+}
+
+/* Button 3D Hover Effects */
+.btn-3d {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+    transform: translateZ(5px);
+}
+
+.btn-3d:hover::before {
+    left: 100%;
+}
+
+.btn-3d:hover {
+    transform: translateZ(15px) translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(96, 165, 250, 0.5);
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+.btn-3d:active {
+    transform: translateZ(5px) translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(96, 165, 250, 0.4);
+}
+
+/* Card 3D Hover Effects */
+.card-3d {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6);
+    transform: translateZ(10px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.card-3d:hover {
+    transform: translateZ(30px) rotateX(5deg) rotateY(-5deg);
+    border-color: rgba(96, 165, 250, 0.5);
+    box-shadow: 0 20px 60px rgba(96, 165, 250, 0.3);
+}
+
+.card-3d:hover::before {
+    opacity: 1;
+}
+
+/* Input 3D Hover Effects */
+.input-3d {
+    background: rgba(15, 23, 42, 0.8);
+    border: 2px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: #e2e8f0;
+    font-size: 1rem;
+    transform-style: preserve-3d;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+
+.input-3d:focus {
+    outline: none;
+    border-color: rgba(96, 165, 250, 0.6);
+    transform: translateZ(10px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(96, 165, 250, 0.2);
+    background: rgba(15, 23, 42, 0.95);
+}
+
+.input-3d:hover {
+    border-color: rgba(96, 165, 250, 0.4);
+    transform: translateZ(5px);
+}
+
+/* Link 3D Hover Effects */
+.link-3d {
+    color: #60a5fa;
+    text-decoration: none;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.link-3d::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    transform: translateZ(-5px);
+    transition: width 0.4s ease;
+}
+
+.link-3d:hover {
+    transform: translateZ(8px) scale(1.05);
+    color: #a78bfa;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.link-3d:hover::before {
+    width: 100%;
+}
+
+/* Image 3D Hover Effects */
+.img-3d {
+    border-radius: 12px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.img-3d img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s ease;
+    transform: translateZ(0);
+}
+
+.img-3d:hover {
+    transform: translateZ(20px) rotateY(5deg);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.img-3d:hover img {
+    transform: translateZ(30px) scale(1.1);
+}
+
+/* Table Row 3D Hover Effects */
+.tr-3d {
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tr-3d:hover {
+    transform: translateZ(10px) scale(1.01);
+    background: linear-gradient(90deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1));
+}
+
+.tr-3d::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    transform: translateZ(-5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tr-3d:hover::before {
+    opacity: 1;
+}
+
+/* Badge 3D Hover Effects */
+.badge-3d {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.badge-3d:hover {
+    transform: translateZ(8px) scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress Bar 3D Hover Effects */
+.progress-3d {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.progress-3d:hover {
+    transform: translateZ(5px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.progress-3d-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    border-radius: 4px;
+    transform: translateZ(3px);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.progress-3d:hover .progress-3d-fill {
+    transform: translateZ(8px);
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+}
+
+/* Modal 3D Hover Effects */
+.modal-3d {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.modal-3d:hover {
+    transform: translateZ(40px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+
+/* Dropdown 3D Hover Effects */
+.dropdown-3d {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    transform-style: preserve-3d;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.dropdown-3d:hover {
+    transform: translateZ(15px) scale(1.02);
+    border-color: rgba(96, 165, 250, 0.4);
+    box-shadow: 0 15px 40px rgba(96, 165, 250, 0.2);
+}
+
+/* Tab 3D Hover Effects */
+.tab-3d {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px 8px 0 0;
+    color: #94a3b8;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.tab-3d:hover {
+    transform: translateZ(10px) translateY(-2px);
+    background: rgba(96, 165, 250, 0.1);
+    border-color: rgba(96, 165, 250, 0.3);
+    color: #e2e8f0;
+}
+
+.tab-3d.active {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2));
+    border-color: rgba(96, 165, 250, 0.5);
+    color: #ffffff;
+    transform: translateZ(15px) translateY(-4px);
+}
+
+/* Tooltip 3D Hover Effects */
+.tooltip-3d {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.tooltip-3d-content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateZ(-20px);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    color: #e2e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    margin-bottom: 0.5rem;
+}
+
+.tooltip-3d:hover .tooltip-3d-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateZ(20px);
+}
+
+/* Sidebar 3D Hover Effects */
+.sidebar-3d {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(148, 163, 184, 0.2);
+    transform-style: preserve-3d;
+    transition: all 0.6s ease;
+}
+
+.sidebar-3d:hover {
+    transform: translateZ(20px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer 3D Hover Effects */
+.footer-3d {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    transform-style: preserve-3d;
+    transition: all 0.6s ease;
+}
+
+.footer-3d:hover {
+    transform: translateZ(10px);
+}
+
+/* Responsive 3D Hover Effects */
+@media (max-width: 768px) {
+    .hover-3d:hover,
+    .btn-3d:hover,
+    .card-3d:hover,
+    .input-3d:focus,
+    .img-3d:hover,
+    .modal-3d:hover {
+        transform: none;
+    }
+    
+    .btn-3d:hover {
+        transform: scale(1.02);
+    }
+    
+    .card-3d:hover {
+        box-shadow: 0 10px 30px rgba(96, 165, 250, 0.2);
+    }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .hover-3d,
+    .btn-3d,
+    .card-3d,
+    .input-3d,
+    .link-3d,
+    .img-3d,
+    .tr-3d,
+    .badge-3d,
+    .progress-3d,
+    .modal-3d,
+    .dropdown-3d,
+    .tab-3d,
+    .sidebar-3d,
+    .footer-3d {
+        transition: none;
+        transform: none;
+    }
+    
+    .hover-3d:hover,
+    .btn-3d:hover,
+    .card-3d:hover,
+    .input-3d:focus,
+    .img-3d:hover,
+    .modal-3d:hover {
+        transform: none;
+    }
+}
+
+/* GPU Acceleration */
+.hover-3d,
+.btn-3d,
+.card-3d,
+.input-3d,
+.link-3d,
+.img-3d,
+.tr-3d,
+.badge-3d,
+.progress-3d,
+.modal-3d,
+.dropdown-3d,
+.tab-3d,
+.sidebar-3d,
+.footer-3d {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}

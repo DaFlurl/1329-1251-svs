@@ -1,0 +1,53 @@
+{
+  "summary": {
+    "total": 6,
+    "passed": 4,
+    "failed": 2,
+    "warnings": 0,
+    "timestamp": "2025-11-27T17:25:01.668174"
+  },
+  "tests": [
+    {
+      "test_name": "LSP Bridge Initialization",
+      "status": "PASS",
+      "details": "LSP Bridge initialized successfully",
+      "duration": 2.9e-05,
+      "timestamp": "2025-11-27T17:24:53.512719"
+    },
+    {
+      "test_name": "MCP Client Initialization",
+      "status": "PASS",
+      "details": "MCP Client initialized successfully",
+      "duration": 1e-05,
+      "timestamp": "2025-11-27T17:24:53.512753"
+    },
+    {
+      "test_name": "Language Server Capabilities",
+      "status": "PASS",
+      "details": "Analysis completed, 1 completions found",
+      "duration": 0.001554,
+      "timestamp": "2025-11-27T17:24:53.514323"
+    },
+    {
+      "test_name": "MCP-LSP Interface",
+      "status": "FAIL",
+      "details": "Exception: MCPLSPIntegrationTest.test_mcp_lsp_interface.<locals>.<lambda>() takes 0 positional arguments but 1 was given",
+      "duration": 3.3e-05,
+      "timestamp": "2025-11-27T17:24:53.514376"
+    },
+    {
+      "test_name": "Code Analysis Workflow",
+      "status": "PASS",
+      "details": "Successfully analyzed 3/3 files",
+      "duration": 0.000845,
+      "timestamp": "2025-11-27T17:24:53.515237"
+    },
+    {
+      "test_name": "MCP Server Connectivity",
+      "status": "FAIL",
+      "details": "No MCP servers are available",
+      "duration": 8.151533,
+      "timestamp": "2025-11-27T17:25:01.666789"
+    }
+  ]
+}

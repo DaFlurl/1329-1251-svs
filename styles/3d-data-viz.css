@@ -1,0 +1,447 @@
+/* AgentDaf1.1 - 3D Data Visualization Styles */
+/* Enhanced styles for 3D charts and data components */
+
+.dashboard-3d {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--space-xl);
+    padding: var(--space-lg);
+    transform-style: preserve-3d;
+    perspective: var(--perspective-3d-strong);
+}
+
+.chart-container-3d {
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-3d-medium);
+    transform-style: preserve-3d;
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    transform: var(--depth-1);
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-container-3d:hover {
+    transform: var(--depth-3) rotateX(-2deg) rotateY(2deg) scale(1.02);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+.chart-container-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon), var(--accent-neon));
+    transform: scaleX(0);
+    transition: transform var(--anim-3d-normal) var(--ease-3d-smooth);
+}
+
+.chart-container-3d:hover::before {
+    transform: scaleX(1);
+}
+
+/* Summary Cards 3D */
+.summary-grid-3d {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    transform-style: preserve-3d;
+}
+
+.summary-card-3d {
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    transform: var(--depth-1);
+    box-shadow: var(--shadow-3d-small);
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card-3d::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all var(--anim-3d-slow) var(--ease-3d-smooth);
+    opacity: 0;
+}
+
+.summary-card-3d:hover {
+    transform: var(--depth-3) rotateX(-5deg) rotateY(5deg) scale(1.05);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+.summary-card-3d:hover::before {
+    opacity: 1;
+    animation: shimmer-sweep 1s ease-out;
+}
+
+.summary-value-3d {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-sm);
+    transform: var(--depth-1);
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+}
+
+.summary-label-3d {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+/* Chart Loading Animation */
+.chart-loading-3d {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    transform-style: preserve-3d;
+}
+
+.chart-loading-3d::before,
+.chart-loading-3d::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-top-color: var(--primary-neon);
+    border-radius: 50%;
+    animation: chart-spin-3d 1s linear infinite;
+}
+
+.chart-loading-3d::after {
+    border-top-color: var(--secondary-neon);
+    animation-delay: 0.5s;
+    transform: scale(0.8) translateZ(10px);
+}
+
+/* Chart Tooltip 3D */
+.chart-tooltip-3d {
+    position: absolute;
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    pointer-events: none;
+    z-index: 1000;
+    transform-style: preserve-3d;
+    transform: var(--depth-2) rotateX(-5deg) rotateY(5deg);
+    box-shadow: var(--shadow-3d-large);
+    opacity: 0;
+    transition: all var(--anim-3d-fast) var(--ease-3d-smooth);
+}
+
+.chart-tooltip-3d.show {
+    opacity: 1;
+    transform: var(--depth-3) rotateX(-2deg) rotateY(2deg);
+}
+
+.chart-tooltip-3d-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.chart-tooltip-3d-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary-neon);
+}
+
+.chart-tooltip-3d-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: var(--space-xs);
+}
+
+/* Chart Legend 3D */
+.chart-legend-3d {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-lg);
+    transform-style: preserve-3d;
+    transform: var(--depth-1);
+}
+
+.legend-item-3d {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all var(--anim-3d-fast) var(--ease-3d-smooth);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.legend-item-3d:hover {
+    transform: var(--depth-1) scale(1.05);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.legend-color-3d {
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-sm);
+    transform: var(--depth-1);
+    box-shadow: var(--shadow-3d-small);
+}
+
+.legend-label-3d {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Chart Controls 3D */
+.chart-controls-3d {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    display: flex;
+    gap: var(--space-sm);
+    z-index: 100;
+}
+
+.chart-control-3d {
+    width: 36px;
+    height: 36px;
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--anim-3d-fast) var(--ease-3d-smooth);
+    transform-style: preserve-3d;
+    transform: var(--depth-1);
+    color: var(--text-secondary);
+}
+
+.chart-control-3d:hover {
+    transform: var(--depth-2) scale(1.1);
+    color: var(--primary-neon);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+.chart-control-3d:active {
+    transform: var(--depth-negative-1) scale(0.95);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-3d {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+        padding: var(--space-md);
+    }
+    
+    .summary-grid-3d {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+    
+    .chart-container-3d {
+        padding: var(--space-md);
+    }
+    
+    .summary-value-3d {
+        font-size: 2rem;
+    }
+    
+    .chart-container-3d:hover {
+        transform: var(--depth-2) rotateX(-1deg) rotateY(1deg) scale(1.01);
+    }
+    
+    .summary-card-3d:hover {
+        transform: var(--depth-2) rotateX(-2deg) rotateY(2deg) scale(1.02);
+    }
+}
+
+@media (max-width: 480px) {
+    .summary-grid-3d {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-legend-3d {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+    
+    .chart-controls-3d {
+        top: var(--space-sm);
+        right: var(--space-sm);
+    }
+    
+    .summary-value-3d {
+        font-size: 1.75rem;
+    }
+}
+
+/* Animations */
+@keyframes chart-spin-3d {
+    0% {
+        transform: rotateZ(0deg) translateZ(0px);
+    }
+    100% {
+        transform: rotateZ(360deg) translateZ(20px);
+    }
+}
+
+@keyframes shimmer-sweep {
+    0% {
+        transform: rotate(45deg) translateX(-100%);
+    }
+    100% {
+        transform: rotate(45deg) translateX(100%);
+    }
+}
+
+/* Chart Export Styles */
+.chart-export-3d {
+    position: absolute;
+    bottom: var(--space-md);
+    right: var(--space-md);
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.export-button-3d {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all var(--anim-3d-fast) var(--ease-3d-smooth);
+    transform-style: preserve-3d;
+    transform: var(--depth-1);
+}
+
+.export-button-3d:hover {
+    transform: var(--depth-2) scale(1.05);
+    color: var(--primary-neon);
+    box-shadow: var(--shadow-3d-medium);
+}
+
+/* Data Table 3D */
+.data-table-3d {
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transform: var(--depth-1);
+    box-shadow: var(--shadow-3d-medium);
+}
+
+.data-table-3d table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table-3d th,
+.data-table-3d td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--glass-3d-border);
+}
+
+.data-table-3d th {
+    background: rgba(0, 212, 255, 0.1);
+    font-weight: 700;
+    color: var(--primary-neon);
+    transform: var(--depth-1);
+}
+
+.data-table-3d tbody tr {
+    transition: all var(--anim-3d-fast) var(--ease-3d-smooth);
+    transform-style: preserve-3d;
+}
+
+.data-table-3d tbody tr:hover {
+    background: rgba(0, 212, 255, 0.05);
+    transform: var(--depth-1) translateX(5px);
+}
+
+/* Performance optimizations */
+.chart-3d-optimized {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.chart-3d-gpu-accelerated {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .chart-container-3d,
+    .summary-card-3d,
+    .legend-item-3d,
+    .chart-control-3d {
+        transform: none;
+        transition: none;
+    }
+    
+    .chart-loading-3d::before,
+    .chart-loading-3d::after {
+        animation: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .chart-container-3d,
+    .summary-card-3d {
+        border-color: #ffffff;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .summary-value-3d {
+        color: #ffffff;
+        background: none;
+        -webkit-text-fill-color: #ffffff;
+    }
+}

@@ -1,0 +1,543 @@
+/* ===== GLASSMORPHISM & NEUMORPHISM EFFECTS ===== */
+/* Höchstes Designer Niveau - Premium Visual Effects */
+
+/* ===== GLASSMORPHISM SYSTEM ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-ultra {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 12px 48px 0 rgba(31, 38, 135, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 6px 24px 0 rgba(31, 38, 135, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.glass-medium {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 16px 0 rgba(31, 38, 135, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 2px 8px 0 rgba(31, 38, 135, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.glass-tinted {
+  background: rgba(102, 126, 234, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 
+    0 8px 32px 0 rgba(102, 126, 234, 0.2),
+    inset 0 1px 0 rgba(102, 126, 234, 0.1);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ===== NEUMORPHISM SYSTEM ===== */
+.neuro-flat {
+  background: #e0e5ec;
+  box-shadow: 
+    20px 20px 60px #a3b1c6,
+    -20px -20px 60px #ffffff;
+}
+
+.neuro-pressed {
+  background: #e0e5ec;
+  box-shadow: 
+    inset 20px 20px 60px #a3b1c6,
+    inset -20px -20px 60px #ffffff;
+}
+
+.neuro-convex {
+  background: #e0e5ec;
+  box-shadow: 
+    8px 8px 16px #a3b1c6,
+    -8px -8px 16px #ffffff,
+    inset 1px 1px 2px rgba(255, 255, 255, 0.5),
+    inset -1px -1px 2px rgba(163, 177, 198, 0.5);
+}
+
+.neuro-concave {
+  background: #e0e5ec;
+  box-shadow: 
+    inset 8px 8px 16px #a3b1c6,
+    inset -8px -8px 16px #ffffff;
+}
+
+.neuro-floating {
+  background: #e0e5ec;
+  box-shadow: 
+    0 8px 16px #a3b1c6,
+    0 -8px 16px #ffffff,
+    8px 0 16px #a3b1c6,
+    -8px 0 16px #ffffff;
+}
+
+/* ===== DARK NEUMORPHISM ===== */
+.neuro-dark-flat {
+  background: #2a2d3a;
+  box-shadow: 
+    20px 20px 60px #1a1d2a,
+    -20px -20px 60px #3a3d4a;
+}
+
+.neuro-dark-pressed {
+  background: #2a2d3a;
+  box-shadow: 
+    inset 20px 20px 60px #1a1d2a,
+    inset -20px -20px 60px #3a3d4a;
+}
+
+.neuro-dark-convex {
+  background: #2a2d3a;
+  box-shadow: 
+    8px 8px 16px #1a1d2a,
+    -8px -8px 16px #3a3d4a,
+    inset 1px 1px 2px rgba(58, 61, 74, 0.5),
+    inset -1px -1px 2px rgba(26, 29, 42, 0.5);
+}
+
+.neuro-dark-concave {
+  background: #2a2d3a;
+  box-shadow: 
+    inset 8px 8px 16px #1a1d2a,
+    inset -8px -8px 16px #3a3d4a;
+}
+
+/* ===== PREMIUM GLASS CARDS ===== */
+.glass-card-premium {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid;
+  border-image: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.3) 100%) 1;
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.5), 
+    transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.glass-card-premium::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glass-card-premium:hover::after {
+  opacity: 1;
+}
+
+/* ===== NEUMORPHIC BUTTONS ===== */
+.neuro-button {
+  background: #e0e5ec;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 32px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: #2a2d3a;
+  cursor: pointer;
+  box-shadow: 
+    8px 8px 16px #a3b1c6,
+    -8px -8px 16px #ffffff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.neuro-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    12px 12px 24px #a3b1c6,
+    -12px -12px 24px #ffffff;
+}
+
+.neuro-button:active {
+  transform: translateY(0);
+  box-shadow: 
+    inset 6px 6px 12px #a3b1c6,
+    inset -6px -6px 12px #ffffff;
+}
+
+.neuro-button-dark {
+  background: #2a2d3a;
+  color: #e0e5ec;
+  box-shadow: 
+    8px 8px 16px #1a1d2a,
+    -8px -8px 16px #3a3d4a;
+}
+
+.neuro-button-dark:hover {
+  box-shadow: 
+    12px 12px 24px #1a1d2a,
+    -12px -12px 24px #3a3d4a;
+}
+
+.neuro-button-dark:active {
+  box-shadow: 
+    inset 6px 6px 12px #1a1d2a,
+    inset -6px -6px 12px #3a3d4a;
+}
+
+/* ===== FROSTED GLASS EFFECTS ===== */
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.frosted-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.03) 10px,
+      rgba(255, 255, 255, 0.03) 20px
+    );
+  pointer-events: none;
+}
+
+/* ===== MOLTEN GLASS EFFECT ===== */
+.molten-glass {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(102, 126, 234, 0.1) 25%,
+    rgba(240, 147, 251, 0.1) 50%,
+    rgba(255, 119, 198, 0.1) 75%,
+    rgba(255, 255, 255, 0.15) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: moltenFlow 8s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes moltenFlow {
+  0%, 100% { 
+    background-position: 0% 50%;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  25% { 
+    background-position: 100% 50%;
+    border-color: rgba(102, 126, 234, 0.3);
+  }
+  50% { 
+    background-position: 0% 100%;
+    border-color: rgba(240, 147, 251, 0.3);
+  }
+  75% { 
+    background-position: 100% 0%;
+    border-color: rgba(255, 119, 198, 0.3);
+  }
+}
+
+/* ===== ETHEREAL GLASS EFFECT ===== */
+.ethereal-glass {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: relative;
+}
+
+.ethereal-glass::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  border-radius: inherit;
+  z-index: -1;
+  animation: etherealPulse 3s ease-in-out infinite;
+}
+
+@keyframes etherealPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* ===== HOLOCHROMIC GLASS EFFECT ===== */
+.holochromic-glass {
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(102, 126, 234, 0.1) 20%,
+    rgba(240, 147, 251, 0.1) 40%,
+    rgba(255, 119, 198, 0.1) 60%,
+    rgba(48, 207, 208, 0.1) 80%,
+    rgba(255, 255, 255, 0.1) 100%);
+  background-size: 200% 200%;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: holochromicShift 6s ease-in-out infinite;
+}
+
+@keyframes holochromicShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ===== ADVANCED INPUT FIELDS ===== */
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-family: var(--font-primary);
+  font-size: 16px;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0.8;
+}
+
+.glass-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary);
+  box-shadow: 
+    0 0 0 3px rgba(102, 126, 234, 0.2),
+    0 8px 32px rgba(102, 126, 234, 0.1);
+}
+
+.neuro-input {
+  background: #e0e5ec;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-family: var(--font-primary);
+  font-size: 16px;
+  color: #2a2d3a;
+  box-shadow: 
+    inset 6px 6px 12px #a3b1c6,
+    inset -6px -6px 12px #ffffff;
+  transition: all 0.3s ease;
+}
+
+.neuro-input:focus {
+  outline: none;
+  box-shadow: 
+    inset 4px 4px 8px #a3b1c6,
+    inset -4px -4px 8px #ffffff,
+    0 0 0 2px var(--primary);
+}
+
+/* ===== PREMIUM CARDS ===== */
+.premium-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.premium-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(102, 126, 234, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.premium-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(102, 126, 234, 0.3);
+  box-shadow: 
+    0 20px 40px rgba(102, 126, 234, 0.2),
+    0 40px 80px rgba(102, 126, 234, 0.1);
+}
+
+.premium-card:hover::after {
+  opacity: 1;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.glass-effect { @extend .glass; }
+.glass-ultra-effect { @extend .glass-ultra; }
+.glass-light-effect { @extend .glass-light; }
+.glass-medium-effect { @extend .glass-medium; }
+.glass-heavy-effect { @extend .glass-heavy; }
+.glass-tinted-effect { @extend .glass-tinted; }
+.glass-dark-effect { @extend .glass-dark; }
+
+.neuro-flat-effect { @extend .neuro-flat; }
+.neuro-pressed-effect { @extend .neuro-pressed; }
+.neuro-convex-effect { @extend .neuro-convex; }
+.neuro-concave-effect { @extend .neuro-concave; }
+.neuro-floating-effect { @extend .neuro-floating; }
+
+.neuro-dark-flat-effect { @extend .neuro-dark-flat; }
+.neuro-dark-pressed-effect { @extend .neuro-dark-pressed; }
+.neuro-dark-convex-effect { @extend .neuro-dark-convex; }
+.neuro-dark-concave-effect { @extend .neuro-dark-concave; }
+
+.frosted-glass-effect { @extend .frosted-glass; }
+.molten-glass-effect { @extend .molten-glass; }
+.ethereal-glass-effect { @extend .ethereal-glass; }
+.holochromic-glass-effect { @extend .holochromic-glass; }
+
+.glass-card-premium-effect { @extend .glass-card-premium; }
+.neuro-button-effect { @extend .neuro-button; }
+.neuro-button-dark-effect { @extend .neuro-button-dark; }
+.glass-input-effect { @extend .glass-input; }
+.neuro-input-effect { @extend .neuro-input; }
+.premium-card-effect { @extend .premium-card; }
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .glass-card-premium,
+  .premium-card {
+    border-radius: 16px;
+    padding: 24px;
+  }
+  
+  .neuro-button,
+  .glass-input,
+  .neuro-input {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .glass-card-premium,
+  .premium-card {
+    border-radius: 12px;
+    padding: 16px;
+  }
+  
+  .neuro-button,
+  .glass-input,
+  .neuro-input {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}

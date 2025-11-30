@@ -1,0 +1,9 @@
+{
+  "mcpServers": [
+    {
+      "name": "docker-mcp-server",
+      "description": "Docker-based MCP server for container management and file operations",
+      "version": "1.0.0"
+    }
+  ]
+}

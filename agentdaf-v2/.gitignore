@@ -1,0 +1,74 @@
+# Environment and secrets
+.env
+.env.secrets
+.env.local
+.env.production
+*.env
+*.key
+*.pem
+*.p12
+
+# Data directories with sensitive information
+data/.env*
+data/n8n-production.env
+data/uploads/
+data/env/
+
+# Logs and temporary files
+*.log
+logs/
+temp/
+tmp/
+cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.dockerignore
+
+# Backup files
+*.bak
+*.backup
+dataDeployed/
+
+# Configuration with secrets
+config/secrets.json
+config/production.json
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/

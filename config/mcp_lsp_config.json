@@ -1,0 +1,330 @@
+{
+  "mcp_lsp_integration": {
+    "enabled": true,
+    "version": "1.0.0",
+    "description": "MCP-LSP Integration Configuration for AgentDaf1.1",
+    
+    "workspace": {
+      "root_path": ".",
+      "watch_files": true,
+      "exclude_patterns": [
+        "node_modules/",
+        "__pycache__/",
+        ".git/",
+        "*.pyc",
+        "*.log",
+        ".env*"
+      ],
+      "include_patterns": [
+        "*.py",
+        "*.js",
+        "*.jsx",
+        "*.ts",
+        "*.tsx",
+        "*.json",
+        "*.html",
+        "*.css",
+        "*.md"
+      ]
+    },
+    
+    "lsp_servers": {
+      "python": {
+        "enabled": true,
+        "command": ["pylsp"],
+        "args": [],
+        "language": "python",
+        "file_extensions": [".py"],
+        "capabilities": {
+          "completion": {
+            "enabled": true,
+            "trigger_characters": [".", "(", "[", " "],
+            "max_suggestions": 50
+          },
+          "hover": {
+            "enabled": true,
+            "content_format": ["markdown", "plaintext"]
+          },
+          "definition": {
+            "enabled": true,
+            "support_location_link": true
+          },
+          "diagnostics": {
+            "enabled": true,
+            "severity_levels": ["error", "warning", "info", "hint"],
+            "providers": ["syntax", "semantic", "style"]
+          },
+          "formatting": {
+            "enabled": true,
+            "providers": ["black", "autopep8", "yapf"],
+            "format_on_save": false,
+            "format_on_type": false
+          },
+          "code_actions": {
+            "enabled": true,
+            "kinds": ["quickfix", "refactor", "source.organizeImports"]
+          }
+        }
+      },
+      
+      "javascript": {
+        "enabled": true,
+        "command": ["typescript-language-server", "--stdio"],
+        "args": [],
+        "language": "javascript",
+        "file_extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "capabilities": {
+          "completion": {
+            "enabled": true,
+            "trigger_characters": [".", "(", "[", " ", "\"", "'"],
+            "max_suggestions": 50
+          },
+          "hover": {
+            "enabled": true,
+            "content_format": ["markdown", "plaintext"]
+          },
+          "definition": {
+            "enabled": true,
+            "support_location_link": true
+          },
+          "diagnostics": {
+            "enabled": true,
+            "severity_levels": ["error", "warning", "info", "hint"],
+            "providers": ["eslint", "typescript"]
+          },
+          "formatting": {
+            "enabled": true,
+            "providers": ["prettier", "eslint"],
+            "format_on_save": false
+          }
+        }
+      },
+      
+      "json": {
+        "enabled": true,
+        "command": ["vscode-json-language-server", "--stdio"],
+        "args": [],
+        "language": "json",
+        "file_extensions": [".json"],
+        "capabilities": {
+          "completion": {
+            "enabled": true,
+            "trigger_characters": ["\"", ":", ",", "[", "{"],
+            "max_suggestions": 30
+          },
+          "validation": {
+            "enabled": true,
+            "severity_levels": ["error", "warning"]
+          },
+          "formatting": {
+            "enabled": true,
+            "providers": ["prettier"],
+            "format_on_save": true
+          }
+        }
+      },
+      
+      "html": {
+        "enabled": true,
+        "command": ["vscode-html-language-server", "--stdio"],
+        "args": [],
+        "language": "html",
+        "file_extensions": [".html", ".htm"],
+        "capabilities": {
+          "completion": {
+            "enabled": true,
+            "trigger_characters": ["<", " ", "\"", "'"],
+            "max_suggestions": 40
+          },
+          "validation": {
+            "enabled": true,
+            "severity_levels": ["error", "warning"]
+          },
+          "formatting": {
+            "enabled": true,
+            "providers": ["prettier", "html-beautify"],
+            "format_on_save": false
+          }
+        }
+      },
+      
+      "css": {
+        "enabled": true,
+        "command": ["vscode-css-language-server", "--stdio"],
+        "args": [],
+        "language": "css",
+        "file_extensions": [".css", ".scss", ".sass", ".less"],
+        "capabilities": {
+          "completion": {
+            "enabled": true,
+            "trigger_characters": [" ", ":", "{", "!", "-"],
+            "max_suggestions": 40
+          },
+          "validation": {
+            "enabled": true,
+            "severity_levels": ["error", "warning"]
+          },
+          "formatting": {
+            "enabled": true,
+            "providers": ["prettier", "css-beautify"],
+            "format_on_save": false
+          }
+        }
+      }
+    },
+    
+    "mcp_servers": {
+      "sequential_thinking": {
+        "enabled": true,
+        "url": "http://localhost:3010",
+        "endpoints": {
+          "think": "/api/think",
+          "health": "/health",
+          "info": "/"
+        },
+        "capabilities": [
+          "analysis",
+          "code_review",
+          "optimization",
+          "refactoring_suggestions"
+        ],
+        "timeout": 30,
+        "retry_attempts": 3
+      },
+      
+      "code_interpreter": {
+        "enabled": true,
+        "url": "http://localhost:3011",
+        "endpoints": {
+          "analyze": "/api/analyze",
+          "execute": "/api/execute",
+          "health": "/health"
+        },
+        "capabilities": [
+          "execution",
+          "debugging",
+          "testing",
+          "performance_analysis"
+        ],
+        "timeout": 60,
+        "retry_attempts": 2
+      },
+      
+      "python_refactoring": {
+        "enabled": false,
+        "url": "http://localhost:3012",
+        "endpoints": {
+          "refactor": "/api/refactor",
+          "health": "/health"
+        },
+        "capabilities": [
+          "refactoring",
+          "code_transformation",
+          "optimization"
+        ],
+        "timeout": 45,
+        "retry_attempts": 2
+      }
+    },
+    
+    "integration": {
+      "enabled": true,
+      "auto_analyze_on_save": false,
+      "auto_analyze_on_open": true,
+      "integrated_diagnostics": true,
+      "mcp_enhanced_completions": true,
+      "real_time_analysis": false,
+      "analysis_debounce_ms": 500
+    },
+    
+    "websocket_server": {
+      "enabled": true,
+      "host": "localhost",
+      "port": 8082,
+      "ping_interval": 20,
+      "ping_timeout": 10,
+      "max_connections": 10,
+      "enable_cors": true,
+      "cors_origins": ["http://localhost:3000", "http://localhost:8080"]
+    },
+    
+    "analysis": {
+      "default_analysis_type": "comprehensive",
+      "include_security": false,
+      "include_metrics": true,
+      "include_complexity": true,
+      "include_symbols": true,
+      "max_file_size_mb": 10,
+      "timeout_seconds": 30
+    },
+    
+    "diagnostics": {
+      "enabled": true,
+      "severity_filter": ["error", "warning"],
+      "auto_fix_on_save": false,
+      "show_hints": true,
+      "show_info": true,
+      "max_diagnostics_per_file": 100
+    },
+    
+    "completion": {
+      "enabled": true,
+      "max_suggestions": 20,
+      "sort_by": "relevance",
+      "include_snippets": true,
+      "include_keywords": true,
+      "trigger_on_typing": true,
+      "debounce_ms": 100
+    },
+    
+    "formatting": {
+      "enabled": true,
+      "format_on_save": false,
+      "format_on_paste": false,
+      "default_formatter": {
+        "python": "black",
+        "javascript": "prettier",
+        "json": "prettier",
+        "html": "prettier",
+        "css": "prettier"
+      }
+    },
+    
+    "logging": {
+      "level": "INFO",
+      "file": "logs/mcp_lsp_integration.log",
+      "max_file_size_mb": 10,
+      "backup_count": 5,
+      "enable_console": true,
+      "enable_file": true
+    },
+    
+    "performance": {
+      "cache_enabled": true,
+      "cache_ttl_seconds": 300,
+      "max_cache_size_mb": 100,
+      "parallel_analysis": true,
+      "max_concurrent_analyses": 3,
+      "memory_limit_mb": 512
+    },
+    
+    "security": {
+      "validate_inputs": true,
+      "sanitize_outputs": true,
+      "max_request_size_mb": 5,
+      "rate_limiting": {
+        "enabled": true,
+        "requests_per_minute": 60,
+        "burst_size": 10
+      }
+    },
+    
+    "experimental": {
+      "enabled": false,
+      "ai_enhanced_analysis": false,
+      "predictive_completions": false,
+      "context_aware_diagnostics": false,
+      "cross_language_analysis": false
+    }
+  }
+}

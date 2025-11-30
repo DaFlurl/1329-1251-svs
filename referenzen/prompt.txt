@@ -1,0 +1,72 @@
+📝 Prompt / Aufgabenbeschreibung
+Ziel:
+• 	Eine bestehende  Datei wird hochgeladen.
+• 	Die Daten sollen automatisch auf deiner GitHub‑Webseite aktualisiert werden.
+• 	Die alte Datei wird als History File gespeichert.
+• 	Über ein Dropdown‑Menü auf der Webseite können Nutzer alte Versionen wieder laden.
+• 	Ein Python‑Script übernimmt die Aktualisierung.
+
+
+
+"""
+Prompt: 
+Nimm meine hochgeladene XLSX-Datei und aktualisiere die Daten auf meiner GitHub-Webseite.
+Die vorhandene Datei, die ersetzt wird, speichere als History-File mit Zeitstempel.
+Erstelle auf der Webseite ein Dropdown-Menü, über das man alte Versionen laden kann.
+Das Python-Script soll die Aktualisierung automatisieren.
+"""
+
+import os
+import shutil
+import datetime
+import pandas as pd
+
+# 1. Neue Datei laden
+new_file = "data.xlsx"   # <- hier deine neue Datei
+web_data_dir = "./web_data"
+history_dir = "./web_data/history"
+
+os.makedirs(history_dir, exist_ok=True)
+
+# 2. Alte Datei sichern
+if os.path.exists(os.path.join(web_data_dir, "data.xlsx")):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    shutil.move(os.path.join(web_data_dir, "data.xlsx"),
+                os.path.join(history_dir, f"data_{timestamp}.xlsx"))
+
+# 3. Neue Datei kopieren
+shutil.copy(new_file, os.path.join(web_data_dir, "data.xlsx"))
+
+# 4. Dropdown-Liste generieren (HTML)
+history_files = sorted(os.listdir(history_dir), reverse=True)
+dropdown_html = "<select id='history'>\n"
+for f in history_files:
+    dropdown_html += f"<option value='{f}'>{f}</option>\n"
+dropdown_html += "</select>"
+
+with open(os.path.join(web_data_dir, "dropdown.html"), "w") as f:
+    f.write(dropdown_html)
+
+print("Update abgeschlossen. Webseite kann neu geladen werden.")
+
+
+
+
+
+
+🌐 Webseite‑Integration
+• 	Frontend (HTML/JS):
+• 	Binde  ein.
+• 	Mit JavaScript kannst du beim Auswählen einer alten Datei diese wieder laden.
+• 	Backend (GitHub Pages):
+• 	Die Dateien liegen im Repo.
+• 	Nach jedem Update commit/push aus dem Python‑Script.
+
+🚀 Workflow
+1. 	Neue  Datei lokal speichern.
+2. 	Python‑Script ausführen → ersetzt Datei, legt History an, aktualisiert Dropdown.
+3. 	GitHub Push → Webseite aktualisiert sich.
+4. 	Nutzer kann über Dropdown alte Versionen auswählen.
+
+
+

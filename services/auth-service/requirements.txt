@@ -1,0 +1,26 @@
+# Authentication Service Requirements
+
+# Core Dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+websockets==12.0
+pydantic==2.5.0
+python-jose[cryptography]==3.3.0
+python-multipart==0.0.6
+bcrypt==4.1.2
+
+# Database Dependencies
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Monitoring Dependencies
+prometheus-client==0.19.0
+
+# Development Dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+
+# Optional Dependencies
+redis==5.0.1  # For session storage
+python-dotenv==1.0.0  # Environment variable management

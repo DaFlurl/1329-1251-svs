@@ -1,0 +1,512 @@
+/* AgentDaf1.1 - 3D Enhancement Framework */
+/* Advanced 3D CSS framework with Three.js integration */
+
+:root {
+    /* 3D Perspective and Depth */
+    --perspective-3d: 1000px;
+    --perspective-3d-strong: 2000px;
+    --depth-1: translateZ(10px);
+    --depth-2: translateZ(20px);
+    --depth-3: translateZ(30px);
+    --depth-4: translateZ(40px);
+    --depth-5: translateZ(50px);
+    --depth-negative-1: translateZ(-10px);
+    --depth-negative-2: translateZ(-20px);
+    
+    /* 3D Rotation Values */
+    --rotate-x-45: rotateX(45deg);
+    --rotate-y-45: rotateY(45deg);
+    --rotate-z-45: rotateZ(45deg);
+    --rotate-x-90: rotateX(90deg);
+    --rotate-y-90: rotateY(90deg);
+    --rotate-z-90: rotateZ(90deg);
+    
+    /* 3D Transform Origins */
+    --origin-center: center center;
+    --origin-top: center top;
+    --origin-bottom: center bottom;
+    --origin-left: left center;
+    --origin-right: right center;
+    
+    /* 3D Animation Durations */
+    --anim-3d-fast: 200ms;
+    --anim-3d-normal: 400ms;
+    --anim-3d-slow: 800ms;
+    --anim-3d-epic: 1200ms;
+    
+    /* 3D Easing Functions */
+    --ease-3d-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-3d-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-3d-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --ease-3d-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* 3D Shadows and Lighting */
+    --shadow-3d-small: 0 2px 10px rgba(0, 212, 255, 0.3);
+    --shadow-3d-medium: 0 8px 25px rgba(0, 212, 255, 0.4);
+    --shadow-3d-large: 0 15px 40px rgba(0, 212, 255, 0.5);
+    --shadow-3d-glow: 0 0 30px rgba(0, 212, 255, 0.6);
+    --shadow-3d-intense: 0 0 50px rgba(0, 212, 255, 0.8);
+    
+    /* 3D Particle System Colors */
+    --particle-primary: rgba(0, 212, 255, 0.8);
+    --particle-secondary: rgba(255, 0, 255, 0.8);
+    --particle-accent: rgba(0, 255, 136, 0.8);
+    --particle-white: rgba(255, 255, 255, 0.9);
+    
+    /* 3D Glass Effects */
+    --glass-3d-bg: rgba(255, 255, 255, 0.1);
+    --glass-3d-border: rgba(255, 255, 255, 0.2);
+    --glass-3d-blur: blur(20px);
+    --glass-3d-backdrop: blur(10px);
+}
+
+/* 3D Base Classes */
+.scene-3d {
+    perspective: var(--perspective-3d);
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.scene-3d-deep {
+    perspective: var(--perspective-3d-strong);
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.transform-3d {
+    transform-style: preserve-3d;
+    transition: transform var(--anim-3d-normal) var(--ease-3d-smooth);
+}
+
+/* 3D Card Components */
+.card-3d {
+    transform-style: preserve-3d;
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    position: relative;
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-3d-medium);
+}
+
+.card-3d:hover {
+    transform: var(--depth-3) rotateX(-5deg) rotateY(5deg);
+    box-shadow: var(--shadow-3d-large);
+}
+
+.card-3d-interactive {
+    transform-style: preserve-3d;
+    transition: all var(--anim-3d-fast) var(--ease-3d-smooth);
+    cursor: pointer;
+}
+
+.card-3d-interactive:hover {
+    transform: var(--depth-2) rotateX(-10deg) rotateY(10deg) scale(1.05);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+/* 3D Button Components */
+.btn-3d {
+    transform-style: preserve-3d;
+    transition: all var(--anim-3d-fast) var(--ease-3d-smooth);
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+    border: none;
+    border-radius: var(--radius-lg);
+    color: white;
+    font-weight: 600;
+    padding: var(--space-md) var(--space-xl);
+    cursor: pointer;
+    box-shadow: var(--shadow-3d-medium);
+    transform: var(--depth-1);
+}
+
+.btn-3d:hover {
+    transform: var(--depth-3) rotateX(-2deg) rotateY(2deg) scale(1.05);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+.btn-3d:active {
+    transform: var(--depth-negative-1) rotateX(2deg) rotateY(-2deg) scale(0.98);
+    box-shadow: var(--shadow-3d-small);
+}
+
+/* 3D Navigation Components */
+.nav-3d {
+    transform-style: preserve-3d;
+    perspective: var(--perspective-3d);
+}
+
+.nav-item-3d {
+    transform-style: preserve-3d;
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    position: relative;
+    transform: var(--depth-1);
+}
+
+.nav-item-3d:hover {
+    transform: var(--depth-3) rotateX(-5deg) rotateY(5deg);
+}
+
+.nav-item-3d.active {
+    transform: var(--depth-2) rotateX(-2deg) rotateY(2deg);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+/* 3D Hero Section */
+.hero-3d {
+    perspective: var(--perspective-3d-strong);
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.hero-content-3d {
+    transform-style: preserve-3d;
+    transform: var(--depth-2);
+    transition: all var(--anim-3d-slow) var(--ease-3d-smooth);
+    position: relative;
+    z-index: 10;
+}
+
+.hero-title-3d {
+    transform-style: preserve-3d;
+    transform: var(--depth-3);
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon), var(--accent-neon));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    animation: float-3d var(--anim-3d-epic) var(--ease-3d-elastic) infinite alternate;
+}
+
+/* 3D Particle System */
+.particles-3d {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle-3d {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--particle-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--particle-primary);
+    animation: float-particle-3d 10s infinite linear;
+    transform-style: preserve-3d;
+}
+
+.particle-3d:nth-child(2n) {
+    background: var(--particle-secondary);
+    box-shadow: 0 0 10px var(--particle-secondary);
+    animation-duration: 12s;
+    animation-delay: -2s;
+}
+
+.particle-3d:nth-child(3n) {
+    background: var(--particle-accent);
+    box-shadow: 0 0 10px var(--particle-accent);
+    animation-duration: 8s;
+    animation-delay: -4s;
+}
+
+.particle-3d:nth-child(4n) {
+    background: var(--particle-white);
+    box-shadow: 0 0 10px var(--particle-white);
+    animation-duration: 15s;
+    animation-delay: -6s;
+}
+
+/* 3D Upload Area */
+.upload-3d {
+    transform-style: preserve-3d;
+    perspective: var(--perspective-3d);
+    position: relative;
+    border: 2px dashed var(--glass-3d-border);
+    border-radius: var(--radius-2xl);
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    transform: var(--depth-1);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.upload-3d:hover {
+    transform: var(--depth-3) rotateX(-2deg) rotateY(2deg) scale(1.02);
+    border-color: var(--primary-neon);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+.upload-3d.dragover {
+    transform: var(--depth-4) rotateX(-5deg) rotateY(5deg) scale(1.05);
+    border-color: var(--accent-neon);
+    background: rgba(0, 255, 136, 0.1);
+    box-shadow: var(--shadow-3d-intense);
+}
+
+/* 3D Notification System */
+.notification-3d {
+    transform-style: preserve-3d;
+    position: fixed;
+    top: var(--space-xl);
+    right: var(--space-xl);
+    z-index: 1000;
+    transform: translateX(400px) var(--depth-2) rotateY(-10deg);
+    transition: all var(--anim-3d-normal) var(--ease-3d-bounce);
+    max-width: 350px;
+}
+
+.notification-3d.show {
+    transform: translateX(0) var(--depth-2) rotateY(0deg);
+}
+
+.notification-3d-content {
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-3d-large);
+    transform-style: preserve-3d;
+}
+
+/* 3D Progress Indicators */
+.progress-3d {
+    transform-style: preserve-3d;
+    perspective: var(--perspective-3d);
+    position: relative;
+    height: 30px;
+    background: var(--glass-3d-bg);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    border: 1px solid var(--glass-3d-border);
+}
+
+.progress-bar-3d {
+    transform-style: preserve-3d;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon), var(--accent-neon));
+    border-radius: var(--radius-full);
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    transform: var(--depth-1);
+    box-shadow: var(--shadow-3d-glow);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer-3d 2s infinite;
+    transform: var(--depth-2);
+}
+
+/* 3D Chart Container */
+.chart-3d {
+    transform-style: preserve-3d;
+    perspective: var(--perspective-3d-strong);
+    position: relative;
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-3d-medium);
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+}
+
+.chart-3d:hover {
+    transform: var(--depth-2) rotateX(-2deg) rotateY(2deg);
+    box-shadow: var(--shadow-3d-large);
+}
+
+/* 3D Feature Cards */
+.feature-card-3d {
+    transform-style: preserve-3d;
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    position: relative;
+    background: var(--glass-3d-bg);
+    backdrop-filter: var(--glass-3d-blur);
+    border: 1px solid var(--glass-3d-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-3d-medium);
+    transform: var(--depth-1);
+}
+
+.feature-card-3d:hover {
+    transform: var(--depth-4) rotateX(-5deg) rotateY(5deg) scale(1.05);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+.feature-icon-3d {
+    transform-style: preserve-3d;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: var(--space-lg);
+    transform: var(--depth-2);
+    transition: all var(--anim-3d-normal) var(--ease-3d-smooth);
+    box-shadow: var(--shadow-3d-medium);
+}
+
+.feature-card-3d:hover .feature-icon-3d {
+    transform: var(--depth-4) rotateZ(360deg) scale(1.1);
+    box-shadow: var(--shadow-3d-glow);
+}
+
+/* 3D Animations */
+@keyframes float-3d {
+    0% {
+        transform: var(--depth-3) translateY(0px) rotateX(0deg);
+    }
+    50% {
+        transform: var(--depth-5) translateY(-20px) rotateX(2deg);
+    }
+    100% {
+        transform: var(--depth-3) translateY(0px) rotateX(0deg);
+    }
+}
+
+@keyframes float-particle-3d {
+    0% {
+        transform: translateY(100vh) translateX(0) translateZ(0) rotateX(0deg) rotateY(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px) translateZ(50px) rotateX(360deg) rotateY(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes shimmer-3d {
+    0% {
+        left: -100%;
+        transform: var(--depth-2);
+    }
+    100% {
+        left: 100%;
+        transform: var(--depth-2);
+    }
+}
+
+@keyframes rotate-3d {
+    0% {
+        transform: var(--depth-2) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    100% {
+        transform: var(--depth-2) rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    }
+}
+
+@keyframes pulse-3d {
+    0%, 100% {
+        transform: var(--depth-1) scale(1);
+        box-shadow: var(--shadow-3d-medium);
+    }
+    50% {
+        transform: var(--depth-3) scale(1.05);
+        box-shadow: var(--shadow-3d-glow);
+    }
+}
+
+/* 3D Responsive Design */
+@media (max-width: 768px) {
+    :root {
+        --perspective-3d: 800px;
+        --perspective-3d-strong: 1200px;
+    }
+    
+    .hero-title-3d {
+        font-size: 2.5rem;
+    }
+    
+    .card-3d:hover {
+        transform: var(--depth-2) rotateX(-2deg) rotateY(2deg);
+    }
+    
+    .feature-card-3d:hover {
+        transform: var(--depth-2) rotateX(-2deg) rotateY(2deg) scale(1.02);
+    }
+    
+    .notification-3d {
+        right: var(--space-md);
+        left: var(--space-md);
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title-3d {
+        font-size: 2rem;
+    }
+    
+    .btn-3d:hover {
+        transform: var(--depth-2) scale(1.02);
+    }
+    
+    .upload-3d:hover {
+        transform: var(--depth-2) scale(1.01);
+    }
+}
+
+/* 3D Performance Optimizations */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+}
+
+.reduce-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+/* 3D Fallbacks for older browsers */
+.no-3d .card-3d,
+.no-3d .btn-3d,
+.no-3d .upload-3d {
+    transform: none;
+    transition: all 0.3s ease;
+}
+
+.no-3d .card-3d:hover,
+.no-3d .btn-3d:hover,
+.no-3d .upload-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+}

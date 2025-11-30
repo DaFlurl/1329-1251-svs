@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentDaf1.1 WebSocket Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .connected { background-color: #d4edda; color: #155724; }
+        .disconnected { background-color: #f8d7da; color: #721c24; }
+        .messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #007bff;
+            background-color: white;
+        }
+        .message.error { border-left-color: #dc3545; }
+        .message.system { border-left-color: #28a745; }
+        .message.stats { border-left-color: #ffc107; }
+        input, button, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AgentDaf1.1 WebSocket Test</h1>
+        
+        <div id="status" class="status disconnected">
+            Disconnected
+        </div>
+        
+        <div>
+            <label>WebSocket URL:</label>
+            <input type="text" id="wsUrl" value="ws://localhost:8081" style="width: 200px;">
+            <button id="connectBtn" onclick="toggleConnection()">Connect</button>
+        </div>
+        
+        <div>
+            <label>Auth Token (optional):</label>
+            <input type="text" id="authToken" placeholder="JWT token" style="width: 300px;">
+            <button onclick="authenticate()" id="authBtn" disabled>Authenticate</button>
+        </div>
+        
+        <div>
+            <label>Message Type:</label>
+            <select id="messageType">
+                <option value="get_stats">Get Stats</option>
+                <option value="subscribe">Subscribe</option>
+                <option value="custom">Custom</option>
+            </select>
+            
+            <input type="text" id="customMessage" placeholder="Custom JSON message" style="width: 300px; display: none;" id="customMessageInput">
+            <button onclick="sendMessage()" id="sendBtn" disabled>Send Message</button>
+        </div>
+        
+        <div>
+            <button onclick="clearMessages()">Clear Messages</button>
+            <button onclick="testNotification()">Test Notification</button>
+        </div>
+        
+        <h3>Messages:</h3>
+        <div id="messages" class="messages"></div>
+        
+        <h3>Connection Info:</h3>
+        <div id="connectionInfo">
+            <p>Connected: <span id="connectedStatus">No</span></p>
+            <p>Authenticated: <span id="authStatus">No</span></p>
+            <p>Messages Received: <span id="messageCount">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let ws = null;
+        let messageCount = 0;
+        let isAuthenticated = false;
+        
+        function updateStatus(connected, message = '') {
+            const statusEl = document.getElementById('status');
+            const connectBtn = document.getElementById('connectBtn');
+            const sendBtn = document.getElementById('sendBtn');
+            const authBtn = document.getElementById('authBtn');
+            
+            if (connected) {
+                statusEl.className = 'status connected';
+                statusEl.textContent = 'Connected' + (message ? ` - ${message}` : '');
+                connectBtn.textContent = 'Disconnect';
+                sendBtn.disabled = false;
+                authBtn.disabled = false;
+            } else {
+                statusEl.className = 'status disconnected';
+                statusEl.textContent = 'Disconnected' + (message ? ` - ${message}` : '');
+                connectBtn.textContent = 'Connect';
+                sendBtn.disabled = true;
+                authBtn.disabled = true;
+                isAuthenticated = false;
+            }
+            
+            document.getElementById('connectedStatus').textContent = connected ? 'Yes' : 'No';
+            document.getElementById('authStatus').textContent = isAuthenticated ? 'Yes' : 'No';
+        }
+        
+        function addMessage(message, type = 'info') {
+            const messagesEl = document.getElementById('messages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${type}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            messageEl.innerHTML = `<strong>[${timestamp}]</strong> ${JSON.stringify(message, null, 2)}`;
+            
+            messagesEl.appendChild(messageEl);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            
+            messageCount++;
+            document.getElementById('messageCount').textContent = messageCount;
+        }
+        
+        function toggleConnection() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.close();
+            } else {
+                connect();
+            }
+        }
+        
+        function connect() {
+            const url = document.getElementById('wsUrl').value;
+            
+            try {
+                ws = new WebSocket(url);
+                
+                ws.onopen = function(event) {
+                    updateStatus(true, 'Connection established');
+                    addMessage({type: 'connection', status: 'connected'}, 'system');
+                };
+                
+                ws.onmessage = function(event) {
+                    try {
+                        const data = JSON.parse(event.data);
+                        const messageType = data.type || 'unknown';
+                        
+                        if (messageType === 'authenticated') {
+                            isAuthenticated = true;
+                            updateStatus(true, 'Authenticated');
+                            addMessage(data, 'system');
+                        } else if (messageType === 'stats_update') {
+                            addMessage(data, 'stats');
+                        } else if (messageType === 'error') {
+                            addMessage(data, 'error');
+                        } else {
+                            addMessage(data, 'info');
+                        }
+                    } catch (e) {
+                        addMessage({error: 'Invalid JSON', data: event.data}, 'error');
+                    }
+                };
+                
+                ws.onclose = function(event) {
+                    updateStatus(false, `Connection closed (code: ${event.code})`);
+                    addMessage({type: 'connection', status: 'disconnected', code: event.code}, 'system');
+                };
+                
+                ws.onerror = function(error) {
+                    updateStatus(false, 'Connection error');
+                    addMessage({type: 'error', error: 'WebSocket connection error'}, 'error');
+                };
+                
+            } catch (e) {
+                updateStatus(false, `Connection failed: ${e.message}`);
+                addMessage({error: `Connection failed: ${e.message}`}, 'error');
+            }
+        }
+        
+        function authenticate() {
+            const token = document.getElementById('authToken').value;
+            if (!token) {
+                alert('Please enter an auth token');
+                return;
+            }
+            
+            const message = {
+                type: 'authenticate',
+                token: token
+            };
+            
+            ws.send(JSON.stringify(message));
+            addMessage(message, 'info');
+        }
+        
+        function sendMessage() {
+            const messageType = document.getElementById('messageType').value;
+            let message = {};
+            
+            switch (messageType) {
+                case 'get_stats':
+                    message = {type: 'get_stats'};
+                    break;
+                case 'subscribe':
+                    message = {
+                        type: 'subscribe',
+                        subscriptions: ['players', 'alliances', 'stats']
+                    };
+                    break;
+                case 'custom':
+                    try {
+                        message = JSON.parse(document.getElementById('customMessage').value);
+                    } catch (e) {
+                        alert('Invalid JSON in custom message');
+                        return;
+                    }
+                    break;
+            }
+            
+            ws.send(JSON.stringify(message));
+            addMessage(message, 'info');
+        }
+        
+        function clearMessages() {
+            document.getElementById('messages').innerHTML = '';
+            messageCount = 0;
+            document.getElementById('messageCount').textContent = '0';
+        }
+        
+        async function testNotification() {
+            try {
+                const response = await fetch('/api/websocket/notify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        event_type: 'test',
+                        message: 'Test notification from web interface',
+                        data: {timestamp: new Date().toISOString()}
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    addMessage({type: 'notification_sent', result}, 'system');
+                } else {
+                    addMessage({type: 'notification_failed', error: result.error}, 'error');
+                }
+            } catch (e) {
+                addMessage({type: 'notification_error', error: e.message}, 'error');
+            }
+        }
+        
+        // Show/hide custom message input based on selection
+        document.getElementById('messageType').addEventListener('change', function() {
+            const customInput = document.getElementById('customMessage');
+            if (this.value === 'custom') {
+                customInput.style.display = 'inline-block';
+            } else {
+                customInput.style.display = 'none';
+            }
+        });
+        
+        // Initialize
+        updateStatus(false);
+    </script>
+</body>
+</html>

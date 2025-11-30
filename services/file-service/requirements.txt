@@ -1,0 +1,19 @@
+# File Service Requirements
+
+# Core Dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+aiofiles==23.2.0
+
+# Database Dependencies
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Development Dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+
+# Optional Dependencies
+redis==5.0.1  # For caching
+python-dotenv==1.0.0  # Environment variable management
