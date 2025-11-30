@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="/styles/3d-background.css">
     <link rel="stylesheet" href="/styles/3d-hover.css">
     <link rel="stylesheet" href="/styles/3d-data-viz.css">
+    <link rel="stylesheet" href="/styles/3d-dark-theme.css">
+    <link rel="stylesheet" href="/styles/3d-search.css">
     
     <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -97,6 +99,12 @@
     </style>
 </head>
 <body>
+    <!-- 3D Dark Theme Manager -->
+    <script src="/styles/3d-dark-theme.js"></script>
+    
+    <!-- 3D Search Manager -->
+    <script src="/styles/3d-search.js"></script>
+    
     <!-- 3D Background -->
     <div class="background-3d" id="background3d"></div>
     
@@ -263,6 +271,8 @@
                 this.initializeUpload();
                 this.initializeCharts();
                 this.initializeSettings();
+                this.initializeThemeIntegration();
+                this.initializeSearchIntegration();
                 
                 // Load initial data
                 await this.loadDashboardData();
@@ -359,6 +369,199 @@
                             window.hoverEffects3D.options.performanceMode = e.target.checked;
                         }
                     });
+                }
+            }
+            
+            initializeThemeIntegration() {
+                // Listen for theme changes
+                document.addEventListener('themechange', (e) => {
+                    this.handleThemeChange(e.detail.theme);
+                });
+                
+                // Apply current theme
+                if (window.darkThemeManager) {
+                    this.handleThemeChange(window.darkThemeManager.getCurrentTheme());
+                }
+            }
+            
+            handleThemeChange(theme) {
+                // Update chart colors based on theme
+                if (this.charts.main) {
+                    const isDark = theme === 'dark';
+                    Chart.defaults.color = isDark ? '#e8e8f0' : '#1a202c';
+                    Chart.defaults.borderColor = isDark ? '#2a2a4e' : '#e2e8f0';
+                    
+                    // Update existing charts
+                    Object.values(this.charts).forEach(chart => {
+                        if (chart && chart.options) {
+                            chart.update();
+                        }
+                    });
+                }
+                
+                // Update 3D background
+                if (window.background3D) {
+                    window.background3D.updateTheme(theme);
+                }
+                
+                // Update search theme
+                if (window.searchManager3D) {
+                    window.searchManager3D.updateSearchTheme();
+                }
+                
+                // Show notification
+                if (window.notify3D) {
+                    window.notify3D.info(`Theme changed to ${theme}`, {
+                        title: 'Theme Updated',
+                        duration: 2000
+                    });
+                }
+            }
+            
+            initializeSearchIntegration() {
+                // Listen for search events
+                if (window.searchManager3D) {
+                    // Customize search for dashboard
+                    window.searchManager3D.options.apiEndpoint = `${this.apiBase}/search`;
+                    
+                    // Add custom search handlers
+                    this.setupCustomSearchHandlers();
+                }
+            }
+            
+            setupCustomSearchHandlers() {
+                // Add dashboard-specific search functionality
+                document.addEventListener('searchPerformed', (e) => {
+                    this.handleDashboardSearch(e.detail.query, e.detail.filters);
+                });
+                
+                document.addEventListener('searchResultSelected', (e) => {
+                    this.handleSearchResultSelection(e.detail.result);
+                });
+            }
+            
+            handleDashboardSearch(query, filters) {
+                // Custom dashboard search logic
+                console.log('Dashboard search:', query, filters);
+                
+                // Search through dashboard data
+                const results = this.searchDashboardData(query, filters);
+                
+                // Update search results
+                if (window.searchManager3D) {
+                    window.searchManager3D.displayResults(results);
+                }
+            }
+            
+            searchDashboardData(query, filters) {
+                const results = [];
+                const queryLower = query.toLowerCase();
+                
+                // Search through different data sources
+                if (!filters || filters.includes('all') || filters.includes('dashboard')) {
+                    results.push(...this.searchDashboardSections(queryLower));
+                }
+                
+                if (!filters || filters.includes('all') || filters.includes('files')) {
+                    results.push(...this.searchFiles(queryLower));
+                }
+                
+                if (!filters || filters.includes('all') || filters.includes('analytics')) {
+                    results.push(...this.searchAnalytics(queryLower));
+                }
+                
+                return results.slice(0, 10); // Limit results
+            }
+            
+            searchDashboardSections(query) {
+                const sections = [
+                    { title: 'Dashboard Overview', type: 'dashboard', description: 'Main dashboard with statistics and metrics' },
+                    { title: 'File Upload', type: 'dashboard', description: 'Upload Excel files for processing' },
+                    { title: 'Data Analytics', type: 'analytics', description: 'View processed data and analytics' },
+                    { title: 'Settings', type: 'settings', description: 'Configure dashboard settings' }
+                ];
+                
+                return sections.filter(section => 
+                    section.title.toLowerCase().includes(query) || 
+                    section.description.toLowerCase().includes(query)
+                ).map(section => ({
+                    ...section,
+                    url: `#${section.title.toLowerCase().replace(/\s+/g, '-')}`,
+                    date: new Date().toISOString(),
+                    score: this.calculateRelevanceScore(query, section.title + ' ' + section.description)
+                }));
+            }
+            
+            searchFiles(query) {
+                // Search through uploaded files
+                const files = [
+                    { title: 'Sample Gaming Data', type: 'files', description: 'Gaming statistics and player data' },
+                    { title: 'Test Data', type: 'files', description: 'Test dataset for validation' }
+                ];
+                
+                return files.filter(file => 
+                    file.title.toLowerCase().includes(query) || 
+                    file.description.toLowerCase().includes(query)
+                ).map(file => ({
+                    ...file,
+                    url: '#upload',
+                    date: new Date().toISOString(),
+                    score: this.calculateRelevanceScore(query, file.title + ' ' + file.description)
+                }));
+            }
+            
+            searchAnalytics(query) {
+                // Search through analytics data
+                const analytics = [
+                    { title: 'Player Statistics', type: 'analytics', description: 'Detailed player performance metrics' },
+                    { title: 'Game Analytics', type: 'analytics', description: 'Game-specific analytics and trends' },
+                    { title: 'Performance Metrics', type: 'analytics', description: 'System performance and usage statistics' }
+                ];
+                
+                return analytics.filter(analytic => 
+                    analytic.title.toLowerCase().includes(query) || 
+                    analytic.description.toLowerCase().includes(query)
+                ).map(analytic => ({
+                    ...analytic,
+                    url: '#analytics',
+                    date: new Date().toISOString(),
+                    score: this.calculateRelevanceScore(query, analytic.title + ' ' + analytic.description)
+                }));
+            }
+            
+            calculateRelevanceScore(query, text) {
+                const queryWords = query.toLowerCase().split(' ');
+                const textWords = text.toLowerCase().split(' ');
+                
+                let score = 0;
+                queryWords.forEach(queryWord => {
+                    if (text.includes(queryWord)) {
+                        score += 1;
+                        // Bonus for exact word matches
+                        textWords.forEach(textWord => {
+                            if (textWord === queryWord) {
+                                score += 2;
+                            }
+                        });
+                    }
+                });
+                
+                return score;
+            }
+            
+            handleSearchResultSelection(result) {
+                // Handle search result selection
+                if (result.url) {
+                    // Navigate to the result
+                    window.location.hash = result.url;
+                    
+                    // Show notification
+                    if (window.notify3D) {
+                        window.notify3D.info(`Navigated to ${result.title}`, {
+                            title: 'Search Result',
+                            duration: 2000
+                        });
+                    }
                 }
             }
             
