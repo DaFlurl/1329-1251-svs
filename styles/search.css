@@ -9,7 +9,7 @@
     z-index: 100;
 }
 
-.search-wrapper {
+.search-box {
     position: relative;
     display: flex;
     align-items: center;
@@ -21,7 +21,7 @@
     transition: all 0.3s ease;
 }
 
-.search-wrapper:hover {
+.search-box:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
@@ -134,7 +134,7 @@
 }
 
 /* Dark theme search styles */
-[data-theme="dark"] .search-wrapper {
+[data-theme="dark"] .search-box {
     background: rgba(26, 32, 44, 0.8);
     border-color: var(--dark-border-primary);
 }
