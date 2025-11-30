@@ -3,40 +3,1323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1329-1251 SVS Excel Dashboard</title>
-    <script>
-        // Redirect to history dashboard after 1 second
-        setTimeout(function() {
-            window.location.href = 'history_simple.html';
-        }, 1000);
-    </script>
+    <title>🏆 SVS - Live Gaming Dashboard v2.3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/world-class-premium.css?v=2.3">
+    <link rel="stylesheet" href="styles/advanced-animations.css?v=2.3">
+    <link rel="stylesheet" href="styles/glassmorphism-neumorphism.css?v=2.3">
+    <link rel="stylesheet" href="styles/dark-theme.css?v=2.3">
+    <link rel="stylesheet" href="styles/search.css?v=2.3">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
+        /* Cross-browser compatibility and performance optimizations */
+        @supports (backdrop-filter: blur(10px)) {
+            /* Modern browsers with backdrop-filter support */
         }
-        .redirect-message {
-            font-size: 1.5em;
-            animation: pulse 1.5s infinite;
+        @supports not (backdrop-filter: blur(10px)) {
+            /* Fallback for browsers without backdrop-filter */
+            .glass-ultra,
+            .glass-heavy,
+            .glass-medium,
+            .glass-light {
+                background: rgba(15, 23, 42, 0.95) !important;
+                backdrop-filter: none !important;
+            }
+        }
+        /* Performance optimizations */
+        * {
+            will-change: auto;
+        }
+        .player-card,
+        .stat-item,
+        .tab-btn,
+        .btn {
+            will-change: transform;
+        }
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        /* Enhanced styles that complement our premium CSS system */
+        body {
+            font-family: var(--font-family-primary);
+            background: var(--gradient-dark-primary);
+            min-height: 100vh;
+            color: var(--text-primary);
+            position: relative;
+            overflow-x: hidden;
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+        }
+        /* Enhanced background effects using premium gradients */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--gradient-royal-1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--gradient-sunset-2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, var(--gradient-ocean-3) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: var(--z-background);
+            opacity: 0.6;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            pointer-events: none;
+            z-index: var(--z-background);
+            opacity: 0.3;
+        }
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: var(--spacing-10) var(--spacing-5);
+            position: relative;
+            z-index: var(--z-content);
+        }
+        /* Enhanced Layout System using premium classes */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-8);
+        }
+        .section-wrapper {
+            background: var(--glass-ultra);
+            border-radius: var(--radius-3xl);
+            border: var(--border-glass);
+            backdrop-filter: var(--blur-xl);
+            overflow: hidden;
+            position: relative;
+            transition: var(--transition-all);
+        }
+        .section-wrapper:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glass-hover);
+        }
+        .section-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-royal-3);
+            animation: shimmer 8s ease-in-out infinite;
+        }
+        header {
+            background: var(--glass-heavy);
+            border-radius: var(--radius-4xl);
+            padding: var(--spacing-14);
+            margin-bottom: var(--spacing-10);
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: var(--blur-2xl);
+            border: var(--border-glass-accent);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-all);
+        }
+        header:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-premium-hover);
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-aurora-3);
+            animation: headerShimmer 4s ease-in-out infinite;
+        }
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--spacing-16);
+            align-items: center;
+            position: relative;
+            z-index: var(--z-dropdown);
+        }
+        .brand-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+        }
+        .logo {
+            font-size: var(--text-6xl);
+            font-weight: var(--font-weight-black);
+            background: var(--gradient-galaxy);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -3px;
+            line-height: var(--line-height-tight);
+            filter: drop-shadow(0 8px 32px rgba(120, 119, 198, 0.4));
+            position: relative;
+            transition: var(--transition-all);
+        }
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 12px 48px rgba(120, 119, 198, 0.6));
+        }
+        .logo::after {
+            content: 'v2.2';
+            position: absolute;
+            bottom: -8px;
+            right: -45px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #7877dc, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+        .logo-subtitle {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: var(--letter-spacing-wide);
+            text-transform: uppercase;
+            margin-left: var(--spacing-0_5);
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-8);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+            letter-spacing: -1px;
+            position: relative;
+        }
+        .logo::after {
+            content: 'v2.2';
+            position: absolute;
+            bottom: -10px;
+            right: -40px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: rgba(102, 126, 234, 0.7);
+            letter-spacing: 0;
+        }
+        .stats-overview {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            padding: var(--spacing-5) var(--spacing-8);
+            background: var(--glass-light);
+            border-radius: var(--radius-2xl);
+            border: var(--border-glass-accent);
+            backdrop-filter: var(--blur-lg);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-all);
+            cursor: pointer;
+        }
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-royal-2);
+            animation: slide 3s ease-in-out infinite;
+        }
+        .stat-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-neumorph-float);
+            border-color: var(--color-primary);
+            background: var(--glass-medium);
+        }
+        .stat-value {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-weight-black);
+            background: var(--gradient-royal-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: var(--spacing-1_5);
+            position: relative;
+            transition: var(--transition-all);
+        }
+        .stat-item:hover .stat-value {
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 12px rgba(120, 119, 198, 0.4));
+        }
+        .stat-value::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 1px;
+        }
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-top: var(--spacing-1_5);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: var(--letter-spacing-wide);
+        }
+        .tabs-section {
+            background: var(--glass-ultra);
+            border-radius: var(--radius-3xl);
+            padding: var(--spacing-10);
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: var(--blur-2xl);
+            border: var(--border-glass-accent);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-all);
+        }
+        .tabs-section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-premium-hover);
+        }
+        .tabs-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-ocean-3);
+        }
+        .tab-navigation {
+            display: flex;
+            gap: var(--spacing-2_5);
+            margin-bottom: var(--spacing-8);
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: var(--spacing-2_5);
+            position: relative;
+        }
+        .tab-navigation::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-royal-3);
+            opacity: 0.3;
+        }
+        .tab-btn {
+            padding: var(--spacing-4) var(--spacing-8);
+            background: var(--glass-light);
+            border: none;
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+            cursor: pointer;
+            font-weight: var(--font-weight-bold);
+            transition: var(--transition-all);
+            font-size: var(--text-base);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: var(--blur-lg);
+            color: var(--text-primary);
+            border: var(--border-glass);
+        }
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-royal-1);
+            opacity: 0;
+            transition: var(--transition-all);
+        }
+        .tab-btn:hover::before {
+            opacity: 0.2;
+        }
+        .tab-btn.active {
+            background: var(--gradient-royal-3);
+            color: var(--text-inverse);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-premium);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-color: var(--color-primary);
+        }
+        .tab-btn.active::before {
+            opacity: 0;
+        }
+        .tab-btn:hover {
+            background: var(--glass-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glass);
+        }
+        .tab-btn.active:hover {
+            background: var(--gradient-royal-2);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-premium-hover);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .section-header h2 {
+            color: #333;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn {
+            padding: var(--spacing-3) var(--spacing-6);
+            border: none;
+            border-radius: var(--radius-2xl);
+            cursor: pointer;
+            font-weight: var(--font-weight-bold);
+            transition: var(--transition-all);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            font-size: var(--text-base);
+            text-transform: uppercase;
+            letter-spacing: var(--letter-spacing-wide);
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2));
+            opacity: 0;
+            transition: var(--transition-all);
+        }
+        .btn:hover::before {
+            opacity: 1;
+        }
+        .btn-primary {
+            background: var(--gradient-royal-3);
+            color: var(--text-inverse);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-premium);
+            border: var(--border-glass-accent);
+        }
+        .btn-primary:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: var(--shadow-premium-hover);
+        }
+        .btn-secondary {
+            background: var(--glass-light);
+            color: var(--text-primary);
+            border: var(--border-glass-accent);
+            backdrop-filter: var(--blur-lg);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-glass-hover);
+            border-color: var(--color-primary);
+            background: var(--glass-medium);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .player-card {
+            background: var(--glass-premium-card);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-6);
+            border-left: 4px solid var(--color-primary);
+            transition: var(--transition-all);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: var(--blur-xl);
+            border: var(--border-glass-accent);
+            cursor: pointer;
+        }
+        .player-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-royal-2);
+            opacity: 0;
+            transition: var(--transition-all);
+        }
+        .player-card:hover::before {
+            opacity: 1;
+        }
+        .player-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: var(--shadow-premium-hover);
+            border-left-color: var(--color-secondary);
+            background: var(--glass-heavy);
+        }
+        .player-details {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--glass-ultra);
+            border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+            padding: var(--spacing-5);
+            margin-top: var(--spacing-2_5);
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: var(--blur-2xl);
+            border: var(--border-glass-accent);
+            z-index: var(--z-modal);
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .player-card.expanded {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-premium-hover);
+            border-left-color: var(--color-accent);
+            background: var(--glass-heavy);
+        }
+        .player-card.expanded .player-details {
+            display: block;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+        .detail-value {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+        .detail-value.positive {
+            color: #28a745;
+        }
+        .detail-value.negative {
+            color: #e74c3c;
+        }
+        .alliance-card {
+            border-left-color: #f39c12;
+        }
+        .alliance-card:hover {
+            border-left-color: #e67e22;
+            box-shadow: 0 20px 60px rgba(243, 156, 18, 0.3), 0 0 0 1px rgba(243, 156, 18, 0.2);
+        }
+        .monarch-card {
+            border-left-color: #9b59b6;
+        }
+        .monarch-card:hover {
+            border-left-color: #8e44ad;
+            box-shadow: 0 20px 60px rgba(155, 89, 182, 0.3), 0 0 0 1px rgba(155, 89, 182, 0.2);
+        }
+        .player-rank {
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        .player-rank::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 1px;
+        }
+        .player-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            line-height: 1.2;
+            position: relative;
+        }
+        .player-name::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, transparent);
+            border-radius: 1px;
+        }
+        .player-score {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .player-alliance {
+            font-size: 0.9rem;
+            color: #888;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .negative {
+            border-left-color: #e74c3c;
+        }
+        .negative .player-rank {
+            color: #e74c3c;
+        }
+        .controls {
+            background: var(--glass-ultra);
+            border-radius: var(--radius-3xl);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: var(--blur-2xl);
+            border: var(--border-glass-accent);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-all);
+        }
+        .controls:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-premium-hover);
+        }
+        .controls::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-ocean-2);
+        }
+        .controls-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .file-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        select {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: var(--border-glass-accent);
+            border-radius: var(--radius-2xl);
+            font-size: var(--text-base);
+            background: var(--glass-light);
+            cursor: pointer;
+            backdrop-filter: var(--blur-lg);
+            transition: var(--transition-all);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+        }
+        select:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-glass-hover);
+            background: var(--glass-medium);
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(120, 119, 198, 0.2);
+            background: var(--glass-heavy);
+        }
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 40px;
+        }
+        /* Enhanced responsive design using premium breakpoints */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--spacing-2_5);
+            }
+            .header-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: var(--spacing-8);
+            }
+            .stats-overview {
+                justify-content: center;
+                grid-template-columns: 1fr;
+            }
+            .tab-navigation {
+                justify-content: center;
+            }
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+            .controls-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--spacing-4);
+            }
+            .logo {
+                font-size: var(--text-5xl);
+            }
+            .stat-value {
+                font-size: var(--text-3xl);
+            }
+            header {
+                padding: var(--spacing-8);
+            }
+            .tabs-section {
+                padding: var(--spacing-6);
+            }
+        }
+        @media (max-width: 480px) {
+            .logo {
+                font-size: var(--text-4xl);
+            }
+            .tab-btn {
+                padding: var(--spacing-3) var(--spacing-4);
+                font-size: var(--text-sm);
+            }
+            .player-card {
+                padding: var(--spacing-4);
+            }
+            .stat-item {
+                padding: var(--spacing-4) var(--spacing-6);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="redirect-message">
-        📊 Loading Excel Dashboard...<br>
-        <small>Redirecting to history view</small>
+    <div class="container">
+        <header role="banner">
+            <div class="header-content">
+                <div class="logo" role="img" aria-label="SVS Logo">🚀 SVS</div>
+                <div class="stats-overview">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalPlayers">-</span>
+                        <span class="stat-label">Aktive Spieler</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalAlliances">-</span>
+                        <span class="stat-label">Allianzen</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="updateStatus">Live</span>
+                        <span class="stat-label">Status</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Search Container -->
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="Spieler, Allianz oder Monarch ID suchen... (Ctrl+K)"
+                    aria-label="Suche"
+                >
+                <button class="search-clear" aria-label="Suche löschen">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+        
+        <div class="controls">
+            <div class="controls-content">
+                <div class="file-selector">
+                    <label for="dataFileSelect">Datenquelle:</label>
+                    <select id="dataFileSelect">
+                        <option value="">Lade Daten...</option>
+                    </select>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span id="lastUpdate">Lade...</span>
+                </div>
+                <button class="btn btn-primary" onclick="refreshData()" aria-label="Daten aktualisieren">
+                    <i class="fas fa-sync-alt" aria-hidden="true"></i> Aktualisieren
+                </button>
+            </div>
+        </div>
+        <main class="tabs-section" role="main">
+            <div class="tab-navigation" role="tablist" aria-label="Dashboard Tabs">
+                <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="positive-tab" onclick="showTab('positive')">
+                    <i class="fas fa-arrow-up" aria-hidden="true"></i> Positive
+                </button>
+                <button class="tab-btn" role="tab" aria-selected="false" aria-controls="negative-tab" onclick="showTab('negative')">
+                    <i class="fas fa-arrow-down" aria-hidden="true"></i> Negative
+                </button>
+                <button class="tab-btn" role="tab" aria-selected="false" aria-controls="combined-tab" onclick="showTab('combined')">
+                    <i class="fas fa-chart-bar" aria-hidden="true"></i> Combined
+                </button>
+                <button class="tab-btn" role="tab" aria-selected="false" aria-controls="alliance-tab" onclick="showTab('alliance')">
+                    <i class="fas fa-users" aria-hidden="true"></i> Allianzen
+                </button>
+                <button class="tab-btn" role="tab" aria-selected="false" aria-controls="monarchs-tab" onclick="showTab('monarchs')">
+                    <i class="fas fa-crown" aria-hidden="true"></i> Alle Monarchen
+                </button>
+            </div>
+            <div id="positive-tab" class="tab-content active" role="tabpanel" aria-labelledby="positive-tab">
+                <div class="section-header">
+                    <h2><i class="fas fa-arrow-up" aria-hidden="true"></i> Positive Spieler</h2>
+                </div>
+                <div class="players-grid" id="positivePlayers">
+                    <div class="loading">Lade Positive Spieler...</div>
+                </div>
+            </div>
+            <div id="negative-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-arrow-down"></i> Negative Spieler</h2>
+                </div>
+                <div class="players-grid" id="negativePlayers">
+                    <div class="loading">Lade Negative Spieler...</div>
+                </div>
+            </div>
+            <div id="combined-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Combined Rankings</h2>
+                </div>
+                <div class="players-grid" id="combinedPlayers">
+                    <div class="loading">Lade Combined Rankings...</div>
+                </div>
+            </div>
+            <div id="alliance-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Allianz-Ranking</h2>
+                </div>
+                <div class="players-grid" id="alliancePlayers">
+                    <div class="loading">Lade Allianzdaten...</div>
+                </div>
+            </div>
+            <div id="monarchs-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-crown"></i> Alle Monarchen</h2>
+                </div>
+                <div class="players-grid" id="monarchPlayers">
+                    <div class="loading">Lade Alle Monarchen Daten...</div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>🚀 SVS Gaming Dashboard - Bereinigt v2.3 | Zuletzt aktualisiert: <span id="footerUpdate">Lade...</span></p>
+        </footer>
     </div>
+    
+    <!-- Dark Theme Manager -->
+    <script src="components/dark-theme.js"></script>
+    
+    <!-- Search Functionality -->
+    <script src="components/search.js"></script>
+    
+    <script>
+        // Simple, reliable dashboard implementation
+        let currentData = null;
+        let currentFile = null;
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Simple Dashboard initializing...');
+            // Try loading file list first
+            loadFileList().catch(() => {
+                console.log('File list failed, using fallback data');
+                // Fallback: Load default data directly
+                loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+            });
+        });
+        // Load available data files
+        async function loadFileList() {
+            try {
+                console.log('Loading file list...');
+                const response = await fetch('./data/file_list.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const files = await response.json();
+                console.log('Files loaded:', files);
+                const select = document.getElementById('dataFileSelect');
+                select.innerHTML = '';
+                files.forEach(file => {
+                    const option = document.createElement('option');
+                    option.value = file;
+                    option.textContent = file.replace('.json', '').replace(/(\d{4})-(\d{2})-(\d{2})/, '$1.$2.$3');
+                    select.appendChild(option);
+                });
+                if (files.length > 0) {
+                    console.log('Loading first file:', files[0]);
+                    loadData(files[0]);
+                }
+            } catch (error) {
+                console.error('Error loading file list:', error);
+                showError('Fehler beim Laden der Dateiliste: ' + error.message);
+                // Fallback: Try to load default file directly
+                console.log('Trying fallback file...');
+                try {
+                    await loadData('Monday, 24 November 2025 1329+1251 v 683+665.json');
+                } catch (fallbackError) {
+                    console.error('Fallback also failed:', fallbackError);
+                    showError('Konnte keine Daten laden');
+                }
+            }
+        }
+        // Load specific data file
+        async function loadData(filename) {
+            try {
+                console.log('Loading data:', filename);
+                const url = `./data/${encodeURIComponent(filename)}`;
+                console.log('Fetching from:', url);
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const data = await response.json();
+                console.log('Data received:', typeof data, Object.keys(data));
+                currentData = data;
+                currentFile = filename;
+                updateUI();
+                updateFileSelector(filename);
+                
+                // Make data available to search manager
+                if (window.searchManager) {
+                    window.searchManager.currentData = data;
+                }
+                console.log('Data loaded successfully:', {
+                    positive: data.positive?.length || 0,
+                    negative: data.negative?.length || 0,
+                    combined: data.combined?.length || 0,
+                    alliance: data.alliance?.length || 0,
+                    monarchs: data['all monarchs']?.length || 0
+                });
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError(`Fehler beim Laden der Daten: ${error.message}`);
+            }
+        }
+        // Update UI with loaded data
+        function updateUI() {
+            if (!currentData) return;
+            // Update header stats
+            const totalPlayers = (currentData.positive?.length || 0) + (currentData.negative?.length || 0);
+            document.getElementById('totalPlayers').textContent = totalPlayers;
+            document.getElementById('totalAlliances').textContent = currentData.alliance?.length || 0;
+            document.getElementById('updateStatus').textContent = 'Live';
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('de-DE');
+            document.getElementById('footerUpdate').textContent = new Date().toLocaleTimeString('de-DE');
+            // Update tabs
+            updatePositiveTab();
+            updateNegativeTab();
+            updateCombinedTab();
+            updateAllianceTab();
+            updateMonarchsTab();
+        }
+        // Update individual tabs
+        function updatePositiveTab() {
+            const container = document.getElementById('positivePlayers');
+            const players = currentData.positive || [];
+            if (players.length === 0) {
+                container.innerHTML = '<div class="loading">Keine Positive Spieler verfügbar</div>';
+                return;
+            }
+            container.innerHTML = players.map((player, index) => `
+                <div class="player-card" onclick="showPlayerDetails(${index}, 'positive')">
+                    <div class="player-rank">#${player.Position || index + 1}</div>
+                    <div class="player-name">${player.Name || 'Unbekannt'}</div>
+                    <div class="player-score">${formatNumber(player.Score || 0)}</div>
+                    <div class="player-alliance">${player.Alliance || 'None'}</div>
+                    <div class="player-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Monarch ID:</span>
+                            <span class="detail-value">${player["Monarch ID"] || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Allianz:</span>
+                            <span class="detail-value">${player.Alliance || 'None'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Punkte:</span>
+                            <span class="detail-value">${formatNumber(player.Score || 0)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function updateNegativeTab() {
+            const container = document.getElementById('negativePlayers');
+            const players = currentData.negative || [];
+            if (players.length === 0) {
+                container.innerHTML = '<div class="loading">Keine Negative Spieler verfügbar</div>';
+                return;
+            }
+            container.innerHTML = players.map((player, index) => `
+                <div class="player-card negative" onclick="showPlayerDetails(${index}, 'negative')">
+                    <div class="player-rank">#${player.Position || index + 1}</div>
+                    <div class="player-name">${player.Name || 'Unbekannt'}</div>
+                    <div class="player-score">${formatNumber(Math.abs(player.Score || 0))}</div>
+                    <div class="player-alliance">${player.Alliance || 'None'}</div>
+                    <div class="player-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Monarch ID:</span>
+                            <span class="detail-value">${player["Monarch ID"] || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Allianz:</span>
+                            <span class="detail-value">${player.Alliance || 'None'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Negative Punkte:</span>
+                            <span class="detail-value negative">${formatNumber(player.Score || 0)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function updateCombinedTab() {
+            const container = document.getElementById('combinedPlayers');
+            const players = currentData.combined || [];
+            if (players.length === 0) {
+                container.innerHTML = '<div class="loading">Keine Combined Rankings verfügbar</div>';
+                return;
+            }
+            container.innerHTML = players.map((player, index) => `
+                <div class="player-card" onclick="showPlayerDetails(${index}, 'combined')">
+                    <div class="player-rank">#${player.Position || index + 1}</div>
+                    <div class="player-name">${player.Name || 'Unbekannt'}</div>
+                    <div class="player-score">${formatNumber(player["Total Score"] || 0)}</div>
+                    <div class="player-alliance">${player.Alliance || 'None'}</div>
+                    <div class="player-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Monarch ID:</span>
+                            <span class="detail-value">${player["Monarch ID"] || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Positive:</span>
+                            <span class="detail-value positive">${formatNumber(player.Positive || 0)}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Negative:</span>
+                            <span class="detail-value negative">${formatNumber(player.Negative || 0)}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Total:</span>
+                            <span class="detail-value">${formatNumber(player["Total Score"] || 0)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function updateAllianceTab() {
+            const container = document.getElementById('alliancePlayers');
+            const alliances = currentData.alliance || [];
+            if (alliances.length === 0) {
+                container.innerHTML = '<div class="loading">Keine Allianzdaten verfügbar</div>';
+                return;
+            }
+            container.innerHTML = alliances.map((alliance, index) => `
+                <div class="player-card alliance-card" onclick="showAllianceDetails(${index})">
+                    <div class="player-rank">#${alliance.Position || index + 1}</div>
+                    <div class="player-name">${alliance.Alliance || 'Unbekannt'}</div>
+                    <div class="player-score">${formatNumber(alliance["Total Score"] || 0)}</div>
+                    <div class="player-alliance">P: ${alliance.Positive || 0} / N: ${alliance.Negative || 0}</div>
+                    <div class="player-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Allianz:</span>
+                            <span class="detail-value">${alliance.Alliance || 'Unbekannt'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Positive Punkte:</span>
+                            <span class="detail-value positive">${formatNumber(alliance.Positive || 0)}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Negative Punkte:</span>
+                            <span class="detail-value negative">${formatNumber(alliance.Negative || 0)}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Total Score:</span>
+                            <span class="detail-value">${formatNumber(alliance["Total Score"] || 0)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function updateMonarchsTab() {
+            const container = document.getElementById('monarchPlayers');
+            const monarchs = currentData['all monarchs'] || [];
+            if (monarchs.length === 0) {
+                container.innerHTML = '<div class="loading">Keine Monarchendaten verfügbar</div>';
+                return;
+            }
+            container.innerHTML = monarchs.map((monarch, index) => `
+                <div class="player-card monarch-card" onclick="showMonarchDetails(${index})">
+                    <div class="player-rank">#${index + 1}</div>
+                    <div class="player-name">${monarch.Name || 'Unbekannt'}</div>
+                    <div class="player-score">ID: ${monarch["Monarch ID"] || 'N/A'}</div>
+                    <div class="player-alliance">${monarch.Alliance || 'None'}</div>
+                    <div class="player-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Monarch Name:</span>
+                            <span class="detail-value">${monarch.Name || 'Unbekannt'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Monarch ID:</span>
+                            <span class="detail-value">${monarch["Monarch ID"] || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Allianz:</span>
+                            <span class="detail-value">${monarch.Alliance || 'None'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        // Enhanced tab switching with accessibility
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-hidden', 'true');
+            });
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName + '-tab');
+            selectedTab.classList.add('active');
+            selectedTab.setAttribute('aria-hidden', 'false');
+            // Add active class to clicked button
+            const clickedBtn = event.target.closest('.tab-btn');
+            clickedBtn.classList.add('active');
+            clickedBtn.setAttribute('aria-selected', 'true');
+            // Announce to screen readers
+            announceToScreenReader(`Tab ${tabName} aktiviert`);
+        }
+        // Screen reader announcement helper
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 1000);
+        }
+        // Refresh data
+        function refreshData() {
+            const select = document.getElementById('dataFileSelect');
+            if (select.value) {
+                loadData(select.value);
+            }
+        }
+        // Update file selector
+        function updateFileSelector(filename) {
+            const select = document.getElementById('dataFileSelect');
+            select.value = filename;
+        }
+        // Show player details
+        function showPlayerDetails(index, type) {
+            const card = event.currentTarget;
+            const allCards = document.querySelectorAll('.player-card');
+            // Close all other cards
+            allCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('expanded');
+                }
+            });
+            // Toggle current card
+            card.classList.toggle('expanded');
+            console.log(`Player details: ${type}[${index}]`, {
+                positive: currentData.positive?.[index],
+                negative: currentData.negative?.[index],
+                combined: currentData.combined?.[index]
+            });
+        }
+        // Show alliance details
+        function showAllianceDetails(index) {
+            const card = event.currentTarget;
+            const allCards = document.querySelectorAll('.player-card');
+            allCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('expanded');
+                }
+            });
+            card.classList.toggle('expanded');
+            console.log(`Alliance details: [${index}]`, currentData.alliance?.[index]);
+        }
+        // Show monarch details
+        function showMonarchDetails(index) {
+            const card = event.currentTarget;
+            const allCards = document.querySelectorAll('.player-card');
+            allCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('expanded');
+                }
+            });
+            card.classList.toggle('expanded');
+            console.log(`Monarch details: [${index}]`, currentData['all monarchs']?.[index]);
+        }
+        // Close all expanded cards when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.player-card')) {
+                document.querySelectorAll('.player-card').forEach(card => {
+                    card.classList.remove('expanded');
+                });
+            }
+        });
+        // Utility functions
+        function formatNumber(num) {
+            if (num === null || num === undefined) return '0';
+            return new Intl.NumberFormat('de-DE').format(Math.round(num));
+        }
+        function showError(message) {
+            const container = document.querySelector('.tabs-section');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.innerHTML = `<strong>Fehler:</strong> ${message}`;
+            container.insertBefore(errorDiv, container.firstChild);
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+        // File selector change handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const select = document.getElementById('dataFileSelect');
+            if (select) {
+                select.addEventListener('change', function() {
+                    if (this.value) {
+                        loadData(this.value);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
